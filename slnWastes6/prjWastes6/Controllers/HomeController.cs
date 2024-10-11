@@ -180,7 +180,10 @@ namespace prjWastes6.Controllers
  
         public ActionResult List(DateTime? startDate = null, DateTime? endDate = null)
         {
-
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             var customers = _db.WASTES.ToList();
 
             var query = _db.WASTES.OrderByDescending(x => x.REMOVAL_DATE).AsQueryable();
@@ -206,6 +209,10 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         public ActionResult Keyenec(DateTime? startDate = null )
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             IEnumerable<dynamic> keyenec = _keyenecDAO.keyenecData(startDate);
             ViewBag.KeyenecData = keyenec;
             return View();
@@ -526,6 +533,10 @@ namespace prjWastes6.Controllers
         //2024043020240430修改為一個搜索按鈕
         public ActionResult ElectricityList(string factory = "", DateTime? startDate = null, DateTime? endDate = null)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             var currentUser = Session["Member"] as tMember;
@@ -753,6 +764,10 @@ namespace prjWastes6.Controllers
         //20240430搜尋按鈕剩一顆就好
         public ActionResult WaterList(string factory = "", DateTime? startDate = null, DateTime? endDate = null)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             
@@ -979,6 +994,10 @@ namespace prjWastes6.Controllers
         // GET: Home
         public ActionResult GHG_MST_COMMUTE_Index(string userId, int page = 1)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             int currentPage = page < 1 ? 1 : page;
             var allProducts = _db.GHG_MST_COMMUTE.ToList(); // 最初獲取所有數據
             var products = _db.GHG_MST_COMMUTE.AsQueryable();
@@ -1042,6 +1061,10 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         public ActionResult CombinedIndex(string userId, string departmentName, int? year, int page = 1)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             DateTime today = DateTime.Today;
             int currentPage = page < 1 ? 1 : page; // Assign a value
 
@@ -2071,6 +2094,10 @@ return View(viewModels);
             public ActionResult CombinedHighSpeedRailList(string keyword, string dateRangeOption, string startDocDate, string endDocDate, string startDate, string endDate, string password, string filterOption = "公務車")
 
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             // 定義交通方式關鍵字
@@ -3571,6 +3598,10 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         [AllowAnonymous]
         public ActionResult FireExtin_List(string searchString, string plantArea)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             var fireExtins = _db.FireExtin.AsQueryable();
@@ -3619,6 +3650,10 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         [AllowAnonymous]
         public ActionResult ColdCoal_List(string searchString, string plantArea)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             var coldCoals = _db.ColdCoal.AsQueryable();
