@@ -1,0 +1,189 @@
+﻿@model IEnumerable<prjWastes6.Models.ELECTRICITY_BILL>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "ElectricityList";
+}
+<style>
+    .align-right {
+        text-align: right;
+    }
+</style>
+
+
+
+<div style="margin-top: 50px;">
+    <h2>電費:列表</h2>
+    <p>
+        @*@Html.ActionLink("電費:新增", "ElectricityCreate")*@
+        @Html.ActionLink("電費:新增", "ElectricityCreate", null, new { @class = "btn btn-danger" })
+    </p>
+    <form method="get" action="@Url.Action("ElectricityList", "Home")">
+
+
+        <label for="startDate">開始日期：</label>
+        <input type="date" name="startDate">
+
+        <label for="endDate">結束日期：</label>
+        <input type="date" name="endDate">
+        @*20240430修改為一個搜索按鈕*@
+        <label for="factory">廠區：</label>
+        @Html.DropDownList("factory", new List<SelectListItem>
+        {
+            new SelectListItem { Value = "", Text = "請選擇" },
+            new SelectListItem { Value = "樹谷廠", Text = "樹谷廠/電號:10-51-2950-75-8" },
+            new SelectListItem { Value = "南科廠", Text = "南科廠/電號:10-51-2918-75-7" }
+        }, "請選擇")
+
+        <button type="submit">搜索</button>
+    </form>
+</div>
+@*@using (Html.BeginForm())
+{
+    <label>廠區:</label>
+
+    @Html.DropDownList("factory", new List<SelectListItem>
+{
+  new SelectListItem { Value = "樹谷廠", Text = "樹谷廠/電號:10-51-2950-75-8" },
+  new SelectListItem { Value = "南科廠", Text = "南科廠/電號:10-51-2918-75-7" }
+
+})
+
+    <input type="submit" value="搜索" />
+}*@
+<table class="table" style="margin-top: 20px;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DOCUMENT_ID)
+            </th>
+
+            <th>檔案名稱</th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FROM_BILLING_PERIOD)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UNTIL_BILLING_PERIOD)
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PEAK_ELECTRICITY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HALF_SPIKE_POWER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SATURDAY_HALF_PEAK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OFF_PEAK_ELECTRICITY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TOTAL_ELECTRICITY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TOTAL_BILL_TAX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CARBON_PERIOD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VOUCHER_NUMBER)
+            </th>
+            @*
+            <th>
+                電費繳費通知單:上傳(最大2MB)
+            </th>*@
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
+            </td>
+
+            <td>
+
+                @{//20240424改成外部連結
+                    //var imagePath = "~/files/" + item.CC009;
+                    var imagePath = "http://192.168.3.151/ELECTRICITY_BILL/" + item.DOCUMENT_ID + ".pdf";
+                    var imageUrl = Url.Content(imagePath);
+                    var imageFileName = item.DOCUMENT_ID; // DOCUMENT_ID 欄位中的檔案名稱
+                }
+
+                <a href="@imageUrl" target="_blank" title="@imageFileName">@imageFileName</a>
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.FROM_BILLING_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedFROM_BILLING_PERIOD)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.UNTIL_BILLING_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedUNTIL_BILLING_PERIOD)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.PEAK_ELECTRICITY)*@
+                @Html.DisplayFor(modelItem => item.FormattedPEAK_ELECTRICITY)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.HALF_SPIKE_POWER)*@
+                @Html.DisplayFor(modelItem => item.FormattedHALF_SPIKE_POWER)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.SATURDAY_HALF_PEAK)*@
+                @Html.DisplayFor(modelItem => item.FormattedSATURDAY_HALF_PEAK)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.OFF_PEAK_ELECTRICITY)*@
+                @Html.DisplayFor(modelItem => item.FormattedOFF_PEAK_ELECTRICITY)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.TOTAL_ELECTRICITY)*@
+                @Html.DisplayFor(modelItem => item.FormattedTOTAL_ELECTRICITY)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.TOTAL_BILL_TAX)*@
+                @Html.DisplayFor(modelItem => item.FormattedTOTAL_BILL_TAX)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.CARBON_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedCARBON_PERIOD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
+            </td>
+
+            @*
+            <td>
+                @if (item.PDF_CONTENT != null && item.PDF_CONTENT.Length > 0)
+                {
+                    <a href="@Url.Action("GetPdfFile1", "Home", new { id = item.DOCUMENT_ID })" target="_blank">檢視 PDF 檔案</a>
+                }
+                else
+                {
+                    <span>沒有上傳 PDF 檔案</span>
+                }
+            </td>*@
+
+
+            <td>
+                @if (ViewBag.UpdateRight == "Y")
+                {
+                    @Html.ActionLink("修改", "ElectricityEdit", new { id = item.DOCUMENT_ID })
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+    </body>
+    </html>

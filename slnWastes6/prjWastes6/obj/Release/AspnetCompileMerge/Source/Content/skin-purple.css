@@ -1,0 +1,147 @@
+/*
+ * Skin: Purple
+ * -----本廠使用配色-------
+ */
+.skin-purple .main-header .navbar {
+  background-color: #2054a2;
+}
+.skin-purple .main-header .navbar .nav > li > a {
+  color: #ffffff;
+}
+    .skin-purple .main-header .navbar .nav > li > a:hover,
+    .skin-purple .main-header .navbar .nav > li > a:active,
+    .skin-purple .main-header .navbar .nav > li > a:focus,
+    .skin-purple .main-header .navbar .nav .open > a,
+    .skin-purple .main-header .navbar .nav .open > a:hover,
+    .skin-purple .main-header .navbar .nav .open > a:focus,
+    .skin-purple .main-header .navbar .nav > .active > a {
+        background: #6f92c2;
+        color: #ffffff;
+    }
+.skin-purple .main-header .navbar .sidebar-toggle {
+  color: #ffffff;
+}
+.skin-purple .main-header .navbar .sidebar-toggle:hover {
+  color: #f6f6f6;
+  background: rgba(0, 0, 0, 0.1);
+}
+.skin-purple .main-header .navbar .sidebar-toggle {
+  color: #fff;
+}
+    /*點選主題後下拉背景 三條線點選時*/
+    .skin-purple .main-header .navbar .sidebar-toggle:hover {
+        background-color: #a5bbd9;
+    }
+@media (max-width: 767px) {
+  .skin-purple .main-header .navbar .dropdown-menu li.divider {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .skin-purple .main-header .navbar .dropdown-menu li a {
+    color: #fff;
+  }
+    /*點選主題後下拉背景*/
+    .skin-purple .main-header .navbar .dropdown-menu li a:hover {
+        background: #a5bbd9;
+    }
+}
+/*左邊logo*/
+.skin-purple .main-header .logo {
+    background-color: #2054a2;
+    color: #ffffff;
+    border-bottom: 0 solid transparent;
+}
+    .skin-purple .main-header .logo:hover {
+        background-color: #2054a2;
+    }
+/*右邊使用者的背景*/
+.skin-purple .main-header li.user-header {
+    background-color: #2054a2;
+}
+.skin-purple .content-header {
+  background: transparent;
+}
+/*第一層的背景在menu的最底層背景色*/
+.skin-purple .wrapper,
+.skin-purple .main-sidebar,
+.skin-purple .left-side {
+    background-color: #dfe6f1;
+}
+.skin-purple .user-panel > .info,
+.skin-purple .user-panel > .info > a {
+  color: #fff;
+}
+.skin-purple .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.skin-purple .sidebar-menu > li > a {
+  border-left: 3px solid transparent;
+}
+/*第一層的選中背景 ex：權限基本設定*/
+.skin-purple .sidebar-menu > li:hover > a,
+.skin-purple .sidebar-menu > li.active > a,
+.skin-purple .sidebar-menu > li.menu-open > a {
+    color: #2054a2;
+    background: #a5bbd9;
+}
+/*第一層的選中內文的背景*/
+.skin-purple .sidebar-menu > li.active > a {
+    color: #2054a2;
+    border-left-color: #dfe6f1;
+}
+/*第一層的選中內文的背景*/
+.skin-purple .sidebar-menu > li > .treeview-menu {
+    margin: 0 1px;
+    background: #dfe6f1;
+}
+/*第一層的字/權限設定 基本資料設定 大標*/
+.skin-purple .sidebar a {
+    color: #082567;
+    background: #dfe6f1; /*多加背景*/
+}
+.skin-purple .sidebar a:hover {
+  text-decoration: none;
+}
+/*內文的字*/
+.skin-purple .sidebar-menu .treeview-menu > li > a {
+    color: #696969;
+}/*點選 選單時的變動字 ex：開立工單*/
+    .skin-purple .sidebar-menu .treeview-menu > li.active > a,
+    .skin-purple .sidebar-menu .treeview-menu > li > a:hover {
+        color: #0047AB;
+        background: #ffffff;
+    }
+.skin-purple .sidebar-form {
+  border-radius: 3px;
+  border: 1px solid #374850;
+  margin: 10px 10px;
+}
+.skin-purple .sidebar-form input[type="text"],
+.skin-purple .sidebar-form .btn {
+  box-shadow: none;
+  background-color: #374850;
+  border: 1px solid transparent;
+  height: 35px;
+}
+.skin-purple .sidebar-form input[type="text"] {
+  color: #666;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+}
+.skin-purple .sidebar-form input[type="text"]:focus,
+.skin-purple .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  background-color: #fff;
+  color: #666;
+}
+.skin-purple .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+  border-left-color: #fff;
+}
+.skin-purple .sidebar-form .btn {
+  color: #999;
+  border-top-left-radius: 0;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 0;
+}

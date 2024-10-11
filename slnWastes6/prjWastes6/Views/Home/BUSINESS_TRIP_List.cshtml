@@ -1,0 +1,241 @@
+﻿@model IEnumerable<prjWastes6.Models.BUSINESS_TRIP>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "BUSINESS_TRIP_List";
+}
+<style>
+    .align-right {
+        text-align: right;
+    }
+</style>
+<div style="margin-top: 50px;">
+    <h2>出差申請單</h2>
+    <p>
+        @Html.ActionLink("出差申請單:新增", "WaterCreate", null, new { @class = "btn btn-danger" })
+        
+    </p>
+    <body>
+        
+        <table class="table" style="margin-top: 20px;">
+            <tr>
+                @*
+                <th>
+                    @Html.DisplayNameFor(model => model.TRIP_NO)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.DOCUMENT_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DEPARTMENT_NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.USER_NAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OFFICE_AGENT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FROM_PERIOD)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UNTIL_PERIOD)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.TRIP_LOCATION)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CONTACT_NUMBER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PASSPORT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MTP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OFFICIAL_CAR)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CAR)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SCOOTER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HIGH_SPEED_RAIL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AIRPLANE_TICKET)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FROM_PLANE_TICKET)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AIRPLANE_TICKET_TO)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TRANSPORTATION)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VISA_COUNTRY)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.REASON)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VISIT_DATE)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.VISIT_LOCATION)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VISIT_COMPANY)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.INTERVIEWEES)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VISITING_TIME)
+                </th>
+                @*
+        <th>
+            @Html.DisplayNameFor(model => model.CARBON_PERIOD)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CARBON_EMISSION_FACTOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARBON_DIOXIDE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>*@
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            @*
+            <td>
+                @Html.DisplayFor(modelItem => item.TRIP_NO)
+
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DEPARTMENT_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFFICE_AGENT)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.FROM_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedFROM_PERIOD)
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.UNTIL_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedUNTIL_PERIOD)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TRIP_LOCATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CONTACT_NUMBER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PASSPORT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MTP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OFFICIAL_CAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCOOTER)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HIGH_SPEED_RAIL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AIRPLANE_TICKET)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FROM_PLANE_TICKET)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AIRPLANE_TICKET_TO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRANSPORTATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VISA_COUNTRY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.REASON)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.VISIT_DATE)*@
+                @Html.DisplayFor(modelItem => item.FormattedVISIT_DATE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.VISIT_LOCATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VISIT_COMPANY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.INTERVIEWEES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VISITING_TIME)
+            </td>
+            @*
+        <td>
+            @Html.DisplayFor(modelItem => item.CARBON_PERIOD)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CARBON_EMISSION_FACTOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CARBON_DIOXIDE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>*@
+            <td>
+                @Html.ActionLink("修改", "Edit", new { id = item.TRIP_NO })
+                @*@Html.ActionLink("Details", "Details", new { id = item.TRIP_NO }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TRIP_NO })*@
+            </td>
+        </tr>
+            }
+
+        </table>
+    </body>
+</html>

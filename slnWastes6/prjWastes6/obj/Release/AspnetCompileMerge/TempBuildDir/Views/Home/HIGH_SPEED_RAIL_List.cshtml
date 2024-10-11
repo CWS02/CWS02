@@ -1,0 +1,74 @@
+﻿@model IEnumerable<prjWastes6.Models.HighSpeedRailViewModel>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+    ViewBag.Title = "交通費申請列表";
+    List<SelectListItem> filterOptions = new List<SelectListItem>
+{
+        new SelectListItem { Value = "", Text = "全部" },
+        new SelectListItem { Value = "高鐵", Text = "高鐵" },
+        new SelectListItem { Value = "飛機", Text = "飛機" },
+        new SelectListItem { Value = "計程車", Text = "計程車" },
+        new SelectListItem { Value = "私車公用", Text = "私車公用" },
+        new SelectListItem { Value = "公務車", Text = "公務車" }
+    };
+}
+
+<div style="margin-top: 50px;">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+@using (Html.BeginForm("HIGH_SPEED_RAIL_List", "Home", FormMethod.Get))
+{
+    <div>
+        <label>類別:</label>
+        @Html.DropDownList("filterOption", filterOptions, "請選擇")
+        <input type="submit" value="篩選" />
+    </div>
+
+    <div>
+        <label>發票日期區間:</label>
+        @Html.TextBox("startDate", null, new { @class = "datepicker", placeholder = "開始日期 (yyyyMMdd)" })
+        <label>~</label>
+        @Html.TextBox("endDate", null, new { @class = "datepicker", placeholder = "結束日期 (yyyyMMdd)" })
+        <input type="submit" value="篩選" />
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>序</th>
+        <th>單據日期</th>
+
+        <th>發票日期</th>
+        <th>人員</th>
+        <th>單別</th>
+        <th>單號</th>
+        <th>序號</th>
+        <th>票據備註</th>
+        <th>交通類別</th>
+        <th>起點</th>
+        <th>迄點</th>
+        <th>公里/公升數</th>
+    </tr>
+    @{
+        int counter = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(counter++)</td>
+            <td>@item.CREATE_DATE</td>
+            @*發票日期*@
+            <td>@item.TA015</td>
+            <td>@item.TA004</td>
+            <td>@item.TB001</td>
+            <td>@item.TB002</td>
+            <td>@item.TB003</td>
+            <td>@item.TB011</td>
+            <td>@item.UDF01</td>
+            <td>@item.UDF02</td>
+            <td>@item.UDF03</td>
+            <td>@item.UDF06</td>
+        </tr>
+    }
+</table>

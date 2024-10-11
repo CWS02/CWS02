@@ -1,0 +1,222 @@
+﻿@model prjWastes6.Models.TAXI_APPLICATION
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "TAXI_APPLICATIONL_Create";
+}
+<style>
+    .align-right {
+        text-align: right;
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+</style>
+<h2>新增</h2>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        // 為數字輸入框添加格式化事件
+        $(".numeric-input").on("input", function () {
+            formatNumberInput($(this));
+        });
+
+
+        // 提交表單時移除千位分隔符
+        $("form").submit(function () {
+            $(".numeric-input").each(function () {
+                $(this).val($(this).val().replace(/,/g, ''));
+            });
+        });
+    });
+
+    // 格式化數字輸入框的值
+    /*function formatNumberInput(input) {
+        var val = input.val().replace(/,/g, ''); // 移除現有的千位分隔符
+        if (val != '') {
+            val = parseInt(val); // 確保輸入是一個數值
+            input.val(val.toLocaleString()); // 使用toLocaleString()添加千位分隔符
+        }
+    }*/
+    // 格式化數字輸入框的值
+    function formatNumberInput(input) {
+        var val = input.val().replace(/,/g, ''); // 移除現有的千位分隔符
+        if (val != '') {
+            var parts = val.split('.'); // 將輸入值拆分為整數部分和小數部分
+            parts[0] = parseInt(parts[0]).toLocaleString(); // 格式化整數部分
+            input.val(parts.join('.')); // 重新組合並設置輸入框的值
+        }
+    }
+
+</script>
+
+
+@if (ViewBag.Msg != null)
+{
+    <div class="alert alert-danger">@ViewBag.Msg</div>
+}
+@*20240325增加上傳檔案 *@
+@*@using (Html.BeginForm()) *@
+
+@using (Html.BeginForm("TAXI_APPLICATIONL_Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+@*<div class="form-inline">
+    *@
+    <div class="form-horizontal">
+
+        <h4>計程車-交通費申請:新增</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @*<div class="form-group row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.BASE_NAME, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.BASE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BASE_NAME, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.DOCUMENT_DATA, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.DOCUMENT_DATA, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    @Html.ValidationMessageFor(model => model.DOCUMENT_DATA, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.AMOUNT, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.AMOUNT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AMOUNT, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.KILOMETERS, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.KILOMETERS, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KILOMETERS, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group row">
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.BASE_NAME, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.BASE_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BASE_NAME, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.DOCUMENT_DATA, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DOCUMENT_DATA, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.DOCUMENT_DATA, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.AMOUNT, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.AMOUNT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AMOUNT, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.KILOMETERS, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.KILOMETERS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KILOMETERS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.INFORMATION, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.INFORMATION, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.INFORMATION, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.REMARK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.REMARK, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.TextAreaFor(model => model.REMARK, new { @class = "form-control", rows = 5 })
+                @Html.ValidationMessageFor(model => model.REMARK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.VOUCHER_NUMBER, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.VOUCHER_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.VOUCHER_NUMBER, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TAXI_DOCUMENT, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TAXI_DOCUMENT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TAXI_DOCUMENT, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DOCUMENT_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DOCUMENT_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DOCUMENT_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group row">
+            <div class="col-md-1">
+                @Html.LabelFor(model => model.VOUCHER_NUMBER, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.VOUCHER_NUMBER, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VOUCHER_NUMBER, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.DOCUMENT_ID, htmlAttributes: new { @class = "control-label" })
+            </div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.DOCUMENT_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DOCUMENT_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div>
+            <span class="editor-label">
+                @Html.LabelFor(model => model.PDF_FILE):
+            </span>
+            <span class="editor-field">
+                <!-- **** 檔案上傳 **** -->
+                <input class="pic-upload-input" type="file" name="pdfFile">
+                <!-- **** 檔案上傳 **** -->
+            </span>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="存檔" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+    }
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

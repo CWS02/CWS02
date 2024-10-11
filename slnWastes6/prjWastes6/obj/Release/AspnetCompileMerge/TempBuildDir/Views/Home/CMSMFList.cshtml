@@ -1,0 +1,249 @@
+﻿@model IEnumerable<prjWastes6.Models.CMSMF>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "CMSMFList";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CMSMFList</title>
+</head>
+<body>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.COMPANY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATOR)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.USR_GROUP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATE_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MODIFIER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MODI_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FLAG)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATE_TIME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATE_AP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CREATE_PRID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MODI_TIME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MODI_AP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MODI_PRID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF002)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF003)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF004)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF005)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF006)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF007)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF008)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF009)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF010)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF011)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF012)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF013)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MF014)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF01)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF02)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF03)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF04)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF05)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF06)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF07)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF08)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF09)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UDF10)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.COMPANY)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREATOR)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USR_GROUP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREATE_DATE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MODIFIER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MODI_DATE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FLAG)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREATE_TIME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREATE_AP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CREATE_PRID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MODI_TIME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MODI_AP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MODI_PRID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF002)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF003)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF004)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF005)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF006)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF007)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF008)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF009)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF010)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF011)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF012)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF013)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MF014)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF01)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF02)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF03)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF04)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF05)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF06)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF07)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF08)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF09)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UDF10)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

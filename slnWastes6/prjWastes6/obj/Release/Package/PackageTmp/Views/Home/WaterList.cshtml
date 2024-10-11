@@ -1,0 +1,194 @@
+﻿@model IEnumerable<prjWastes6.Models.WATER_BILL>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "WaterList";
+}
+<style>
+    .align-right {
+        text-align: right;
+    }
+</style>
+<div style="margin-top: 50px;">
+    <h2>水費:列表</h2>
+    <p>
+        @Html.ActionLink("水費:新增", "WaterCreate", null, new { @class = "btn btn-danger" })
+        @*@Html.ActionLink("水費:新增", "WaterCreate")*@
+    </p>
+    <form method="get" action="@Url.Action("WaterList", "Home")">
+
+
+        <label for="startDate">開始日期：</label>
+        <input type="date" name="startDate">
+
+        <label for="endDate">結束日期：</label>
+        <input type="date" name="endDate">
+
+        @*20240430修改為一個搜索按鈕*@
+        <label for="factory">廠區：</label>
+        @Html.DropDownList("factory", new List<SelectListItem>
+        {
+            new SelectListItem { Value = "", Text = "請選擇" },
+            new SelectListItem { Value = "樹谷廠", Text = "樹谷廠/電號:10-51-2950-75-8" },
+            new SelectListItem { Value = "南科廠", Text = "南科廠/電號:10-51-2918-75-7" }
+        }, "請選擇")
+
+
+        <button type="submit">搜索</button>
+    </form>
+</div>
+@*@using (Html.BeginForm())
+{
+    <label>廠區:</label>
+
+    @Html.DropDownList("factory", new List<SelectListItem>
+{
+  new SelectListItem { Value = "樹谷一期", Text = "樹谷一期/水號:63-43233502-2" },
+  new SelectListItem { Value = "樹谷二期", Text = "樹谷二期/水號:63-43233503-8" },
+  new SelectListItem { Value = "南科廠", Text = "南科廠/水號:63-43233103-3" }
+
+})
+
+    <input type="submit" value="搜索" />
+}*@
+
+<table class="table" style="margin-top: 20px;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DOCUMENT_ID)
+            </th>
+
+            <th>檔案名稱</th>
+
+            @*<th>
+            @Html.DisplayNameFor(model => model.FACTORY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WATER_SIGNAL)
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FROM_BILLING_PERIOD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UNTIL_BILLING_PERIOD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.METER_NUMBER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.METER_DIAMETER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NUMBER_POINTERS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TOTAL_WATER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TOTAL_BILL_TAX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CARBON_PERIOD)
+            </th>
+            <!-- **** 20240327加入輸入傳票號碼**** -->
+            <th>
+                @Html.DisplayNameFor(model => model.VOUCHER_NUMBER)
+            </th>
+            @*
+            <th>
+                水費電子通知單:上傳(最大2MB)
+            </th>*@
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
+            </td>
+
+            <td>
+
+                @{//20240424改成外部連結
+                    //var imagePath = "~/files/" + item.CC009;
+                    var imagePath = "http://192.168.3.151/WATER_BILL/" + item.DOCUMENT_ID + ".pdf";
+                    var imageUrl = Url.Content(imagePath);
+                    var imageFileName = item.DOCUMENT_ID; // DOCUMENT_ID 欄位中的檔案名稱
+                }
+
+                <a href="@imageUrl" target="_blank" title="@imageFileName">@imageFileName</a>
+            <td>
+
+                @*@Html.DisplayFor(modelItem => item.FROM_BILLING_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedFROM_BILLING_PERIOD)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.UNTIL_BILLING_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedUNTIL_BILLING_PERIOD)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TYPE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.METER_NUMBER)
+            </td>
+            <td class="align-right">
+                @Html.DisplayFor(modelItem => item.METER_DIAMETER)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.NUMBER_POINTERS)*@
+                @Html.DisplayFor(modelItem => item.FormattedNUMBER_POINTERS)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.TOTAL_WATER)*@
+                @Html.DisplayFor(modelItem => item.FormattedTOTAL_WATER)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.TOTAL_BILL_TAX)*@
+                @Html.DisplayFor(modelItem => item.FormattedTOTAL_BILL_TAX)
+            </td>
+            <td class="align-right">
+                @*@Html.DisplayFor(modelItem => item.CARBON_PERIOD)*@
+                @Html.DisplayFor(modelItem => item.FormattedCARBON_PERIOD)
+            </td>
+
+            <!-- **** 20240327加入輸入傳票號碼**** -->
+
+            <td class="align-right">
+                @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
+            </td>
+
+
+            @*
+            <td>
+                @if (item.PDF_CONTENT != null && item.PDF_CONTENT.Length > 0)
+                {
+                    <a href="@Url.Action("GetPdfFile", "Home", new { id = item.DOCUMENT_ID })" target="_blank">檢視 PDF 檔案</a>
+                }
+                else
+                {
+                    <span>沒有上傳 PDF 檔案</span>
+                }
+            </td>*@
+
+            <td>
+                @Html.ActionLink("修改", "WaterEdit", new { id = item.DOCUMENT_ID })
+                @*@Html.ActionLink("Details", "Details", new { id = item.DOCUMENT_ID }) | *@
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.DOCUMENT_ID }) *@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

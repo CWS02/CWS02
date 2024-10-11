@@ -1,0 +1,218 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<prjWastes6.Models.CombinedViewModel>
+
+
+@*@model IEnumerable<prjWastes6.Models.GHG_MST_COMMUTE>*@
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "CombinedIndex";
+}
+<style>
+    .align-right {
+        text-align: right;
+    }
+    .nowrap {
+        white-space: nowrap;
+    }
+    
+</style>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<!DOCTYPE html>
+<div style="margin-top: 50px;">
+    <h2>員工通勤:總列表</h2>
+
+
+    @using (Html.BeginForm("CombinedIndex", "Home", FormMethod.Get))
+    {
+<div style="display: flex; align-items: center; margin-bottom: 10px;">
+    @Html.DropDownList("year", new List<SelectListItem>
+    {
+        new SelectListItem { Text = "選擇年份", Value = "" },
+
+        new SelectListItem { Text = "2023", Value = "2023" },
+         new SelectListItem { Text = "2022", Value = "2022" },
+        new SelectListItem { Text = "2024", Value = "2024" }
+    }, new { @class = "form-control", style = "width: 200px; margin-right: 10px;" })
+
+    @*<button type="submit">搜索</button>*@
+</div>
+
+<p style="margin-bottom: 10px;">
+    <span>員工編號: @Html.TextBox("userId")</span>
+    @*<input type="submit" value="搜索" style="margin-right: 10px;" />*@
+
+    <span>部門名稱: @Html.DropDownList("departmentName", (SelectList)ViewBag.DeptNames, "--選擇部門名稱--")</span>
+    <input type="submit" value="搜索" />
+</p>
+    }
+
+
+
+
+    <p>總CO2e: @ViewBag.TotalCO2e</p>
+
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
+    </head>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().USER_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().USER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().FIRST_WORK_DATE)
+            </th>
+
+
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().WORK_DATE)
+            </th>
+
+
+
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().USER_ADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DEPARTMENT_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TITLE_NAME)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SHIFT_NAME)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TRANSPORTATION)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ONEWAY_KM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DOUBLE_KM)
+            </th>
+
+
+
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().EmissionFactor)</th>
+
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().ActivityData)</th>
+
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Emissions)</th>
+
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CO2e)</th>
+
+            <th></th>
+        </tr>
+        @*20240422讓離職顯示@foreach (var item in Model.Where(x => x.Status != "離職").GroupBy(x => x.USER_ID).Select(x => x.First())) *@
+
+        @*@foreach (var item in Model.Where(x => x.Status == "離職").GroupBy(x => x.USER_ID).Select(x => x.First())) *@
+        @*@foreach (var item in Model.GroupBy(x => x.USER_ID).Select(x => x.First())) 出勤日為0不顯示*@
+            @foreach (var item in Model.Where(x => x.WORK_DATE != 0).GroupBy(x => x.USER_ID).Select(x => x.First()))
+            {
+
+
+                <tr>
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.USER_ID)
+                    </td>
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.USER_NAME)
+                    </td>
+                    <td class="nowrap">
+                        @*@Html.DisplayFor(modelItem => item.FIRST_WORK_DATE)20240422只取到年月日*@
+
+                        @(item.FIRST_WORK_DATE.Substring(0, 10))
+                    </td>
+
+
+                    <td>
+                        @Html.ActionLink(item.WORK_DATE.ToString(), "CAT_THREE_EMPLOYEE_COMMUTING_Index1",
+                        new { userId = item.USER_ID, year = ViewBag.Year },
+                        new { onclick = "popUp(this.href); return false;" })
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USER_ADDRESS)
+                    </td>
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.DEPARTMENT_NAME)
+                    </td>
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.TITLE_NAME)
+                    </td>
+
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.SHIFT_NAME)
+                    </td>
+
+                    <td class="nowrap">
+                        @Html.DisplayFor(modelItem => item.TRANSPORTATION)
+                    </td>
+                    <td class="align-right">
+                        @Html.DisplayFor(modelItem => item.ONEWAY_KM)
+                    </td>
+                    <td class="align-right">
+                        @Html.DisplayFor(modelItem => item.DOUBLE_KM)
+                    </td>
+
+
+
+                    <td class="align-right">@Html.DisplayFor(modelItem => item.EmissionFactor)</td>
+                    <td class="align-right">@Html.DisplayFor(modelItem => item.ActivityData)</td>
+
+                    <td class="align-right">@Html.DisplayFor(modelItem => item.Emissions)</td>
+
+                    <td class="align-right">@Html.DisplayFor(modelItem => item.CO2e)</td>
+
+
+
+
+                </tr>
+            }
+
+    </table>
+
+            @Html.PagedListPager(Model, page => Url.Action("CombinedIndex", new
+        {
+            userId = ViewBag.UserId,
+            departmentName = ViewBag.DepartmentName,
+            year = ViewBag.Year,
+            page
+        }))
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <script>
+                function popUp(url) {
+                    var w = 500;
+                    var h = 550;
+                    var left = (screen.width / 2) - (w / 2);
+                    var top = (screen.height / 2) - (h / 2);
+
+                    window.open(url, "", "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left);
+                }
+            </script>
+            </body>
+            </html>
+

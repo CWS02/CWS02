@@ -1,0 +1,792 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B03235D2-3E0E-4C73-999B-45F1E883C0DD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>prjWastes6</RootNamespace>
+    <AssemblyName>prjWastes6</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.3.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.1.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.0.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.3.0.2\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.0.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.Framework.3.0.2\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Enums.NET, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7ea1c1650d506225, processorArchitecture=MSIL">
+      <HintPath>..\packages\Enums.NET.4.0.1\lib\net45\Enums.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtendedNumerics.BigDecimal, Version=2025.1001.2.129, Culture=neutral, PublicKeyToken=65f1315a45ad8949, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExtendedNumerics.BigDecimal.2025.1001.2.129\lib\net472\ExtendedNumerics.BigDecimal.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.4.2.13, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.4.2\lib\netstandard2.0\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cd8b63ad3d691a37, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.Signed.5.0.0\lib\net461\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.0\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NPOI.Core, Version=2.7.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.7.1\lib\net472\NPOI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.7.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.7.1\lib\net472\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.7.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.7.1\lib\net472\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.7.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.7.1\lib\net472\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.Fonts.1.0.1\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.ImageSharp.2.1.8\lib\net472\SixLabors.ImageSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=6.0.0.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Pkcs.6.0.3\lib\net461\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.6.0.1\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ACPTA.cs" />
+    <Compile Include="Models\ACPTB.cs" />
+    <Compile Include="Models\ACTTA.cs" />
+    <Compile Include="Models\AJSTA.cs" />
+    <Compile Include="Models\AJSTB.cs" />
+    <Compile Include="Models\BRM_MST_CODE.cs" />
+    <Compile Include="Models\BRM_MST_DEPT.cs" />
+    <Compile Include="Models\BRM_MST_EMISSION_FACTOR.cs" />
+    <Compile Include="Models\BRM_MST_LANGUAGE.cs" />
+    <Compile Include="Models\BRM_MST_PLANT.cs" />
+    <Compile Include="Models\CMSMF.cs" />
+    <Compile Include="Models\ColdCoal.cs" />
+    <Compile Include="Models\CombinedHighSpeedRailViewModel.cs" />
+    <Compile Include="Models\DataAccess\keyenecDAO.cs" />
+    <Compile Include="Models\HighSpeedRailViewModel.cs" />
+    <Compile Include="Models\EMPLOYEE_TRAVEL_ABROAD.cs" />
+    <Compile Include="Models\FireExtin.cs" />
+    <Compile Include="Models\HIGH_SPEED_RAIL.cs" />
+    <Compile Include="Models\AIR_CONDITIONER.cs" />
+    <Compile Include="Models\keyenec2.cs" />
+    <Compile Include="Models\keyenec.cs" />
+    <Compile Include="Models\PCMTF.cs" />
+    <Compile Include="Models\PCMTG.cs" />
+    <Compile Include="Models\PURMA.cs" />
+    <Compile Include="Models\TRIP_APPLICATION.cs" />
+    <Compile Include="Models\CombinedViewModel.cs" />
+    <Compile Include="Models\CAT_THREE_EMPLOYEE_COMMUTING.cs" />
+    <Compile Include="Models\CAT_TWO_TAIPOWER.cs" />
+    <Compile Include="Models\GHG_MST_COMMUTE.cs" />
+    <Compile Include="Models\BUSINESS_TRIP.cs" />
+    <Compile Include="Models\TAXI_APPLICATION.cs" />
+    <Compile Include="Models\TWNCPCContent.cs" />
+    <Compile Include="Models\VEHICLE_OIL.cs" />
+    <Compile Include="Models\WATER_BILL.cs" />
+    <Compile Include="Models\ESGContext.cs" />
+    <Compile Include="Models\GHG01_OFFICIAL_CAR.cs" />
+    <Compile Include="Models\GHG_MST_BOUND.cs" />
+    <Compile Include="Models\GHG_MST_PROJECT.cs" />
+    <Compile Include="Models\GHG_MST_TAIPOWER.cs" />
+    <Compile Include="Models\SYS_MST_FUNCTION.cs" />
+    <Compile Include="Models\SYS_MST_ROLE.cs" />
+    <Compile Include="Models\SYS_MST_ROLE_FUNC_REL.cs" />
+    <Compile Include="Models\SYS_MST_USER.cs" />
+    <Compile Include="Models\tMember.cs" />
+    <Compile Include="Models\ELECTRICITY_BILL.cs" />
+    <Compile Include="Models\WASTES.cs" />
+    <Compile Include="Models\WASTES_BURY.cs" />
+    <Compile Include="Models\WASTES_INCINERATION.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\AdminLTE.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\login-form\css\simple.css" />
+    <Content Include="Content\login-form\css\style.css" />
+    <Content Include="Content\MES.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\pager.css" />
+    <Content Include="Content\skin-blue.css" />
+    <Content Include="Content\skin-blue.min.css" />
+    <Content Include="Content\skin-green.css" />
+    <Content Include="Content\skin-green.min.css" />
+    <Content Include="Content\skin-purple.css" />
+    <Content Include="Content\skin-purple.min.css" />
+    <Content Include="Content\skin-red-light.css" />
+    <Content Include="Content\skin-red-light.min.css" />
+    <Content Include="css\style1.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="files\012KQ161岡谷1.jpg" />
+    <Content Include="files\04020171.jpg" />
+    <Content Include="files\04020172.jpg" />
+    <Content Include="files\109KQ078岡谷2.jpg" />
+    <Content Include="files\14189.jpg" />
+    <Content Include="files\2050152.jpg" />
+    <Content Include="files\2068779SUGINO1.jpg" />
+    <Content Include="files\2068780SUGINO3.jpg" />
+    <Content Include="files\2083398-1.jpg" />
+    <Content Include="files\2083398.jpg" />
+    <Content Include="files\2087167.jpg" />
+    <Content Include="files\2093783.jpg" />
+    <Content Include="files\2102779SUGINO2.jpg" />
+    <Content Include="files\2103882.jpg" />
+    <Content Include="files\313571.jpg" />
+    <Content Include="files\33045.jpg" />
+    <Content Include="files\35027.jpg" />
+    <Content Include="files\40329.jpg" />
+    <Content Include="files\44327岡谷3.jpg" />
+    <Content Include="files\49392中村留5.jpg" />
+    <Content Include="files\49393.jpg" />
+    <Content Include="files\49393中村留7.jpg" />
+    <Content Include="files\49394中村留6.jpg" />
+    <Content Include="files\50405高峰3.jpg" />
+    <Content Include="files\50442.jpg" />
+    <Content Include="files\50442中村留4.jpg" />
+    <Content Include="files\50443.jpg" />
+    <Content Include="files\50443中村留1.jpg" />
+    <Content Include="files\50444中村留3.jpg" />
+    <Content Include="files\50445中村留2.jpg" />
+    <Content Include="files\526903.jpg" />
+    <Content Include="files\607INBS0Z109.jpg" />
+    <Content Include="files\608INVM00127.jpg" />
+    <Content Include="files\6203020110009.jpg" />
+    <Content Include="files\73009高峰機3.jpg" />
+    <Content Include="files\77437.jpg" />
+    <Content Include="files\989815.jpg" />
+    <Content Include="files\AC-092005高峰2.jpg" />
+    <Content Include="files\AC-106098雷射刻印機2.jpg" />
+    <Content Include="files\AC-106384東台.jpg" />
+    <Content Include="files\AH288711 .jpg" />
+    <Content Include="files\BD05B雷射刻印機1.jpg" />
+    <Content Include="files\GR207.jpg" />
+    <Content Include="files\GR303.jpg" />
+    <Content Include="files\GR307.jpg" />
+    <Content Include="files\H112284.jpg" />
+    <Content Include="files\H112605.jpg" />
+    <Content Include="files\H113158.jpg" />
+    <Content Include="files\IMG_36414.jpg" />
+    <Content Include="files\IMG_6326.jpg" />
+    <Content Include="files\IMG_6327.jpg" />
+    <Content Include="files\IMG_6342.jpg" />
+    <Content Include="files\IMG_6343.jpg" />
+    <Content Include="files\IMG_6344.jpg" />
+    <Content Include="files\IMG_6345.jpg" />
+    <Content Include="files\IMG_6346.jpg" />
+    <Content Include="files\IMG_6347.jpg" />
+    <Content Include="files\IMG_6349.jpg" />
+    <Content Include="files\IMG_6355.jpg" />
+    <Content Include="files\IMG_6357.jpg" />
+    <Content Include="files\IMG_6358.jpg" />
+    <Content Include="files\IMG_6359.jpg" />
+    <Content Include="files\IMG_6360.jpg" />
+    <Content Include="files\IMG_6361.jpg" />
+    <Content Include="files\IMG_6362.jpg" />
+    <Content Include="files\IMG_6363.jpg" />
+    <Content Include="files\IMG_6364.jpg" />
+    <Content Include="files\IMG_6365.jpg" />
+    <Content Include="files\IMG_6366.jpg" />
+    <Content Include="files\IMG_6367.jpg" />
+    <Content Include="files\IMG_6368.jpg" />
+    <Content Include="files\IMG_6369.jpg" />
+    <Content Include="files\IMG_6370.jpg" />
+    <Content Include="files\IMG_6371.jpg" />
+    <Content Include="files\IMG_6372.jpg" />
+    <Content Include="files\IMG_6373.jpg" />
+    <Content Include="files\IMG_6374.jpg" />
+    <Content Include="files\IMG_6375.jpg" />
+    <Content Include="files\IMG_6376.jpg" />
+    <Content Include="files\IMG_6377.jpg" />
+    <Content Include="files\IMG_6378.jpg" />
+    <Content Include="files\IMG_6379.jpg" />
+    <Content Include="files\IMG_6380.jpg" />
+    <Content Include="files\IMG_6381.jpg" />
+    <Content Include="files\IMG_6382.jpg" />
+    <Content Include="files\IMG_6383.jpg" />
+    <Content Include="files\IMG_6384.jpg" />
+    <Content Include="files\IMG_6385.jpg" />
+    <Content Include="files\IMG_6386.jpg" />
+    <Content Include="files\IMG_6387.jpg" />
+    <Content Include="files\IMG_6388.jpg" />
+    <Content Include="files\IMG_6389.jpg" />
+    <Content Include="files\IMG_6390.jpg" />
+    <Content Include="files\IMG_6391.jpg" />
+    <Content Include="files\IMG_6392.jpg" />
+    <Content Include="files\IMG_6393.jpg" />
+    <Content Include="files\IMG_6394.jpg" />
+    <Content Include="files\IMG_6395.jpg" />
+    <Content Include="files\IMG_6396.jpg" />
+    <Content Include="files\IMG_6397.jpg" />
+    <Content Include="files\IMG_6398.jpg" />
+    <Content Include="files\IMG_6399.jpg" />
+    <Content Include="files\IMG_6400.jpg" />
+    <Content Include="files\IMG_6401.jpg" />
+    <Content Include="files\IMG_6402.jpg" />
+    <Content Include="files\IMG_6403.jpg" />
+    <Content Include="files\IMG_6404.jpg" />
+    <Content Include="files\IMG_6405.jpg" />
+    <Content Include="files\IMG_6406.jpg" />
+    <Content Include="files\IMG_6407.jpg" />
+    <Content Include="files\IMG_6408.jpg" />
+    <Content Include="files\IMG_6409.jpg" />
+    <Content Include="files\IMG_6410.jpg" />
+    <Content Include="files\IMG_6411.jpg" />
+    <Content Include="files\IMG_6412.jpg" />
+    <Content Include="files\IMG_6413.jpg" />
+    <Content Include="files\IMG_6414.jpg" />
+    <Content Include="files\IMG_6415.jpg" />
+    <Content Include="files\IMG_6416.jpg" />
+    <Content Include="files\IMG_6417.jpg" />
+    <Content Include="files\IMG_6418.jpg" />
+    <Content Include="files\IMG_6419.jpg" />
+    <Content Include="files\IMG_6420.jpg" />
+    <Content Include="files\IMG_6421.jpg" />
+    <Content Include="files\IMG_6422.jpg" />
+    <Content Include="files\IMG_6423.jpg" />
+    <Content Include="files\IMG_6424.jpg" />
+    <Content Include="files\IMG_6425.jpg" />
+    <Content Include="files\IMG_6426.jpg" />
+    <Content Include="files\IMG_6427.jpg" />
+    <Content Include="files\IMG_6428.jpg" />
+    <Content Include="files\IMG_6429.jpg" />
+    <Content Include="files\IMG_6430.jpg" />
+    <Content Include="files\IMG_6431.jpg" />
+    <Content Include="files\IMG_6432.jpg" />
+    <Content Include="files\IMG_6433.jpg" />
+    <Content Include="files\IMG_6434.jpg" />
+    <Content Include="files\IMG_6435.jpg" />
+    <Content Include="files\IMG_6436.jpg" />
+    <Content Include="files\IMG_6437.jpg" />
+    <Content Include="files\IMG_6438.jpg" />
+    <Content Include="files\IMG_6439.jpg" />
+    <Content Include="files\IMG_6440.jpg" />
+    <Content Include="files\IMG_6441.jpg" />
+    <Content Include="files\IMG_6442.jpg" />
+    <Content Include="files\IMG_6443.jpg" />
+    <Content Include="files\IMG_6444.jpg" />
+    <Content Include="files\IMG_6445.jpg" />
+    <Content Include="files\IMG_6446.jpg" />
+    <Content Include="files\IMG_6447.jpg" />
+    <Content Include="files\IMG_6449.jpg" />
+    <Content Include="files\IMG_6450.jpg" />
+    <Content Include="files\IMG_6451.jpg" />
+    <Content Include="files\IMG_6452.jpg" />
+    <Content Include="files\IMG_6453.jpg" />
+    <Content Include="files\IMG_6454.jpg" />
+    <Content Include="files\IMG_6455.jpg" />
+    <Content Include="files\IMG_6456.jpg" />
+    <Content Include="files\IMG_6457.jpg" />
+    <Content Include="files\IMG_6460.jpg" />
+    <Content Include="files\IMG_6461.jpg" />
+    <Content Include="files\IMG_6463.jpg" />
+    <Content Include="files\IMG_6464.jpg" />
+    <Content Include="files\IMG_6465.jpg" />
+    <Content Include="files\IMG_6466.jpg" />
+    <Content Include="files\IMG_6469.jpg" />
+    <Content Include="files\IMG_6470.jpg" />
+    <Content Include="files\IMG_6471.jpg" />
+    <Content Include="files\IMG_6472.jpg" />
+    <Content Include="files\IMG_6473.jpg" />
+    <Content Include="files\IMG_6474.jpg" />
+    <Content Include="files\IMG_6475.jpg" />
+    <Content Include="files\IMG_6476.jpg" />
+    <Content Include="files\IMG_6477.jpg" />
+    <Content Include="files\IMG_6478.jpg" />
+    <Content Include="files\IMG_6479.jpg" />
+    <Content Include="files\IMG_6480.jpg" />
+    <Content Include="files\IMG_6481.jpg" />
+    <Content Include="files\IMG_6482.jpg" />
+    <Content Include="files\IMG_6483.jpg" />
+    <Content Include="files\IMG_6485.jpg" />
+    <Content Include="files\IMG_6488.jpg" />
+    <Content Include="files\IMG_6489.jpg" />
+    <Content Include="files\IMG_6491.jpg" />
+    <Content Include="files\IMG_6493.jpg" />
+    <Content Include="files\IMG_6494.jpg" />
+    <Content Include="files\IMG_6495.jpg" />
+    <Content Include="files\IMG_6496.jpg" />
+    <Content Include="files\IMG_6497.jpg" />
+    <Content Include="files\IMG_6498.jpg" />
+    <Content Include="files\IMG_6499.jpg" />
+    <Content Include="files\IMG_6500.jpg" />
+    <Content Include="files\IMG_6501.jpg" />
+    <Content Include="files\IMG_6502.jpg" />
+    <Content Include="files\IMG_6504.jpg" />
+    <Content Include="files\IMG_6505.jpg" />
+    <Content Include="files\IMG_6506.jpg" />
+    <Content Include="files\IMG_6507.jpg" />
+    <Content Include="files\IMG_6508.jpg" />
+    <Content Include="files\IMG_6509.jpg" />
+    <Content Include="files\IMG_6510.jpg" />
+    <Content Include="files\IMG_6511.jpg" />
+    <Content Include="files\IMG_6512.jpg" />
+    <Content Include="files\IMG_6513.jpg" />
+    <Content Include="files\IMG_6514.jpg" />
+    <Content Include="files\IMG_6515.jpg" />
+    <Content Include="files\IMG_6516.jpg" />
+    <Content Include="files\IMG_6517.jpg" />
+    <Content Include="files\IMG_6518.jpg" />
+    <Content Include="files\IMG_6521.jpg" />
+    <Content Include="files\IMG_6522.jpg" />
+    <Content Include="files\IMG_6523.jpg" />
+    <Content Include="files\IMG_6526.jpg" />
+    <Content Include="files\IMG_6527.jpg" />
+    <Content Include="files\IMG_6528.jpg" />
+    <Content Include="files\IMG_6529.jpg" />
+    <Content Include="files\IMG_6530.jpg" />
+    <Content Include="files\IMG_6531.jpg" />
+    <Content Include="files\IMG_6532.jpg" />
+    <Content Include="files\IMG_6533.jpg" />
+    <Content Include="files\IMG_6534.jpg" />
+    <Content Include="files\IMG_6535.jpg" />
+    <Content Include="files\IMG_6537.jpg" />
+    <Content Include="files\IMG_6538.jpg" />
+    <Content Include="files\IMG_6539.jpg" />
+    <Content Include="files\IMG_6540.jpg" />
+    <Content Include="files\NR-180DT.jpg" />
+    <Content Include="files\PG033.jpg" />
+    <Content Include="files\PG034.jpg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\10PCO2滅火器標示牌.jpg" />
+    <Content Include="Images\10P乾粉滅火器標示牌.jpg" />
+    <Content Include="Images\20P乾粉滅火器標示牌.jpg" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\Gruntfile.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ar.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.az.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.bg.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.bn.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ca.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.cs.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.da.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.de.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ee.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.el.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.es.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.fi.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.fr.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.he.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.hr.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.hu.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.hy.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.id.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.is.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.it.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ja.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ka.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ko.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.lt.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.lv.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ms.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.nb.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.nl.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.no.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.pl.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.pt-BR.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.pt.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ro.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.rs-latin.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.rs.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ru.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.sk.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.sl.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.sv.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.sw.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.th.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.tr.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.ua.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.uk.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\js\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker-new\less\datetimepicker.less" />
+    <Content Include="Scripts\font-awesome\.bower.json" />
+    <Content Include="Scripts\font-awesome\.gitignore" />
+    <Content Include="Scripts\font-awesome\.npmignore" />
+    <Content Include="Scripts\font-awesome\bower.json" />
+    <Content Include="Scripts\font-awesome\css\font-awesome.css.map" />
+    <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Scripts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\font-awesome\less\animated.less" />
+    <Content Include="Scripts\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Scripts\font-awesome\less\core.less" />
+    <Content Include="Scripts\font-awesome\less\fixed-width.less" />
+    <Content Include="Scripts\font-awesome\less\font-awesome.less" />
+    <Content Include="Scripts\font-awesome\less\icons.less" />
+    <Content Include="Scripts\font-awesome\less\larger.less" />
+    <Content Include="Scripts\font-awesome\less\list.less" />
+    <Content Include="Scripts\font-awesome\less\mixins.less" />
+    <Content Include="Scripts\font-awesome\less\path.less" />
+    <Content Include="Scripts\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Scripts\font-awesome\less\screen-reader.less" />
+    <Content Include="Scripts\font-awesome\less\stacked.less" />
+    <Content Include="Scripts\font-awesome\less\variables.less" />
+    <Content Include="Scripts\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Scripts\font-awesome\scss\_animated.scss" />
+    <Content Include="Scripts\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Scripts\font-awesome\scss\_core.scss" />
+    <Content Include="Scripts\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Scripts\font-awesome\scss\_icons.scss" />
+    <Content Include="Scripts\font-awesome\scss\_larger.scss" />
+    <Content Include="Scripts\font-awesome\scss\_list.scss" />
+    <Content Include="Scripts\font-awesome\scss\_mixins.scss" />
+    <Content Include="Scripts\font-awesome\scss\_path.scss" />
+    <Content Include="Scripts\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Scripts\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Scripts\font-awesome\scss\_stacked.scss" />
+    <Content Include="Scripts\font-awesome\scss\_variables.scss" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\chart\Chart.bundle.js" />
+    <Content Include="Scripts\chart\Chart.bundle.min.js" />
+    <Content Include="Scripts\chart\Chart.css" />
+    <Content Include="Scripts\chart\Chart.js" />
+    <Content Include="Scripts\chart\Chart.min.css" />
+    <Content Include="Scripts\chart\Chart.min.js" />
+    <Content Include="Scripts\fancybox\fancybox.css" />
+    <Content Include="Scripts\fancybox\fancybox.umd.js" />
+    <Content Include="Scripts\font-awesome\css\font-awesome.css" />
+    <Content Include="Scripts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Scripts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Scripts\HL_ListBox\ListBox - Muti.js" />
+    <Content Include="Scripts\HL_ListBox\ListBox.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mesx_cssStyle.css" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tablesMergeCell.js" />
+    <Content Include="Scripts\table\bootstrap-table.js" />
+    <Content Include="Scripts\table\tablesMergeCell.js" />
+    <Content Include="Scripts\Utility\Date.js" />
+    <Content Include="Scripts\Utility\LayoutHtml.js" />
+    <Content Include="Scripts\Utility\Message.js" />
+    <Content Include="Scripts\Utility\MyUtility.js" />
+    <Content Include="templates\10PCO2滅火器標示牌.jpg" />
+    <Content Include="templates\10P乾粉滅火器標示牌.jpg" />
+    <Content Include="templates\20P乾粉滅火器標示牌.jpg" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutMember.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\ElectricityList.cshtml" />
+    <Content Include="Views\Home\ElectricityCreate.cshtml" />
+    <Content Include="Views\Home\WaterList.cshtml" />
+    <Content Include="Views\Home\WaterCreate.cshtml" />
+    <Content Include="Views\Home\GHG_MST_COMMUTE_Index.cshtml" />
+    <Content Include="Views\Home\CombinedIndex.cshtml" />
+    <Content Include="Views\Home\GHG_MST_COMMUTECreate.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\ElectricityEdit.cshtml" />
+    <Content Include="Views\Home\WaterEdit.cshtml" />
+    <Content Include="Views\Home\GHG_MST_COMMUTE_Edit.cshtml" />
+    <Content Include="Views\Home\CAT_THREE_EMPLOYEE_COMMUTING_Index1.cshtml" />
+    <Content Include="Views\Home\CAT_THREE_EMPLOYEE_COMMUTING_Index.cshtml" />
+    <Content Include="Views\Home\BUSINESS_TRIP_List.cshtml" />
+    <Content Include="Views\Home\BUSINESS_TRIP_List2.cshtml" />
+    <Content Include="Views\Home\BUSINESS_TRIP2_Create.cshtml" />
+    <Content Include="templates\來源範本檔案.docx" />
+    <Content Include="templates\範本.docx" />
+    <Content Include="templates\範本2.docx" />
+    <Content Include="templates\範本2本機.docx" />
+    <Content Include="Views\Home\BUSINESS_TRIP2_Edit.cshtml" />
+    <Content Include="Views\Home\TAXI_APPLICATIONList.cshtml" />
+    <Content Include="Views\Home\TAXI_APPLICATIONL_Create.cshtml" />
+    <Content Include="Views\Home\TAXI_APPLICATIONL_Edit.cshtml" />
+    <Content Include="Views\Home\HIGH_SPEED_RAIL_List.cshtml" />
+    <Content Include="Views\Home\HIGH_SPEED_RAIL_Create.cshtml" />
+    <Content Include="Views\Home\HIGH_SPEED_RAIL_Edit.cshtml" />
+    <Content Include="Views\Home\AIR_CONDITIONER_List.cshtml" />
+    <Content Include="Views\Home\AIR_CONDITIONER_Edit.cshtml" />
+    <Content Include="Views\Home\CMSMFList.cshtml" />
+    <Content Include="Views\Home\TRAVEL_ABROAD_List.cshtml" />
+    <Content Include="Views\Home\VEHICLE_OIL_List.cshtml" />
+    <Content Include="Views\Home\FireExtin_List.cshtml" />
+    <Content Include="templates\南部科學園區台南園區資源再生中心-公司路程圖.pdf" />
+    <Content Include="templates\大寧掩埋場-公司路程圖.pdf" />
+    <Content Include="Views\Home\ColdCoal_List.cshtml" />
+    <Content Include="Views\Home\HIGH_SPEED_RAIL_List2.cshtml" />
+    <Content Include="Views\Home\CombinedHighSpeedRailList.cshtml" />
+    <Content Include="Views\Home\CombinedHighSpeedRailList2.cshtml" />
+    <Content Include="Views\Home\CombinedHighSpeedRailList4.cshtml" />
+    <Content Include="Views\Home\CombinedHighSpeedRailList5.cshtml" />
+    <Content Include="Views\Home\CombinedHighSpeedRailListList.cshtml" />
+    <Content Include="Views\Home\Keyenec.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52347</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52347/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

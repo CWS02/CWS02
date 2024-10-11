@@ -1,0 +1,91 @@
+﻿@model IEnumerable<prjWastes6.Models.enus_GHG_MST_COMMUTE>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+
+<style>
+    .align-right {
+        text-align: right;
+    }
+</style>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<!DOCTYPE html>
+<div style="margin-top: 50px;">
+    <h2>Employee Commuting</h2>
+    <p>
+        @*@Html.ActionLink("員工通勤:新增", "GHG_MST_COMMUTECreate", null, new { @class = "btn btn-danger" })*@
+        @*@Html.ActionLink("員工通勤:新增", "GHG_MST_COMMUTECreate")*@
+    </p>
+    @using (Html.BeginForm("enus_GHG_MST_COMMUTE_Index", "Home", FormMethod.Get))
+    {
+        <p>
+            員工編號: @Html.TextBox("userId")
+            <input type="submit" value="搜索" />
+
+        </p>
+    }
+</div>
+
+<table class="table" style="margin-top: 20px;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.USEDT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USER_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TRANSPORTATION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ONEWAY_KM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DOUBLE_KM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.USEDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.USER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TRANSPORTATION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ONEWAY_KM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOUBLE_KM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.USER_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.USER_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.USER_ID })
+            </td>
+        </tr>
+    }
+
+</table>
+</body>
+</html>
