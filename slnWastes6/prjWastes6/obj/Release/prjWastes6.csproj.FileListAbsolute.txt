@@ -557,6 +557,6 @@ D:\update\CWS02\slnWastes6\prjWastes6\bin\zh-Hant\System.Web.WebPages.Deployment
 D:\update\CWS02\slnWastes6\prjWastes6\bin\zh-Hant\System.Web.WebPages.Razor.resources.dll
 D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.csproj.AssemblyReference.cache
 D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.csproj.CoreCompileInputs.cache
-D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.csproj.CopyComplete
 D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.dll
 D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.pdb
+D:\update\CWS02\slnWastes6\prjWastes6\obj\Release\prjWastes6.csproj.Up2Date
