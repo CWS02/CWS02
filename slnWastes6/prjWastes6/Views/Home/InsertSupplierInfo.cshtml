@@ -1,0 +1,297 @@
+﻿@model prjWastes6.Models.SupplierInfo
+@{
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@{
+    ViewBag.Title = "新增供應商基本資料追蹤表";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/style1.css" />
+</head>
+
+<div class="container" style="margin-top: 50px;">
+    <h2 class="text-center">新增供應商基本資料追蹤表</h2>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive" style="overflow-x: auto;">
+                <form action="/Home/InsertSupplierInfo" method="post">
+                    <table class="table table-striped table-bordered table-hover ">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;" >建立日期</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">代號</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">廠商</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">基本資料</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">承諾書</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">保密協定</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">營登</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">匯款正本</th>
+                                <th colspan="10" class="text-center">證書</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">社會責任</th>
+                                <th colspan="8" class="text-center">環境評估</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Reach</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Reach種數</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">Rohs</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">無礦產</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">不使用物質</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">USEPA</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">檢驗記錄</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">委外評鑑</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">人員組織表</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">職安衛要求</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">填入Reach總表</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">簽核</th>
+                                <th rowspan="2" class="text-center" style="vertical-align: middle;">完成歸檔</th>
+                            </tr>
+                            <tr>
+                                <th>ISO 9001</th>
+                                <th>OHSAS 18001 2007</th>
+                                <th>ISO 45001 2018</th>
+                                <th>ISO 14001 2015</th>
+                                <th>ISO SA 8000</th>
+                                <th>FSC</th>
+                                <th>ISO TS16949</th>
+                                <th>QC080000</th>
+                                <th>IATF 16949:2016</th>
+                                <th>ISO 50001:2011</th>
+                                <th>環境汙染</th>
+                                <th>汙染許可證</th>
+                                <th>廢棄物</th>
+                                <th>噪音</th>
+                                <th>飲用水</th>
+                                <th>消防</th>
+                                <th>能源</th>
+                                <th>緊急應變</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="SUP003" class="form-control" style="width: 100px;"placeholder="ex:20240101"required /></td>
+                                <td><input type="text" name="SUP001" class="form-control" style="width: 100px;" required /></td>
+                                <td><input type="text" name="SUP002" class="form-control" style="width: 100px;" required /></td>
+
+                                <td>
+                                    <select name="SUP004" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP005" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP006" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP007" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP008" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+
+
+                                <!-- 證書 -->
+                                <td><input type="text" name="SUP201" class="form-control"style="width: 100px;"placeholder="ex:20240101" /></td>
+                                <td><input type="text" name="SUP202" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP203" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP204" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP205" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP206" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP207" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP208" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP209" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+                                <td><input type="text" name="SUP210" class="form-control"style="width: 100px;"placeholder="ex:20240101"/></td>
+
+                                <!--社會責任-->
+                                <td>
+                                    <select name="SUP009" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <!-- 環境評估 -->
+                                <td>
+                                    <select name="SUP101" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP102" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP103" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP104" class="form-control" style="width: 80px; ">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP105" class="form-control" style="width: 80px; ">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP106" class="form-control" style="width: 80px; ">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP107" class="form-control" style="width: 80px; ">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP108" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+
+                                <!-- 其他 -->
+                                <td>
+                                    <select name="SUP010" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP011" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP012" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP013" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP014" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP015" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP016" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP017" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP018" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP019" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP020" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP021" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SUP022" class="form-control" style="width: 80px;">
+                                        <option value="0">-</option>
+                                        <option value="1">V</option>
+                                        <option value="2">X</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

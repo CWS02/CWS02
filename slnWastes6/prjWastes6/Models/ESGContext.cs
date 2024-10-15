@@ -66,15 +66,12 @@ namespace prjWastes6.Models
 
         public virtual DbSet<keyenec2> keyenec2 { get; set; }
 
-
+        public virtual DbSet<SupplierInfo> supplierInfo { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tMember>()
                 .Property(e => e.UpdateRight)
                 .IsFixedLength();
-
-        
-
 
             modelBuilder.Entity<BRM_MST_EMISSION_FACTOR>()
                 .Property(e => e.EF_VALUE)

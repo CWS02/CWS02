@@ -3689,7 +3689,37 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             return View(coldCoals.ToList());
         }
+        [AllowAnonymous]
+        public ActionResult SupplierInfo()
+        {
+            var supplier=_db.supplierInfo.ToList();
+            return View(supplier);
+        }
+        //新增
+        [AllowAnonymous]
+        public ActionResult InsertSupplierInfo()
+        {
+            SupplierInfo model = new SupplierInfo();
+            return View(model);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult InsertSupplierInfo(SupplierInfo model)
+        {
+            if (ModelState.IsValid) 
+            {
+                model.SUP023 = Request.UserHostAddress; //使用者IP
+                model.SUP024 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss"); //建立時間
+                _db.supplierInfo.Add(model);
+                _db.SaveChanges(); 
 
+                TempData["SuccessMessage"] = "匯入成功！";
+
+                return RedirectToAction("SupplierInfo");
+            }
+
+            return View(model);
+        }
 
     }
 }

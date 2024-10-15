@@ -251,6 +251,7 @@
     <Compile Include="Models\PCMTF.cs" />
     <Compile Include="Models\PCMTG.cs" />
     <Compile Include="Models\PURMA.cs" />
+    <Compile Include="Models\SupplierInfo.cs" />
     <Compile Include="Models\TRIP_APPLICATION.cs" />
     <Compile Include="Models\CombinedViewModel.cs" />
     <Compile Include="Models\CAT_THREE_EMPLOYEE_COMMUTING.cs" />
@@ -732,6 +733,8 @@
     <Content Include="Views\Home\CombinedHighSpeedRailList5.cshtml" />
     <Content Include="Views\Home\CombinedHighSpeedRailListList.cshtml" />
     <Content Include="Views\Home\Keyenec.cshtml" />
+    <Content Include="Views\Home\SupplierInfo.cshtml" />
+    <Content Include="Views\Home\InsertSupplierInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
