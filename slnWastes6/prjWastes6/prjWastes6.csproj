@@ -736,6 +736,7 @@
     <Content Include="Views\Home\Keyenec.cshtml" />
     <Content Include="Views\Home\SupplierInfo.cshtml" />
     <Content Include="Views\Home\EditSupplierInfo.cshtml" />
+    <Content Include="Views\Shared\_LayoutSpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
