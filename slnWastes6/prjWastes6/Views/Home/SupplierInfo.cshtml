@@ -1,4 +1,5 @@
 ﻿@model List<prjWastes6.Models.SupplierInfo>
+@using prjWastes6.Extensions;
 @{
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
 }
@@ -21,15 +22,14 @@
     <h2 class="text-center">新供應商基本資料追蹤表</h2>
 
     <form method="get" class="form-inline justify-content-center mb-4">
-        <div class="form-group mr-5">
+        @*<div class="form-group mr-5">
             <label for="startDate" class="mr-3">開始日期:</label>
             <input type="month" name="startDate" class="form-control" value="@Request.QueryString["startDate"]" />
-        </div>
+        </div>*@
         <br />
-        <p></p>
         <div class="form-group">
             <button class="btn btn-primary btn-spacing" type="submit">搜索</button>
-            <button class="btn btn-success" formaction="/Home/InsertSupplierInfo" type="submit">新增</button>
+            <button class="btn btn-success" formaction="/Home/EditSupplierInfo" type="submit">新增</button>
         </div>
     </form>
 </div>
@@ -43,9 +43,11 @@
                 <table class="table table-striped table-bordered table-hover ">
                     <thead>
                         <tr>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle;">編輯</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">序</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">建立日期</th>
-                            <th rowspan="2" class="text-center" style="vertical-align: middle;">代號/廠商</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle;">代號</th>
+                            <th rowspan="2" class="text-center" style="vertical-align: middle;">廠商</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">基本資料</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">承諾書</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">保密協定</th>
@@ -67,7 +69,6 @@
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">填入Reach總表</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">簽核</th>
                             <th rowspan="2" class="text-center" style="vertical-align: middle;">完成歸檔</th>
-                            <th rowspan="2" class="text-center" style="vertical-align: middle;">編輯</th>
                         </tr>
                         <tr>
                             <th>ISO 9001</th>
@@ -91,23 +92,67 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (ViewBag.KeyenecData != null && ViewBag.KeyenecData.Count > 0)
-                        {
+                        @{
                             int count = 1;
                             foreach (var item in Model)
                             {
                                 <tr>
-                                    <td class="text-center align-middle">@count</td>
+                                    <td>
+                                        <form action="@Url.Action("EditSupplierInfo", "Home")" method="get">
+                                            <input type="hidden" name="SUP000" value="@item.SUP000" />
+                                            <button type="submit" class="btn btn-warning">
+                                                <i class="fas fa-edit"></i> 編輯
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td class="text-center align-middle" style="vertical-align: middle;">@count</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP003</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP001</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP002</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP004.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP005.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP006.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP007.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP008.ToSymbol()</td>
 
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP201</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP202</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP203</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP204</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP205</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP206</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP207</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP208</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP209</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP210</td>
+
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP009.ToSymbol()</td>
+
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP101.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP102.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP103.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP104.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP105.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP106.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP107.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP108.ToSymbol()</td>
+
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP010.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP011</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP012.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP013.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP014.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP015.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP016.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP017.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP018.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP019.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP020</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP021.ToSymbol()</td>
+                                    <td class="text-center align-middle"style="vertical-align: middle;">@item.SUP022.ToSymbol()</td>
                                 </tr>
                                 count++;
                             }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="41" class="text-center align-middle">No data available</td>
-                            </tr>
                         }
                     </tbody>
                 </table>

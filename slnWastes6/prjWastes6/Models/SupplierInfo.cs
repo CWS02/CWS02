@@ -11,6 +11,8 @@ namespace prjWastes6.Models
     public class SupplierInfo
     {
         [Key]
+        //唯一值
+        public string SUP000 { get; set; }
         //代碼
         public string SUP001 { get; set; }  
         //廠商
@@ -32,7 +34,7 @@ namespace prjWastes6.Models
         //Reach
         public short SUP010 { get; set; }
         //Reach種數
-        public short SUP011 { get; set; }
+        public string SUP011 { get; set; }
         //Rohs
         public short SUP012 { get; set; }
         //無礦產
@@ -50,7 +52,7 @@ namespace prjWastes6.Models
         //職安衛要求
         public short SUP019 { get; set; }
         //填入Reach總表
-        public short SUP020 { get; set; }
+        public string SUP020 { get; set; }
         //簽核
         public short SUP021 { get; set; }
         //完成  歸檔
@@ -59,6 +61,8 @@ namespace prjWastes6.Models
         public string SUP023 { get; set; }
         //建立時間
         public string SUP024 { get; set; }
+        //是否刪除
+        public short SUP025 { get; set; }
         //環境評估
         public short SUP101 { get; set; }
         //汙染許可證
