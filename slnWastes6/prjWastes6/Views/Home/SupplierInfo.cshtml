@@ -11,23 +11,21 @@
     <link rel="stylesheet" href="~/css/style1.css" />
 </head>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>
-        alert('@TempData["SuccessMessage"]');
-    </script>
-}
 
 <div class="container" style="margin-top: 50px;">
     <h2 class="text-center">新供應商基本資料追蹤表</h2>
-
+    <div class="container" style="margin-top: 50px;">
+        <div id="expiredCertificatesAlert" class="alert alert-warning" style="display: none;">
+            <!-- 過期訊息會顯示在這裡 -->
+        </div>
+    </div>
     <form method="get" class="form-inline justify-content-center mb-4">
         <div class="form-group">
-            <button class="btn btn-success" formaction="/Home/EditSupplierInfo" type="submit">新增</button>
+            <button class="btn btn-success btn-spacing" formaction="/Home/EditSupplierInfo" type="submit">新增</button>
         </div>
     </form>
-</div>
 
+</div>
 <br />
 
 <div class="container">
@@ -155,6 +153,12 @@
     </div>
 </div>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        alert('@TempData["SuccessMessage"]');
+    </script>
+}
 <script>
     function showPasswordPrompt(supplierId) {
         const password = prompt("請輸入密碼:");
@@ -166,49 +170,54 @@
     }
 
     //證書過期判斷
-   document.addEventListener("DOMContentLoaded", function () {
-    const expiredCertificates = {}; 
+    document.addEventListener("DOMContentLoaded", function () {
+        const expiredCertificates = {};
 
-    const rows = document.querySelectorAll("tbody tr");
-    rows.forEach(row => {
-        const companyName = row.children[4].textContent; 
-        const dateFields = [
-            row.children[10].textContent,
-            row.children[11].textContent,
-            row.children[12].textContent,
-            row.children[13].textContent,
-            row.children[14].textContent,
-            row.children[15].textContent,
-            row.children[16].textContent,
-            row.children[17].textContent,
-            row.children[18].textContent,
-            row.children[19].textContent,
-        ];
-        let count = 0; 
-        const today = new Date(); 
+        const rows = document.querySelectorAll("tbody tr");
+        rows.forEach(row => {
+            const companyName = row.children[4].textContent;
+            const dateFields = [
+                row.children[10].textContent,
+                row.children[11].textContent,
+                row.children[12].textContent,
+                row.children[13].textContent,
+                row.children[14].textContent,
+                row.children[15].textContent,
+                row.children[16].textContent,
+                row.children[17].textContent,
+                row.children[18].textContent,
+                row.children[19].textContent,
+            ];
+            let count = 0;
+            const today = new Date();
 
-        dateFields.forEach(dateField => {
-            if (dateField) { 
-                const dateValue = new Date(dateField.substring(0, 4), dateField.substring(4, 6) - 1, dateField.substring(6, 8)); 
-                if (dateValue <= today) {
-                    count++; 
+            dateFields.forEach(dateField => {
+                if (dateField) {
+                    const dateValue = new Date(dateField.substring(0, 4), dateField.substring(4, 6) - 1, dateField.substring(6, 8));
+                    if (dateValue <= today) {
+                        count++;
+                    }
+                }
+            });
+
+            if (count > 0) {
+                if (expiredCertificates[companyName]) {
+                    expiredCertificates[companyName] += count;
+                } else {
+                    expiredCertificates[companyName] = count;
                 }
             }
         });
-        if (count > 0) {
-            if (expiredCertificates[companyName]) {
-                expiredCertificates[companyName] += count; 
-            } else {
-                expiredCertificates[companyName] = count; 
-            }
+
+        let alertMessage = '';
+        for (const [company, count] of Object.entries(expiredCertificates)) {
+            alertMessage += `${company} 有 ${count} 筆證書過期<br/>`;
+        }
+
+        if (alertMessage) {
+            const alertDiv = document.getElementById("expiredCertificatesAlert");
+            alertDiv.innerHTML = alertMessage;
+            alertDiv.style.display = "block";  // 顯示提示框
         }
     });
-    let alertMessage = '';
-    for (const [company, count] of Object.entries(expiredCertificates)) {
-        alertMessage += `${company} 有 ${count} 筆證書過期\n`; 
-    }
-    if (alertMessage) {
-        alert(alertMessage);
-    }
-});
 </script>
