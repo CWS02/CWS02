@@ -158,7 +158,7 @@
 <script>
     function showPasswordPrompt(supplierId) {
         const password = prompt("請輸入密碼:");
-        if (password === "CWS02") {
+        if (password === "123") {
             window.location.href = '/Home/EditSupplierInfo?SUP000=' + supplierId;
         } else {
             alert("密碼錯誤，請重試。");
@@ -183,7 +183,6 @@
             row.children[17].textContent,
             row.children[18].textContent,
             row.children[19].textContent,
-
         ];
         let count = 0; 
         const today = new Date(); 
