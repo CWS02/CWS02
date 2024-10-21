@@ -3689,70 +3689,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             return View(coldCoals.ToList());
         }
-        [AllowAnonymous]
-        public ActionResult SupplierInfo()
-        {
-            var supplier=_db.supplierInfo.ToList();
-            return View(supplier);
-        }
-        //新增
-        [AllowAnonymous]
-        public ActionResult EditSupplierInfo(SupplierInfo model)
-        {
-            ViewBag.IsUpdate = false;
-            if (model.SUP000 != null)
-            {
-                model = _db.supplierInfo.FirstOrDefault(s => s.SUP000 == model.SUP000);
-                ViewBag.IsUpdate = true;
-            }
-            return View(model);
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult EditSupplierInfo(SupplierInfo model,bool IsUpdate=false)
-        {
-            model.SUP023 = Request.UserHostAddress; //使用者IP
-            model.SUP024 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss"); //建立時間
-            model.SUP025 = 0; //是否刪除
-            if (IsUpdate)
-            {
-                try
-                {
-                    var existingSupplier = _db.supplierInfo.Find(model.SUP000);
-                    if (existingSupplier != null)
-                    {
-                        _db.Entry(existingSupplier).CurrentValues.SetValues(model);
-                        _db.SaveChanges();
-                        TempData["SuccessMessage"] = "更新成功！";
-                    }
-                }
-                catch
-                {
-                    TempData["SuccessMessage"] = "更新失敗！";
-                }
-            }
-            else
-            {
-                model.SUP000=Guid.NewGuid().ToString();
-                _db.supplierInfo.Add(model);
-                _db.SaveChanges();
-            }
-            return RedirectToAction("SupplierInfo");
-        }
-        public static string ToSymbol(short value)
-        {
-            switch (value)
-            {
-                case 0:
-                    return "-";
-                case 1:
-                    return "V";
-                case 2:
-                    return "X";
-                default:
-                    return string.Empty; 
-            }
-        }
-
+        
+        
     }
 }

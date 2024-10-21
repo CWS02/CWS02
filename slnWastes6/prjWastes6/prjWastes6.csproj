@@ -735,8 +735,6 @@
     <Content Include="Views\Home\CombinedHighSpeedRailList5.cshtml" />
     <Content Include="Views\Home\CombinedHighSpeedRailListList.cshtml" />
     <Content Include="Views\Home\Keyenec.cshtml" />
-    <Content Include="Views\Home\SupplierInfo.cshtml" />
-    <Content Include="Views\Home\EditSupplierInfo.cshtml" />
     <Content Include="Views\Shared\_LayoutSpace.cshtml" />
   </ItemGroup>
   <ItemGroup>
