@@ -66,7 +66,8 @@ namespace prjWastes6.Models
 
         public virtual DbSet<keyenec2> keyenec2 { get; set; }
 
-        public virtual DbSet<SupplierInfo> supplierInfo { get; set; }
+        public virtual DbSet<SGS_Parameter> SGS_Parameter { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tMember>()

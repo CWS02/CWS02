@@ -16,6 +16,7 @@ using prjWastes6.Models.DataAccess;
 using NPOI.XSSF.UserModel; 
 using NPOI.SS.UserModel; 
 using System.IO;
+using DocumentFormat.OpenXml.EMMA;
 
 
 namespace prjWastes6.Controllers
@@ -349,6 +350,62 @@ namespace prjWastes6.Controllers
                     return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "空壓機用電量表.xlsx");
                 }
             }
+        }
+
+        [AllowAnonymous]
+        public ActionResult SGS_Parameter()
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+             IEnumerable<SGS_Parameter>model = _db.SGS_Parameter.ToList();
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult SGS_ParameterEdit()
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+            IEnumerable<SGS_Parameter> model = _db.SGS_Parameter.Where(s=>s.PAR007==0).ToList();
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult SGS_ParameterEdit(SGS_Parameter model)
+        {
+            model.PAR000 = Guid.NewGuid().ToString();
+            model.PAR005 = Request.UserHostAddress;
+            model.PAR006 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            model.PAR007 = 0;
+            _db.SGS_Parameter.Add(model);
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("SGS_Parameter", "Home");
+        }
+
+        [AllowAnonymous]
+        public ActionResult SGS_Calculate()
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+
+            return View();
         }
 
         [AllowAnonymous]

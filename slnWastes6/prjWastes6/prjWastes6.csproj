@@ -247,6 +247,7 @@
     <Compile Include="Models\FireExtin.cs" />
     <Compile Include="Models\HIGH_SPEED_RAIL.cs" />
     <Compile Include="Models\AIR_CONDITIONER.cs" />
+    <Compile Include="Models\SGS_Parameter.cs" />
     <Compile Include="Models\keyenec2.cs" />
     <Compile Include="Models\keyenec.cs" />
     <Compile Include="Models\PCMTF.cs" />
@@ -298,6 +299,7 @@
     <Content Include="Content\skin-purple.min.css" />
     <Content Include="Content\skin-red-light.css" />
     <Content Include="Content\skin-red-light.min.css" />
+    <Content Include="css\style2.css" />
     <Content Include="css\style1.css" />
     <Content Include="favicon.ico" />
     <Content Include="files\012KQ161岡谷1.jpg" />
@@ -736,6 +738,10 @@
     <Content Include="Views\Home\CombinedHighSpeedRailListList.cshtml" />
     <Content Include="Views\Home\Keyenec.cshtml" />
     <Content Include="Views\Shared\_LayoutSpace.cshtml" />
+    <Content Include="Views\Home\SGS_Calculate.cshtml" />
+    <Content Include="Views\Shared\_LayoutMember2.cshtml" />
+    <Content Include="Views\Home\SGS_Parameter.cshtml" />
+    <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
