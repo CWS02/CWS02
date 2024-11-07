@@ -421,7 +421,6 @@ namespace prjWastes6.Controllers
             }
             return RedirectToAction("SGS_Parameter", "Home");
         }
-
         [AllowAnonymous]
         public ActionResult SGS_Calculate()
         {
@@ -431,6 +430,21 @@ namespace prjWastes6.Controllers
             }
 
             return View();
+        }
+        [AllowAnonymous]
+        public ActionResult SGS_ParameterDelete(SGS_Parameter model)
+        {
+            model = _db.SGS_Parameter.Find(model.PAR000);
+            model.PAR007 = 1;
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("SGS_Parameter", "Home");
         }
 
         [AllowAnonymous]

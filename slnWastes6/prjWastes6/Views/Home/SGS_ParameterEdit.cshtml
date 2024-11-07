@@ -9,7 +9,6 @@
 </head>
 
 <div id="app" class="container" style="margin-top: 50px;">
-    <!-- 使用 Vue 的動態綁定顯示標題 -->
     <h2 class="text-center">{{ isUpdate ? '編輯係數' : '新增係數' }}</h2>
 
     <form action="@Url.Action("SGS_ParameterEdit", "Home", new { IsUpdate = ViewBag.IsUpdate })" method="post" enctype="multipart/form-data">
