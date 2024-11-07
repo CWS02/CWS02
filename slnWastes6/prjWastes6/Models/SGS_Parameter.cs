@@ -16,7 +16,7 @@ namespace prjWastes6.Models
         public string PAR001 { get; set; } // 項目
 
         [MaxLength(30)]
-        public string PAR002 { get; set; } // 細數
+        public string PAR002 { get; set; } // 係數
 
         [MaxLength(20)]
         public string PAR003 { get; set; } // 單位

@@ -1,7 +1,7 @@
 ﻿body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
+/*    background-color: #f8f9fa;
+*/    margin: 0;
     padding: 0;
 }
 
@@ -14,23 +14,19 @@
 }
 
 .table {
-    width: 100%;
-    margin: 20px 0; 
+    width: 96%;
+    margin: 20px;
     padding: 0 15px;
 }
 
     .table th,
     .table td {
-        padding: 0.5rem;
-        vertical-align: middle;
-        border-top: 1px solid #dee2e6;
-        width: auto;
-        height: auto;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 13.5px;
+        padding: 10px;
         text-align: center;
+        font-size: 14px;
     }
 
 .thead-dark th {

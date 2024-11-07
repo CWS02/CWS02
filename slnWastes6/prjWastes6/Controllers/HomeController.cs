@@ -353,7 +353,7 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SGS_Parameter(int? Year)
+        public ActionResult SGS_Parameter(string item)
         {
             if (Session["Member"] == null)
             {
@@ -362,9 +362,9 @@ namespace prjWastes6.Controllers
 
             IQueryable<SGS_Parameter> modelQuery = _db.SGS_Parameter.Where(s => s.PAR007 == 0);
 
-            if (Year.HasValue)
+            if (!string.IsNullOrEmpty(item))
             {
-                modelQuery = modelQuery.Where(s => s.PAR004 == Year.ToString());
+                modelQuery = modelQuery.Where(s => s.PAR001.Contains(item));
             }
 
             var model = modelQuery.ToList();

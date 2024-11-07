@@ -1,7 +1,7 @@
 ﻿@model prjWastes6.Models.SGS_Parameter
 @{
     Layout = "~/Views/Shared/_LayoutMember2.cshtml";
-    ViewBag.Title = "細數表";
+    ViewBag.Title = "係數表";
 }
 
 <head>
@@ -10,37 +10,39 @@
 
 <div id="app" class="container" style="margin-top: 50px;">
     <!-- 使用 Vue 的動態綁定顯示標題 -->
-    <h2 class="text-center">{{ isUpdate ? '編輯細數' : '新增細數' }}</h2>
+    <h2 class="text-center">{{ isUpdate ? '編輯係數' : '新增係數' }}</h2>
 
     <form action="@Url.Action("SGS_ParameterEdit", "Home", new { IsUpdate = ViewBag.IsUpdate })" method="post" enctype="multipart/form-data">
-        <!-- 隱藏 DEA000 欄位，並讓其與 Vue 進行綁定 -->
         <input type="hidden" name="PAR000" v-model="model.PAR000" />
-        
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR001">項目</label>
-                    <input type="text" class="form-control valid-ar-6" name="PAR001" v-model="model.PAR001" required />
+                    <input type="text" class="form-control valid-ar-20" name="PAR001" v-model="model.PAR001" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="PAR002">細數</label>
-                    <input type="text" class="form-control valid-ar-6" name="PAR002" v-model="model.PAR002" required />
+                    <label for="PAR002">係數</label>
+                    <input type="text" class="form-control valid-ar-30" name="PAR002" v-model="model.PAR002" v-on:input="validatePAR002" maxlength="30" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR003">單位</label>
-                    <input type="text" class="form-control valid-ar-6" name="PAR003" v-model="model.PAR003" />
+                    <select class="form-control valid-ar-20" name="PAR003" v-model="model.PAR003">
+                        <option v-for="unit in units" :value="unit">{{ unit }}</option>
+                    </select>
                 </div>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR004">公告年份</label>
-                    <input type="text" class="form-control valid-ar-6" name="PAR004" v-model="model.PAR004" />
+                    <input type="text" class="form-control valid-m-4" name="PAR004" v-model="model.PAR004" />
                 </div>
             </div>
         </div>
@@ -52,12 +54,23 @@
     </form>
 </div>
 
+<script src="~/Scripts/valid.js"></script>
 <script>
     new Vue({
         el: '#app',
         data: {
             model: @Html.Raw(Json.Encode(Model)),
             isUpdate: @((bool)ViewBag.IsUpdate ? "true" : "false"),
+            units: ['公斤(kg)', '公升(L)','公噸(mt)', '平方公尺(m²)', '立方公尺(m³)','度(kwh)'] ,
+
+        },
+        methods: {
+            validatePAR002() {
+                const regex = /^\d*(\.\d{0,4})?$/;
+                if (!regex.test(this.model.PAR002)) {
+                    this.model.PAR002 = this.model.PAR002.slice(0, -1);
+                }
+            }
         }
     });
 </script>
