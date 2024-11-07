@@ -353,46 +353,71 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SGS_Parameter()
+        public ActionResult SGS_Parameter(int? Year)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
-             IEnumerable<SGS_Parameter>model = _db.SGS_Parameter.ToList();
 
+            IQueryable<SGS_Parameter> modelQuery = _db.SGS_Parameter.Where(s => s.PAR007 == 0);
+
+            if (Year.HasValue)
+            {
+                modelQuery = modelQuery.Where(s => s.PAR004 == Year.ToString());
+            }
+
+            var model = modelQuery.ToList();
             return View(model);
         }
 
+
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult SGS_ParameterEdit()
+        public ActionResult SGS_ParameterEdit(SGS_Parameter model)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
-            IEnumerable<SGS_Parameter> model = _db.SGS_Parameter.Where(s=>s.PAR007==0).ToList();
+
+            ViewBag.IsUpdate = false;
+            if (model.PAR000 != null)
+            {
+                model = _db.SGS_Parameter.FirstOrDefault(s=>s.PAR000==model.PAR000);
+                ViewBag.IsUpdate = true;
+            }
             return View(model);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult SGS_ParameterEdit(SGS_Parameter model)
+        public ActionResult SGS_ParameterEdit(SGS_Parameter model,bool IsUpdate=false)
         {
-            model.PAR000 = Guid.NewGuid().ToString();
-            model.PAR005 = Request.UserHostAddress;
-            model.PAR006 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
-            model.PAR007 = 0;
-            _db.SGS_Parameter.Add(model);
-
+            if (IsUpdate)
+            {
+                var oldmodel = _db.SGS_Parameter.Find(model.PAR000);
+                oldmodel.PAR001 = model.PAR001;
+                oldmodel.PAR002 = model.PAR002;
+                oldmodel.PAR003 = model.PAR003;
+                oldmodel.PAR004 = model.PAR004;
+                oldmodel.PAR005 = Request.UserHostAddress;
+                oldmodel.PAR006 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+            }
+            else
+            {
+                model.PAR000 = Guid.NewGuid().ToString();
+                model.PAR005 = Request.UserHostAddress;
+                model.PAR006 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
+                model.PAR007 = 0;
+                _db.SGS_Parameter.Add(model);                
+            }
             try
             {
                 _db.SaveChanges();
             }
             catch
             {
-
             }
             return RedirectToAction("SGS_Parameter", "Home");
         }
@@ -418,7 +443,7 @@ namespace prjWastes6.Controllers
         [HttpPost]
         //public ActionResult Create(WASTES customer)
             //20240326廢棄物新增PDF上傳
-
+            
         public ActionResult Create(WASTES customer, HttpPostedFileBase pdfFile)
         {
             string custId = customer.DOCUMENT_ID;
