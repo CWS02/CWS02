@@ -224,6 +224,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -242,6 +243,7 @@
     <Compile Include="Models\CMSMF.cs" />
     <Compile Include="Models\ColdCoal.cs" />
     <Compile Include="Models\CombinedHighSpeedRailViewModel.cs" />
+    <Compile Include="Models\DataAccess\CommonDAO.cs" />
     <Compile Include="Models\DataAccess\keyenecDAO.cs" />
     <Compile Include="Models\HighSpeedRailViewModel.cs" />
     <Compile Include="Models\EMPLOYEE_TRAVEL_ABROAD.cs" />
@@ -746,6 +748,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

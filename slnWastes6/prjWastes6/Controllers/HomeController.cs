@@ -355,10 +355,10 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         public ActionResult SGS_Parameter(string item)
         {
-            if (Session["Member"] == null)
-            {
-                return RedirectToAction("login", "Home");
-            }
+            //if (Session["Member"] == null)
+            //{
+            //    return RedirectToAction("login", "Home");
+            //}
 
             IQueryable<SGS_Parameter> modelQuery = _db.SGS_Parameter.Where(s => s.PAR007 == 0);
 
@@ -442,11 +442,11 @@ namespace prjWastes6.Controllers
             }
             catch
             {
-
+                
             }
             return RedirectToAction("SGS_Parameter", "Home");
         }
-
+        
         [AllowAnonymous]
         public ActionResult Create()
         {
