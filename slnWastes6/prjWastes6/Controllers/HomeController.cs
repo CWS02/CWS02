@@ -29,9 +29,12 @@ namespace prjWastes6.Controllers
 
         TWNCPCContext _TWNCPCdb = new TWNCPCContext();
         private readonly keyenecDAO _keyenecDAO;
+        private readonly CommonDAO _CommonDAO;
+
         public HomeController()
         {
             _keyenecDAO = new keyenecDAO();
+            _CommonDAO = new CommonDAO();
         }
         // GET: ESG
         [AllowAnonymous]
@@ -432,21 +435,31 @@ namespace prjWastes6.Controllers
             return View();
         }
         [AllowAnonymous]
-        public ActionResult SGS_ParameterDelete(SGS_Parameter model)
+        public JsonResult SGS_ParameterDelete(SGS_Parameter model, string password,string code)
         {
-            model = _db.SGS_Parameter.Find(model.PAR000);
-            model.PAR007 = 1;
-            try
+            var codes = code.Split(',').ToList();
+            bool correct = _CommonDAO.CheckPassword(codes, password);
+            if (correct)
             {
-                _db.SaveChanges();
+                model = _db.SGS_Parameter.Find(model.PAR000);
+                model.PAR007 = 1;
+                try
+                {
+                    _db.SaveChanges();
+                }
+                catch
+                {
+                    return Json(new { success = false, message = "刪除失敗" });
+                }
             }
-            catch
+            else
             {
-                
+                return Json(new { success = false, message = "帳號密碼錯誤" });
+
             }
-            return RedirectToAction("SGS_Parameter", "Home");
+            return Json(new { success = true, message = "刪除成功" });
         }
-        
+
         [AllowAnonymous]
         public ActionResult Create()
         {
@@ -463,7 +476,7 @@ namespace prjWastes6.Controllers
             string custId = customer.DOCUMENT_ID;
             var temp = _db.WASTES
                 .Where(m => m.DOCUMENT_ID == custId).FirstOrDefault();
-
+            
             if (temp == null)
             {//HomeController_20231226紀錄登打時間
                 customer.data = DateTime.Now;

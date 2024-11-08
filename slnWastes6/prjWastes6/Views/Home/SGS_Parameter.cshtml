@@ -12,6 +12,25 @@
 <div class="container" style="margin-top: 50px;">
     <h2 class="text-center">係數表設定</h2>
 
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="passwordForm" method="post" action="@Url.Action("SGS_ParameterDelete", "Home")">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="password">請輸入密碼</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                            <input type="hidden" id="PAR000" name="PAR000" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="submit" class="btn btn-danger">確定刪除</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -59,14 +78,59 @@
                                     <td>@item.PAR002</td>
                                     <td>@item.PAR003</td>
                                     <td>@item.PAR004</td>
-                                    <td><a class="btn btn-danger" href="@Url.Action("SGS_ParameterDelete", "Home", new {PAR000=item.PAR000})">刪除</a></td>
+                                    <td>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#passwordModal"
+                                                data-par000="@item.PAR000">
+                                            刪除
+                                        </button>
+                                    </td>
 
                                 </tr>
                             }
                         }
-                   }
-                    </tbody>
+                    }
+                </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#passwordModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); 
+            var par000 = button.data('par000'); 
+            var modal = $(this);
+            modal.find('#PAR000').val(par000); 
+        });
+
+        $('#passwordForm').on('submit', function (event) {
+            event.preventDefault(); 
+
+            var par000 = $('#PAR000').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url: '@Url.Action("SGS_ParameterDelete", "Home")', 
+                type: 'POST',
+                data: { PAR000: par000, password: password, code:"IS000,AD300,AD500"},
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload(); 
+                    } else {
+                        alert(response.message);
+                        location.reload();
+                    }
+                },
+                error: function () {
+                    alert("發生錯誤，請稍後再試");
+                }
+            });
+
+            $('#passwordModal').modal('hide'); 
+        });
+    });
+</script>
+
+
