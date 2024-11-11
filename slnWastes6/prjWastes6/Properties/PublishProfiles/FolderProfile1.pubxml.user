@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\publish</_PublishTargetUrl>
-    <History>True|2024-10-15T03:33:53.3024612Z||;</History>
+    <History>True|2024-11-11T03:54:22.8705371Z||;True|2024-11-11T11:36:33.1614030+08:00||;True|2024-11-11T11:23:45.7139999+08:00||;True|2024-11-11T11:16:02.7459034+08:00||;True|2024-10-15T11:33:53.3024612+08:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,10 +16,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:25</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>10/15/2024 11:33:27</publishTime>
+      <publishTime>11/11/2024 11:54:09</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>10/15/2024 11:33:27</publishTime>
+      <publishTime>11/11/2024 11:54:09</publishTime>
     </File>
     <File Include="bin/BouncyCastle.Cryptography.dll">
       <publishTime>10/11/2024 16:52:25</publishTime>
@@ -100,10 +100,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:29</publishTime>
     </File>
     <File Include="bin/prjWastes6.dll">
-      <publishTime>10/15/2024 11:33:08</publishTime>
+      <publishTime>11/11/2024 11:34:05</publishTime>
     </File>
     <File Include="bin/prjWastes6.pdb">
-      <publishTime>10/15/2024 11:33:08</publishTime>
+      <publishTime>11/11/2024 11:34:05</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>10/11/2024 16:52:27</publishTime>
@@ -412,7 +412,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:30</publishTime>
     </File>
     <File Include="css/style1.css">
-      <publishTime>10/11/2024 16:52:31</publishTime>
+      <publishTime>11/11/2024 10:58:24</publishTime>
+    </File>
+    <File Include="css/style2.css">
+      <publishTime>11/11/2024 11:05:00</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>10/11/2024 16:52:31</publishTime>
@@ -1129,7 +1132,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:30</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>10/15/2024 11:33:16</publishTime>
+      <publishTime>11/11/2024 11:54:02</publishTime>
     </File>
     <File Include="Scripts/bootstrap-datetimepicker-new/css/bootstrap-datetimepicker.css">
       <publishTime>10/11/2024 16:52:30</publishTime>
@@ -1530,6 +1533,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Scripts/Utility/MyUtility.js">
       <publishTime>10/11/2024 16:52:30</publishTime>
     </File>
+    <File Include="Scripts/valid.js">
+      <publishTime>11/08/2024 17:02:24</publishTime>
+    </File>
     <File Include="templates/10PCO2滅火器標示牌.jpg">
       <publishTime>10/11/2024 16:52:44</publishTime>
     </File>
@@ -1654,7 +1660,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:30</publishTime>
     </File>
     <File Include="Views/Home/Keyenec.cshtml">
-      <publishTime>10/11/2024 16:52:30</publishTime>
+      <publishTime>11/06/2024 10:08:35</publishTime>
     </File>
     <File Include="Views/Home/List.cshtml">
       <publishTime>10/11/2024 16:52:30</publishTime>
@@ -1664,6 +1670,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="Views/Home/Register.cshtml">
       <publishTime>10/11/2024 16:52:30</publishTime>
+    </File>
+    <File Include="Views/Home/SGS_Calculate.cshtml">
+      <publishTime>11/11/2024 11:05:00</publishTime>
+    </File>
+    <File Include="Views/Home/SGS_Parameter.cshtml">
+      <publishTime>11/11/2024 11:11:09</publishTime>
+    </File>
+    <File Include="Views/Home/SGS_ParameterEdit.cshtml">
+      <publishTime>11/11/2024 11:11:09</publishTime>
     </File>
     <File Include="Views/Home/TAXI_APPLICATIONList.cshtml">
       <publishTime>10/11/2024 16:52:30</publishTime>
@@ -1696,7 +1711,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/15/2024 11:27:59</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutMember.cshtml">
-      <publishTime>10/11/2024 16:52:30</publishTime>
+      <publishTime>11/11/2024 11:05:00</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutMember2.cshtml">
+      <publishTime>11/11/2024 11:05:00</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutSpace.cshtml">
+      <publishTime>10/18/2024 10:41:34</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>10/11/2024 16:52:30</publishTime>
@@ -1705,7 +1726,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/11/2024 16:52:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/15/2024 11:33:09</publishTime>
+      <publishTime>11/11/2024 10:57:00</publishTime>
     </File>
   </ItemGroup>
 </Project>

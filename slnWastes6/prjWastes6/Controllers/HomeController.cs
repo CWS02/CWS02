@@ -463,9 +463,7 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         public JsonResult SGS_CheckDuplicate(SGS_Parameter model, string password,string code)
         {
-
-            var isDuplicate = _db.SGS_Parameter.Any(p => p.PAR001 == model.PAR001 && p.PAR003 == model.PAR003 && p.PAR004== model.PAR004);
-
+            var isDuplicate = _db.SGS_Parameter.Any(p => p.PAR001 == model.PAR001 && p.PAR003 == model.PAR003 && p.PAR004== model.PAR004 && p.PAR007 == 0);
             return Json(new { isDuplicate });
         }
         [AllowAnonymous]

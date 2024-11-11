@@ -14,9 +14,10 @@
 }
 
 .table {
-    width: 100%;
+    width: auto;
     margin-bottom: 1rem;
-    color: #212529;
+    margin:20px;
+    padding:20px;
 }
 
     .table th,
@@ -57,6 +58,7 @@
         font-weight: bold;
         padding: 15px;
         border-bottom: 2px solid #0056b3;
+
     }
 
 /*btn*/
@@ -65,5 +67,5 @@
     margin-right:10px;
 }
 
-}
+
 
