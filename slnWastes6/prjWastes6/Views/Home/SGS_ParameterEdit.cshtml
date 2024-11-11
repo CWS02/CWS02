@@ -11,37 +11,36 @@
 <div id="app" class="container" style="margin-top: 50px;">
     <h2 class="text-center">{{ isUpdate ? '編輯係數' : '新增係數' }}</h2>
 
-    <form action="@Url.Action("SGS_ParameterEdit", "Home", new { IsUpdate = ViewBag.IsUpdate })" method="post" enctype="multipart/form-data">
+    <form ref="form" :action="formAction" method="post" enctype="multipart/form-data" v-on:submit.prevent="checkDuplicate">
         <input type="hidden" name="PAR000" v-model="model.PAR000" />
 
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR001">項目</label>
-                    <input type="text" class="form-control valid-ar-20" name="PAR001" v-model="model.PAR001" />
+                    <input type="text" class="form-control" name="PAR001" v-model="model.PAR001" required />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR002">係數</label>
-                    <input type="text" class="form-control valid-ar-30" name="PAR002" v-model="model.PAR002" v-on:input="validatePAR002" maxlength="30" />
+                    <input type="text" class="form-control" name="PAR002" v-model="model.PAR002" v-on:input="validatePAR002" maxlength="30" required />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR003">單位</label>
-                    <select class="form-control valid-ar-20" name="PAR003" v-model="model.PAR003">
+                    <select class="form-control" name="PAR003" v-model="model.PAR003" required>
                         <option v-for="unit in units" :value="unit">{{ unit }}</option>
                     </select>
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="PAR004">公告年份</label>
-                    <input type="text" class="form-control valid-m-4" name="PAR004" v-model="model.PAR004" />
+                    <input type="text" class="form-control " name="PAR004" v-model="model.PAR004" />
                 </div>
             </div>
         </div>
@@ -53,23 +52,44 @@
     </form>
 </div>
 
-<script src="~/Scripts/valid.js"></script>
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-            model: @Html.Raw(Json.Encode(Model)),
-            isUpdate: @((bool)ViewBag.IsUpdate ? "true" : "false"),
-            units: ['公斤(kg)', '公升(L)','公噸(mt)', '平方公尺(m²)', '立方公尺(m³)','度(kwh)'] ,
-
-        },
-        methods: {
-            validatePAR002() {
-                const regex = /^\d*(\.\d{0,4})?$/;
-                if (!regex.test(this.model.PAR002)) {
-                    this.model.PAR002 = this.model.PAR002.slice(0, -1);
-                }
+new Vue({
+    el: '#app',
+    data: {
+        model: @Html.Raw(Json.Encode(Model ?? new prjWastes6.Models.SGS_Parameter())),
+        isUpdate: @((bool)ViewBag.IsUpdate ? "true" : "false") == "true",
+        units: ['公斤(kg)', '公升(L)', '公噸(mt)', '平方公尺(m²)', '立方公尺(m³)', '度(kwh)'],
+        formAction: '@Url.Action("SGS_ParameterEdit", "Home")'
+    },
+    methods: {
+        validatePAR002() {
+            const regex = /^\d*(\.\d{0,4})?$/;
+            if (!regex.test(this.model.PAR002)) {
+                this.model.PAR002 = this.model.PAR002.slice(0, -1);
             }
+        },
+        checkDuplicate() {
+            const vm = this;
+            $.ajax({
+                url: '@Url.Action("SGS_CheckDuplicate", "Home")',
+                type: 'POST',
+                data: { PAR000: this.model.PAR000, PAR001: this.model.PAR001, PAR003: this.model.PAR003, PAR004: this.model.PAR004 },
+                success: function(response) {
+                    if (response.isDuplicate) {
+                        alert('已有重複的紀錄，請確認後再提交。');
+                    } else {
+                        vm.submitForm();
+                    }
+                },
+                error: function() {
+                    alert('檢查重複紀錄時出現錯誤，請稍後再試。');
+                }
+            });
+        },
+        submitForm() {
+            this.$refs.form.submit();
         }
-    });
+    }
+});
+
 </script>

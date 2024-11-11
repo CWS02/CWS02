@@ -461,6 +461,14 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
+        public JsonResult SGS_CheckDuplicate(SGS_Parameter model, string password,string code)
+        {
+
+            var isDuplicate = _db.SGS_Parameter.Any(p => p.PAR001 == model.PAR001 && p.PAR003 == model.PAR003 && p.PAR004== model.PAR004);
+
+            return Json(new { isDuplicate });
+        }
+        [AllowAnonymous]
         public ActionResult Create()
         {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
