@@ -17,19 +17,19 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="PAR001">項目</label>
+                    <label for="PAR001">係數名稱</label>
                     <input type="text" class="form-control" name="PAR001" v-model="model.PAR001" required />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="PAR002">係數</label>
+                    <label for="PAR002">碳足跡數值（kgCO2e）</label>
                     <input type="text" class="form-control" name="PAR002" v-model="model.PAR002" v-on:input="validatePAR002" maxlength="30" required />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="PAR003">單位</label>
+                    <label for="PAR003">宣告單位</label>
                     <select class="form-control" name="PAR003" v-model="model.PAR003" required>
                         <option v-for="unit in units" :value="unit">{{ unit }}</option>
                     </select>
