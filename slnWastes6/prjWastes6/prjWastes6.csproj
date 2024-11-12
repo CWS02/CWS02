@@ -674,6 +674,8 @@
     <Content Include="Scripts\Utility\Message.js" />
     <Content Include="Scripts\Utility\MyUtility.js" />
     <Content Include="Scripts\valid.js" />
+    <Content Include="Scripts\vue\vue.js" />
+    <Content Include="Scripts\vue\vue.min.js" />
     <Content Include="templates\10PCO2滅火器標示牌.jpg" />
     <Content Include="templates\10P乾粉滅火器標示牌.jpg" />
     <Content Include="templates\20P乾粉滅火器標示牌.jpg" />
