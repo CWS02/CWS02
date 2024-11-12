@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.HPSF;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,12 +37,40 @@ namespace prjWastes6.Models
     public class SGS_Search
     {
         public string category { get; set; }
-        public string startdate { get; set; } 
-        public string enddate { get; set; }
+        public DateTime startdate { get; set; } 
+        public DateTime enddate { get; set; }
         public string factory { get; set; } 
         public string waterdiameter { get; set; }
         public string methods { get; set; } 
         public string code { get; set; } 
-
     }
+    public class ElectricitySummaryViewModel
+    {
+        public string Factory { get; set; }
+        public decimal?   SumPeakElectricity { get; set; }
+        public decimal? SumHalfSpikePower { get; set; }
+        public decimal? SumSaturdayHalfPeak { get; set; }
+        public decimal? SumOffPeakElectricity { get; set; }
+        public decimal? SumTotalElectricity { get; set; }
+        public decimal? SumTotalBillTax { get; set; }
+        public decimal? SumCarbonPeriod { get; set; }
+    }
+
+    public class WaterSummaryViewModel
+    {
+        public string Factory { get; set; }
+        public decimal SumWaterUsage { get; set; }
+        public decimal SumWaterBill { get; set; }
+        // 其他水費相關欄位
+    }
+
+    public class WasteSummaryViewModel
+    {
+        public string Method { get; set; }
+        public string WasteCode { get; set; }
+        public decimal TotalWasteAmount { get; set; }
+        public decimal TotalWasteCost { get; set; }
+        // 其他廢棄物相關欄位
+    }
+
 }

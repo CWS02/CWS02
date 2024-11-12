@@ -435,18 +435,22 @@ namespace prjWastes6.Controllers
 
             if (search.category == "electricity")
             {
-                //var customers = _db.ELECTRICITY_BILL.ToList();
+                var query = _db.ELECTRICITY_BILL
+                               .Where(x => x.FROM_BILLING_PERIOD >= search.startdate && x.FROM_BILLING_PERIOD <= search.enddate&&x.FACTORY==search.factory)
+                               .GroupBy(x => x.FACTORY)
+                               .Select(g => new ElectricitySummaryViewModel
+                               {
+                                   Factory = g.Key,
+                                   SumPeakElectricity = g.Sum(x => x.PEAK_ELECTRICITY),
+                                   SumHalfSpikePower = g.Sum(x => x.HALF_SPIKE_POWER),
+                                   SumSaturdayHalfPeak = g.Sum(x => x.SATURDAY_HALF_PEAK),
+                                   SumOffPeakElectricity = g.Sum(x => x.OFF_PEAK_ELECTRICITY),
+                                   SumTotalElectricity = g.Sum(x => x.TOTAL_ELECTRICITY),
+                                   SumTotalBillTax = g.Sum(x => x.TOTAL_BILL_TAX),
+                                   SumCarbonPeriod = g.Sum(x => x.CARBON_PERIOD)
+                               }).ToList();
 
-                //var query = _db.ELECTRICITY_BILL.OrderByDescending(x => x.FROM_BILLING_PERIOD).AsQueryable();
-
-                //if (search.startdate!=null)
-                //    query = query.Where(x => x.FROM_BILLING_PERIOD >= search.startdate);
-
-                //if (endDate.HasValue)
-                //    query = query.Where(x => x.FROM_BILLING_PERIOD <= endDate.Value);
-
-                //if (!string.IsNullOrEmpty(factory))
-                //    query = query.Where(x => x.FACTORY == factory);
+                return View(query);
             }
             else if (search.category == "water")
             {
@@ -456,6 +460,7 @@ namespace prjWastes6.Controllers
             {
 
             }
+            
             return View();
         }
 
