@@ -12,7 +12,7 @@ namespace prjWastes6.Models
         [MaxLength(40)]
         public string PAR000 { get; set; } // 隨機碼
 
-        [MaxLength(20)]
+        [MaxLength(60)]
         public string PAR001 { get; set; } // 項目
 
         [MaxLength(30)]
@@ -30,6 +30,18 @@ namespace prjWastes6.Models
         [MaxLength(20)]
         public string PAR006 { get; set; } // 時間
         public short PAR007 { get; set; } // 是否啟用
+
+    }
+
+    public class SGS_Search
+    {
+        public string category { get; set; }
+        public string startdate { get; set; } 
+        public string enddate { get; set; }
+        public string factory { get; set; } 
+        public string waterdiameter { get; set; }
+        public string methods { get; set; } 
+        public string code { get; set; } 
 
     }
 }

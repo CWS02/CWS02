@@ -424,16 +424,41 @@ namespace prjWastes6.Controllers
             }
             return RedirectToAction("SGS_Parameter", "Home");
         }
+
         [AllowAnonymous]
-        public ActionResult SGS_Calculate()
+        public ActionResult SGS_Calculate(SGS_Search search)
         {
-            if (Session["Member"] == null)
+            if (Session["Member"] == null) 
             {
                 return RedirectToAction("login", "Home");
             }
 
+            if (search.category == "electricity")
+            {
+                //var customers = _db.ELECTRICITY_BILL.ToList();
+
+                //var query = _db.ELECTRICITY_BILL.OrderByDescending(x => x.FROM_BILLING_PERIOD).AsQueryable();
+
+                //if (search.startdate!=null)
+                //    query = query.Where(x => x.FROM_BILLING_PERIOD >= search.startdate);
+
+                //if (endDate.HasValue)
+                //    query = query.Where(x => x.FROM_BILLING_PERIOD <= endDate.Value);
+
+                //if (!string.IsNullOrEmpty(factory))
+                //    query = query.Where(x => x.FACTORY == factory);
+            }
+            else if (search.category == "water")
+            {
+
+            }
+            else if (search.category == "waste")
+            {
+
+            }
             return View();
         }
+
         [AllowAnonymous]
         public JsonResult SGS_ParameterDelete(SGS_Parameter model, string password,string code)
         {
