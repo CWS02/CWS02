@@ -454,11 +454,38 @@ namespace prjWastes6.Controllers
             }
             else if (search.category == "water")
             {
+                var query = _db.WATER_BILL
+                               .Where(x => x.FROM_BILLING_PERIOD >= search.startdate && x.FROM_BILLING_PERIOD <= search.enddate && x.FACTORY == search.factory&&x.METER_DIAMETER.ToString()==search.waterdiameter)
+                               .GroupBy(x => x.FACTORY)
+                               .Select(g => new WaterSummaryViewModel
+                               {
+                                   Factory = g.Key,
+                                   Waterdiameter = search.waterdiameter,
+                                   SumNUMBERPOINTERS = g.Sum(x => x.NUMBER_POINTERS),
+                                   SumTOTALWATER = g.Sum(x => x.TOTAL_WATER),
+                                   SumTOTALBILLTAX = g.Sum(x => x.TOTAL_BILL_TAX),
+                                   SumCARBONPERIOD = g.Sum(x => x.CARBON_PERIOD),
+                               }).ToList();
 
+                return View(query);
             }
             else if (search.category == "waste")
             {
+                var query = _db.WASTES
+                               .Where(x => x.REMOVAL_DATE >= search.startdate && x.REMOVAL_DATE <= search.enddate&& x.TREATMENT==search.methods&&x.SCRAP_CODE==search.code)
+                               .GroupBy(x => x.TREATMENT)
+                               .Select(g => new WasteSummaryViewModel
+                               {
+                                   methods =search.methods,
+                                   code = search.code,
+                                   SumDECLAREDWEIGHT = g.Sum(x => x.DECLARED_WEIGHT),
+                                   SumCKILOMETERS = g.Sum(x => x.KILOMETERS),
+                                   SumACTIVITYDATA = g.Sum(x => x.ACTIVITY_DATA),
+                                   SumCARBONEMISSIONFACTOR = g.Sum(x => x.CARBON_EMISSION_FACTOR),
+                                   SumCCARBONDIOXIDE = g.Sum(x => x.CARBON_DIOXIDE),
+                               }).ToList();
 
+                return View(query);
             }
             
             return View();

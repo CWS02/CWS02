@@ -47,7 +47,7 @@ namespace prjWastes6.Models
     public class ElectricitySummaryViewModel
     {
         public string Factory { get; set; }
-        public decimal?   SumPeakElectricity { get; set; }
+        public decimal? SumPeakElectricity { get; set; }
         public decimal? SumHalfSpikePower { get; set; }
         public decimal? SumSaturdayHalfPeak { get; set; }
         public decimal? SumOffPeakElectricity { get; set; }
@@ -59,18 +59,23 @@ namespace prjWastes6.Models
     public class WaterSummaryViewModel
     {
         public string Factory { get; set; }
-        public decimal SumWaterUsage { get; set; }
-        public decimal SumWaterBill { get; set; }
-        // 其他水費相關欄位
+        public string Waterdiameter { get; set; }
+        public decimal? SumNUMBERPOINTERS { get; set; }
+        public decimal? SumTOTALWATER { get; set; }
+        public decimal? SumTOTALBILLTAX { get; set; }
+        public decimal? SumCARBONPERIOD { get; set; }
     }
 
     public class WasteSummaryViewModel
     {
-        public string Method { get; set; }
-        public string WasteCode { get; set; }
-        public decimal TotalWasteAmount { get; set; }
-        public decimal TotalWasteCost { get; set; }
-        // 其他廢棄物相關欄位
-    }
+        public string methods { get; set; }
+        public string code { get; set; }
+        public decimal? SumDECLAREDWEIGHT { get; set; }
+        public decimal? TotalWasteCost { get; set; }
+        public decimal? SumCKILOMETERS { get; set; }
+        public decimal? SumACTIVITYDATA { get; set; }
+        public decimal? SumCARBONEMISSIONFACTOR { get; set; }
+        public decimal? SumCCARBONDIOXIDE { get; set; }
 
+    }
 }
