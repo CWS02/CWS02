@@ -115,13 +115,13 @@
                             {
                                 <tr>
                                     <td>@item.Factory</td>
-                                    <td>@item.SumPeakElectricity</td>
-                                    <td>@item.SumHalfSpikePower</td>
-                                    <td>@item.SumSaturdayHalfPeak</td>
-                                    <td>@item.SumOffPeakElectricity</td>
-                                    <td>@item.SumTotalElectricity</td>
-                                    <td>@item.SumTotalBillTax</td>
-                                    <td>@item.SumCarbonPeriod</td>
+                                    <td>@string.Format("{0:0.##}", item.SumPeakElectricity)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumHalfSpikePower)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumSaturdayHalfPeak)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumOffPeakElectricity)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumTotalElectricity)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumTotalBillTax)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumCarbonPeriod)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -165,10 +165,10 @@
                                 <tr>
                                     <td>@item.Factory</td>
                                     <td>@item.Waterdiameter</td>
-                                    <td>@item.SumNUMBERPOINTERS</td>
-                                    <td>@item.SumTOTALWATER</td>
-                                    <td>@item.SumTOTALBILLTAX</td>
-                                    <td>@item.SumCARBONPERIOD</td>
+                                    <td>@string.Format("{0:0.##}", item.SumNUMBERPOINTERS)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumTOTALWATER)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumTOTALBILLTAX)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumCARBONPERIOD)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -213,11 +213,11 @@
                                 <tr>
                                     <td>@item.methods</td>
                                     <td>@item.code</td>
-                                    <td>@item.SumDECLAREDWEIGHT </td>
-                                    <td>@item.SumCKILOMETERS </td>
-                                    <td>@item.SumACTIVITYDATA </td>
-                                    <td>@item.SumCARBONEMISSIONFACTOR </td>
-                                    <td>@item.SumCCARBONDIOXIDE</td>
+                                    <td>@string.Format("{0:0.##}", item.SumDECLAREDWEIGHT)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumCKILOMETERS)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumACTIVITYDATA)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumCARBONEMISSIONFACTOR)</td>
+                                    <td>@string.Format("{0:0.##}", item.SumCCARBONDIOXIDE)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
