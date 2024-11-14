@@ -17,6 +17,7 @@ using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel; 
 using System.IO;
 using DocumentFormat.OpenXml.EMMA;
+using Newtonsoft.Json;
 
 
 namespace prjWastes6.Controllers
@@ -432,6 +433,11 @@ namespace prjWastes6.Controllers
             {
                 return RedirectToAction("login", "Home");
             }
+
+            var coefficientOptions = _db.SGS_Parameter
+                .Select(p => p.PAR002 + "-" + p.PAR003+ "-" +p.PAR001 + "-" + p.PAR004)
+                .ToList();
+            ViewBag.CoefficientOptions = coefficientOptions;
 
             if (search.category == "electricity")
             {
