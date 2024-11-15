@@ -81,7 +81,7 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div v-if="category" class="form-group">
             <button class="btn btn-primary btn-spacing" type="submit">搜索</button>
         </div>
     </form>
@@ -99,11 +99,11 @@
                         <thead>
                             <tr>
                                 <th>廠區</th>
-                                <th>尖峰用電度數</th>
-                                <th>半尖峰用電度數</th>
-                                <th>週六半尖峰用電度數</th>
-                                <th>離峰用電度數</th>
-                                <th>總用電數</th>
+                                <th>尖峰<br />用電度數(kWh)</th>
+                                <th>半尖峰<br />用電度數(kWh)</th>
+                                <th>週六半尖峰<br />用電度數(kWh)</th>
+                                <th>離峰<br />用電度數(kWh)</th>
+                                <th>總用電數(kWh)</th>
                                 <th>總費用(含稅)</th>
                                 <th>本期碳排量</th>
                                 <th style="width:150px">係數</th>
@@ -115,13 +115,13 @@
                             {
                                 <tr>
                                     <td>@item.Factory</td>
-                                    <td>@string.Format("{0:0.##}", item.SumPeakElectricity)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumHalfSpikePower)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumSaturdayHalfPeak)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumOffPeakElectricity)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumTotalElectricity)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumTotalBillTax)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumCarbonPeriod)</td>
+                                    <td>@string.Format("{0:N2}", item.SumPeakElectricity)</td>
+                                    <td>@string.Format("{0:N2}", item.SumHalfSpikePower)</td>
+                                    <td>@string.Format("{0:N2}", item.SumSaturdayHalfPeak)</td>
+                                    <td>@string.Format("{0:N2}", item.SumOffPeakElectricity)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTotalElectricity)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTotalBillTax)</td>
+                                    <td>@string.Format("{0:N2}", item.SumCarbonPeriod)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -150,9 +150,9 @@
                         <thead>
                             <tr>
                                 <th>廠區</th>
-                                <th>水表口徑</th>
-                                <th>本期指針數</th>
-                                <th>總用度數</th>
+                                <th>水表口徑(mm)</th>
+                                <th>本期指針數(m³)</th>
+                                <th>總用度數(m³)</th>
                                 <th>總水費(含稅)</th>
                                 <th>本期碳排量</th>
                                 <th style="width:150px">係數</th>
@@ -165,10 +165,10 @@
                                 <tr>
                                     <td>@item.Factory</td>
                                     <td>@item.Waterdiameter</td>
-                                    <td>@string.Format("{0:0.##}", item.SumNUMBERPOINTERS)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumTOTALWATER)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumTOTALBILLTAX)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumCARBONPERIOD)</td>
+                                    <td>@string.Format("{0:N2}", item.SumNUMBERPOINTERS)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTOTALWATER)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTOTALBILLTAX)</td>
+                                    <td>@string.Format("{0:N2}", item.SumCARBONPERIOD)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -199,7 +199,7 @@
                                 <th>中間處理方式</th>
                                 <th>廢棄物代碼</th>
                                 <th>申報重量(公噸)</th>
-                                <th>運輸公里</th>
+                                <th>運輸公里(km)</th>
                                 <th>活動數據</th>
                                 <th>排放係數</th>
                                 <th>二氧化碳當量</th>
@@ -213,11 +213,11 @@
                                 <tr>
                                     <td>@item.methods</td>
                                     <td>@item.code</td>
-                                    <td>@string.Format("{0:0.##}", item.SumDECLAREDWEIGHT)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumCKILOMETERS)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumACTIVITYDATA)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumCARBONEMISSIONFACTOR)</td>
-                                    <td>@string.Format("{0:0.##}", item.SumCCARBONDIOXIDE)</td>
+                                    <td>@string.Format("{0:N2}", item.SumDECLAREDWEIGHT)</td>
+                                    <td>@string.Format("{0:N2}", item.SumCKILOMETERS)</td>
+                                    <td>@string.Format("{0:N2}", item.SumACTIVITYDATA)</td>
+                                    <td>@string.Format("{0:N2}", item.SumCARBONEMISSIONFACTOR)</td>
+                                    <td>@string.Format("{0:N2}", item.SumCCARBONDIOXIDE)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
