@@ -1,8 +1,7 @@
 use CPC
 go
 
-drop TABLE INTRA
-
+DROP TABLE IF EXISTS INTRA;
 CREATE TABLE INTRA (
     INT000 VARCHAR(36) NOT NULL,        -- 隨機碼
     INT001 NVARCHAR(50) NOT NULL,       -- 客戶名稱
@@ -29,3 +28,16 @@ CREATE TABLE INTRA (
     PRIMARY KEY(INT000)
 );
 
+DROP TABLE IF EXISTS INTRB;
+CREATE TABLE INTRB (
+    INT000 VARCHAR(36) NOT NULL,             -- 隨機碼
+    INT001 NVARCHAR(50) NOT NULL,           -- 主題
+    INT002 INT,                             -- 訪談記錄別 1=到訪 2=電話 3=通信
+    INT003 NVARCHAR(150),                   -- 檔案網址
+    INT004 TEXT,                            -- 內容
+    INT999 VARCHAR(36) NOT NULL,            -- INTRA-INT000關聯
+    IP NVARCHAR(20),                        -- IP
+    status INT,                             -- 狀態 0=啟用 1=刪除
+    CreateTime DATETIME DEFAULT GETDATE(),  -- 建立時間(自動帶入)
+    PRIMARY KEY (INT000)                    -- 設置主鍵
+);

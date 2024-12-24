@@ -226,10 +226,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WordRender.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\INTRB.cs" />
     <Compile Include="Models\INTRA.cs" />
     <Compile Include="Models\ACPTA.cs" />
     <Compile Include="Models\ACPTB.cs" />
@@ -778,10 +780,13 @@
     <Content Include="Views\Business\InterviewRecordEdit.cshtml" />
     <Content Include="Views\Business\InterviewRecordList.cshtml" />
     <Content Include="Views\Shared\_LayoutBusiness.cshtml" />
+    <Content Include="Views\Business\RecordList.cshtml" />
+    <Content Include="Views\Business\RecordEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="image\Common\ExceptionForm\" />
+    <Folder Include="Views\WordRender\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

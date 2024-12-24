@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<prjWastes6.Models.INTRA>
 
 @{
-    ViewBag.Title = "異常處理單";
+    ViewBag.Title = "客戶訪談記錄";
     Layout = "~/Views/Shared/_LayoutBusiness.cshtml";
 }
 <link rel="stylesheet" href="~/css/style2CPC.css" />
@@ -17,8 +17,8 @@
                     <thead>
                         <tr>
                             <th>編輯</th>
-                            <th>到訪記錄</th>
-                            <th>電話記錄</th>
+                            <th>下載</th>
+                            <th>訪談記錄</th>
                             <th>客戶名稱</th>
                             <th>型態別</th>
                             <th>地址</th>
@@ -41,15 +41,16 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("InterviewRecordEdit", new { INT000 = item.INT000 })">
+                                    <a href="@Url.Action("PrintRecord", new {  INT000 = item.INT000})">
+                                        <img src="~/image/icons/file_download.png" alt="檔案下載" style="width: 20px; height: 20px;" />
+                                    </a>                                    
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("RecordList", new { INT000 = item.INT000 })">
                                         <img src="~/image/icons/history.png" alt="到訪記錄" style="width: 20px; height: 20px;" />
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="@Url.Action("InterviewRecordEdit", new { INT000 = item.INT000 })">
-                                        <img src="~/image/icons/phone.png" alt="電話記錄" style="width: 20px; height: 20px;" />
-                                    </a>
-                                </td>
+
 
                                 <td>@item.INT001</td>
                                 <td>@item.INT002</td>
@@ -61,8 +62,6 @@
                                 <td>@item.INT012/@item.INT013/@item.INT014</td>
                                 <td>@item.INT015/@item.INT016/@item.INT017</td>
                                 <td>@item.INT018</td>
-
-
 
                             </tr>
                         }
@@ -87,11 +86,4 @@
         });
     });
 
-    function triggerFileInput(exc001) {
-        document.getElementById(`fileInput_${exc001}`).click();
-    }
-
-    function uploadFile(exc001) {
-        document.getElementById(`fileForm_${exc001}`).submit();
-    }
 </script>

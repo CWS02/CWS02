@@ -17,6 +17,10 @@ namespace prjWastes6.Models
         /// «È¤á³X½Í°O¿ý
         /// </summary>
         public virtual DbSet<INTRA> INTRA { get; set; }
+        /// <summary>
+        /// ³X½Í°O¿ý
+        /// </summary>
+        public virtual DbSet<INTRB> INTRB { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
