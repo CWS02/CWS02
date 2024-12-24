@@ -66,6 +66,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.FE006)
             </th>
+            <th>總量(公噸)</th>
             <th>
                 @Html.DisplayNameFor(model => model.FE007)
             </th>
@@ -87,7 +88,7 @@
 
 
         </td>
-        <td class="align-right">
+        <td>
 
             @{
                 if (item.FE002.HasValue)
@@ -116,10 +117,20 @@
 
 
         </td>
-        <td class="align-right">
+        <td>
             @Html.DisplayFor(modelItem => item.FE006)
 
 
+        </td>
+        <td>
+            @{
+                if (!string.IsNullOrEmpty(item.FE001) && !item.FE001.Contains("乾粉")
+                    && item.FE002.HasValue && item.FE006.HasValue)
+                {
+                    var result = item.FE002.Value * item.FE006.Value / 1000;
+                    @result.ToString(); 
+                }
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FE007)
@@ -175,14 +186,14 @@
             <td colspan="1" class="align-left">合計</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.FE001))</td>*@
             <td></td>
-            <td class="align-right">@Model.Where(m => m.FE002.HasValue).Sum(m => (int)Math.Floor(m.FE002.Value))</td>
+            <td >@Model.Where(m => m.FE002.HasValue).Sum(m => (int)Math.Floor(m.FE002.Value))</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.FE003))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE004))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE005))</td>*@
             <td></td>
             <td></td>
             <td></td>
-            <td class="align-right">@Model.Where(m => m.FE006.HasValue).Sum(m => m.FE006.Value)</td>
+            <td >@Model.Where(m => m.FE006.HasValue).Sum(m => m.FE006.Value)</td>
             @*
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE007))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE009))</td>*@

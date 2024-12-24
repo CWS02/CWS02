@@ -224,11 +224,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\INTRA.cs" />
     <Compile Include="Models\ACPTA.cs" />
     <Compile Include="Models\ACPTB.cs" />
     <Compile Include="Models\ACTTA.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Models\CombinedHighSpeedRailViewModel.cs" />
     <Compile Include="Models\DataAccess\CommonDAO.cs" />
     <Compile Include="Models\DataAccess\keyenecDAO.cs" />
+    <Compile Include="Models\CPCContext.cs" />
     <Compile Include="Models\HighSpeedRailViewModel.cs" />
     <Compile Include="Models\EMPLOYEE_TRAVEL_ABROAD.cs" />
     <Compile Include="Models\FireExtin.cs" />
@@ -301,6 +304,9 @@
     <Content Include="Content\skin-purple.min.css" />
     <Content Include="Content\skin-red-light.css" />
     <Content Include="Content\skin-red-light.min.css" />
+    <Content Include="css\datatable\dataTables.bootstrap5.min.css" />
+    <Content Include="css\datatable\jquery.dataTables.min.css" />
+    <Content Include="css\style2CPC.css" />
     <Content Include="css\style2.css" />
     <Content Include="css\style1.css" />
     <Content Include="favicon.ico" />
@@ -539,6 +545,22 @@
     <Content Include="Images\10PCO2滅火器標示牌.jpg" />
     <Content Include="Images\10P乾粉滅火器標示牌.jpg" />
     <Content Include="Images\20P乾粉滅火器標示牌.jpg" />
+    <Content Include="image\Icons\add.png" />
+    <Content Include="image\Icons\analytics.png" />
+    <Content Include="image\Icons\back.png" />
+    <Content Include="image\Icons\build.png" />
+    <Content Include="image\Icons\check.png" />
+    <Content Include="image\Icons\delete.png" />
+    <Content Include="image\Icons\done.png" />
+    <Content Include="image\Icons\edit.png" />
+    <Content Include="image\Icons\file_download.png" />
+    <Content Include="image\Icons\file_upload.png" />
+    <Content Include="image\Icons\history.png" />
+    <Content Include="image\Icons\info.png" />
+    <Content Include="image\Icons\phone.png" />
+    <Content Include="image\Icons\setting.png" />
+    <Content Include="image\Icons\warning.png" />
+    <Content Include="image\WorkSafety\test.jpg" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\Gruntfile.js" />
@@ -593,6 +615,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\less\datetimepicker.less" />
+    <Content Include="Scripts\datatable\buttons.html5.min.js" />
+    <Content Include="Scripts\datatable\dataTables.buttons.min.js" />
+    <Content Include="Scripts\datatable\jquery.dataTables.min.js" />
+    <Content Include="Scripts\datatable\jszip.min.js" />
     <Content Include="Scripts\font-awesome\.bower.json" />
     <Content Include="Scripts\font-awesome\.gitignore" />
     <Content Include="Scripts\font-awesome\.npmignore" />
@@ -632,6 +658,7 @@
     <Content Include="Scripts\font-awesome\scss\_stacked.scss" />
     <Content Include="Scripts\font-awesome\scss\_variables.scss" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="image\WorkSafety\Inspection\Thumbs.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />
@@ -675,6 +702,7 @@
     <Content Include="Scripts\Utility\Message.js" />
     <Content Include="Scripts\Utility\MyUtility.js" />
     <Content Include="Scripts\valid.js" />
+    <Content Include="Scripts\vue3\vue.min.js" />
     <Content Include="Scripts\vue\vue.js" />
     <Content Include="Scripts\vue\vue.min.js" />
     <Content Include="templates\10PCO2滅火器標示牌.jpg" />
@@ -747,9 +775,13 @@
     <Content Include="Views\Shared\_LayoutMember2.cshtml" />
     <Content Include="Views\Home\SGS_Parameter.cshtml" />
     <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
+    <Content Include="Views\Business\InterviewRecordEdit.cshtml" />
+    <Content Include="Views\Business\InterviewRecordList.cshtml" />
+    <Content Include="Views\Shared\_LayoutBusiness.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="image\Common\ExceptionForm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

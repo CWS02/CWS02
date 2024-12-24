@@ -183,7 +183,7 @@ namespace prjWastes6.Controllers
 
     }*/
  
-        public ActionResult List(DateTime? startDate = null, DateTime? endDate = null)
+        public ActionResult List(DateTime? startDate = null, DateTime? endDate = null,string scrapCode="")
         {
             if (Session["Member"] == null)
             {
@@ -198,8 +198,10 @@ namespace prjWastes6.Controllers
 
             if (endDate.HasValue)
                 query = query.Where(x => x.REMOVAL_DATE <= endDate.Value);
-
-
+            if(scrapCode!="")
+            {
+                query = query.Where(x => x.SCRAP_CODE == scrapCode);
+            }
             var ESGs = query.ToList();
 
             decimal totalCarbonDioxide = ESGs
@@ -493,7 +495,20 @@ namespace prjWastes6.Controllers
 
                 return View(query);
             }
-            
+            else if (search.category == "fireextin")
+            {
+                var query = _db.FireExtin
+                    .Where(x => x.FE004 ==search.factory)
+                    .GroupBy(x => x.FE004)
+                    .Select(g => new FireExtinViewModel
+                    {
+                        Factory = search.factory,
+                        SumFE002 = g.Sum(x => x.FE002),
+                        SumFE006 = g.Sum(x => x.FE006),
+                    }).ToList();
+
+                return View(query);
+            }
             return View();
         }
 

@@ -76,6 +76,11 @@ namespace prjWastes6.Models
         public decimal? SumACTIVITYDATA { get; set; }
         public decimal? SumCARBONEMISSIONFACTOR { get; set; }
         public decimal? SumCCARBONDIOXIDE { get; set; }
-
+    }
+    public class FireExtinViewModel
+    {
+        public string Factory { get; set; }
+        public decimal? SumFE002 { get; set; }
+        public decimal? SumFE006 { get; set; }
     }
 }

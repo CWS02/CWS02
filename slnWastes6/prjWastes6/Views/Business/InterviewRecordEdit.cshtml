@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "異常處理單";
+    Layout = "~/Views/Shared/_LayoutBusiness.cshtml";
+}
+
+<style>
+    .form-label {
+        text-align: left;
+        margin-bottom: 5px;
+        width: 100%;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+
+    .form-check {
+        text-align: left;
+        margin-bottom: 5px;
+        width: 100%;
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+    }
+
+    .col-md-4 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-control {
+        margin: 0 auto;
+        display: block;
+        width: 100%;
+        max-width: 80%;
+        margin-bottom: 15px;
+    }
+
+    .red-text {
+        color: red;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .text-center button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .language-switch button {
+        margin: 5px;
+    }
+
+    #language-toggle {
+        margin-top: 20px;
+    }
+
+    .language-btn {
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 5px;
+        font-weight: bold;
+    }
+
+        .language-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .language-btn.active {
+            background-color: #28a745;
+        }
+
+        .language-btn:focus {
+            outline: none;
+        }
+</style>
+
+<div id="app" class="container">
+    <!-- 語言切換按鈕 -->
+    <div class="language-switch">
+        <button v-on:click="switchLanguage('zh')" class="language-btn">中文</button>
+        <button v-on:click="switchLanguage('en')" class="language-btn">English</button>
+    </div>
+    <div class="title">{{ currentLanguage === 'zh' ? '客戶訪談記錄' : 'Customer Interview Record' }}</div>
+
+
+    <form v-on:submit.prevent="submitForm" method="post" action="@Url.Action("InterviewRecordEdit", new { IsUpdate = ViewBag.IsUpdate })">
+
+        <input type="hidden" name="INT000" v-model="formData.INT000" />
+        <div class="row">
+            <div class="col-md-4">
+                <label for="INT001" class="form-label">{{ currentLanguage === 'zh' ? '客戶名稱' : 'Customer Name' }}<span class="red-text">*</span></label>
+                <input type="text" class="form-control" name="INT001" v-model="formData.INT001" maxlength="30" required />
+            </div>
+
+            <div class="col-md-4">
+                <label for="INT002" class="form-label">{{ currentLanguage === 'zh' ? '型態別' : 'Type' }}<span class="red-text">*</span></label>
+                <div v-for="(label, value) in typeOptions" :key="value" class="form-check">
+                    <input class="form-check-input" type="radio" :value="value" name="INT002" v-model="formData.INT002" required />
+                    <label class="form-check-label">{{ currentLanguage === 'zh' ? label.zh : label.en }}</label>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="INT003" class="form-label">{{ currentLanguage === 'zh' ? '地址' : 'Address' }}<span class="red-text">*</span></label>
+                <input type="text" class="form-control" name="INT003" v-model="formData.INT003" required />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="INT004" class="form-label">{{ currentLanguage === 'zh' ? '電話' : 'TEL' }}<span class="red-text">*</span></label>
+                <input type="text" class="form-control" name="INT004" v-model="formData.INT004" required />
+            </div>
+            <div class="col-md-4">
+                <label for="INT005" class="form-label">{{ currentLanguage === 'zh' ? '傳真' : 'FAX' }}</label>
+                <input type="text" class="form-control" name="INT005" v-model="formData.INT005" />
+            </div>
+            <div class="col-md-4">
+                <label for="INT006" class="form-label">{{ currentLanguage === 'zh' ? '國家' : 'Country' }}<span class="red-text">*</span></label>
+                <input type="text" class="form-control" name="INT006" v-model="formData.INT006" required />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label for="INT007" class="form-label">{{ currentLanguage === 'zh' ? '區域' : 'Region' }}<span class="red-text">*</span></label>
+                <input type="text" class="form-control" name="INT007" v-model="formData.INT007" required />
+            </div>
+            <div class="col-md-4">
+                <label for="INT008" class="form-label">{{ currentLanguage === 'zh' ? '訪談時間' : 'Interview Time' }}<span class="red-text">*</span></label>
+                <input type="date" class="form-control" name="INT008" v-model="formData.INT008" required />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4" v-for="(label, key) in contactFields" :key="key">
+                <label :for="key" class="form-label">{{ currentLanguage === 'zh' ? label.zh : label.en }}</label>
+                <input type="text" class="form-control" :name="key" v-model="formData[key]" />
+            </div>
+        </div>
+
+        <div class="row col-12">
+            <label for="INT018" class="form-label">{{ currentLanguage === 'zh' ? '內容' : 'Content' }}<span class="red-text">*</span></label>
+            <textarea class="form-control" name="INT018" v-model="formData.INT018" rows="5" required></textarea>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">{{ currentLanguage === 'zh' ? '送出' : 'Submit' }}</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    currentLanguage: 'zh',
+                   formData: @Html.Raw(Json.Encode(Model)),
+                    typeOptions: {
+                        A: { zh: "設備製造業", en: "Equipment Manufacturing" },
+                        B: { zh: "設備代理業", en: "Equipment Agency" },
+                        C: { zh: "使用者", en: "User" },
+                        D: { zh: "使用者自製設備", en: "User-Made Equipment" },
+                        E: { zh: "其他", en: "Other" }
+                    },
+                    contactFields: {
+                        INT009: { zh: "接洽人", en: "Contact Person" },
+                        INT010: { zh: "職稱", en: "Title" },
+                        INT011: { zh: "分機", en: "Extension" },
+                        INT012: { zh: "接洽人2", en: "Contact Person 2" },
+                        INT013: { zh: "職稱2", en: "Title 2" },
+                        INT014: { zh: "分機2", en: "Extension 2" },
+                        INT015: { zh: "接洽人3", en: "Contact Person 3" },
+                        INT016: { zh: "職稱3", en: "Title 3" },
+                        INT017: { zh: "分機3", en: "Extension 3" }
+                    }
+                };
+            },
+            methods: {
+                switchLanguage(language) {
+                    this.currentLanguage = language;
+                },
+                submitForm() {
+                    const isConfirmed = window.confirm(this.currentLanguage === 'zh' ? "資料是否無誤？" : "Is the data correct?");
+                    if (isConfirmed) {
+                        const form = document.querySelector('form');
+                        form.submit();
+                    }
+                }
+            }
+        });
+        app.mount('#app');
+    </script>
+}
