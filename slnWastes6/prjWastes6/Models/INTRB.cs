@@ -39,8 +39,17 @@ namespace prjWastes6.Models
         /// </summary>
         public string INT004 { get; set; }
         /// <summary>
+        /// 訪談時間
+        /// </summary>
+        public string INT005 { get; set; }
+        /// <summary>
+        /// 主管回覆欄
+        /// </summary>
+        public string INT006 { get; set; }
+        /// <summary>
         /// IP
         /// </summary>
+        [ForeignKey("INTRA")]
         [StringLength(36)]
         public string INT999 { get; set; }
         /// <summary>
@@ -51,14 +60,16 @@ namespace prjWastes6.Models
 
         /// <summary>
         /// 狀態
-        /// 0=啟用, 1=刪除
+        /// 0=未審核,1=已審核 2=刪除
         /// </summary>
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// 建立時間 (自動帶入)
         /// </summary>
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreateTime { get; set; }
+
+        public virtual INTRA INTRA { get; set; }
     }
 }

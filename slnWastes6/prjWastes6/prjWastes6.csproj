@@ -224,9 +224,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BusinessController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\WordRender.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -547,22 +545,6 @@
     <Content Include="Images\10PCO2滅火器標示牌.jpg" />
     <Content Include="Images\10P乾粉滅火器標示牌.jpg" />
     <Content Include="Images\20P乾粉滅火器標示牌.jpg" />
-    <Content Include="image\Icons\add.png" />
-    <Content Include="image\Icons\analytics.png" />
-    <Content Include="image\Icons\back.png" />
-    <Content Include="image\Icons\build.png" />
-    <Content Include="image\Icons\check.png" />
-    <Content Include="image\Icons\delete.png" />
-    <Content Include="image\Icons\done.png" />
-    <Content Include="image\Icons\edit.png" />
-    <Content Include="image\Icons\file_download.png" />
-    <Content Include="image\Icons\file_upload.png" />
-    <Content Include="image\Icons\history.png" />
-    <Content Include="image\Icons\info.png" />
-    <Content Include="image\Icons\phone.png" />
-    <Content Include="image\Icons\setting.png" />
-    <Content Include="image\Icons\warning.png" />
-    <Content Include="image\WorkSafety\test.jpg" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\Gruntfile.js" />
@@ -660,7 +642,6 @@
     <Content Include="Scripts\font-awesome\scss\_stacked.scss" />
     <Content Include="Scripts\font-awesome\scss\_variables.scss" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="image\WorkSafety\Inspection\Thumbs.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />
@@ -777,16 +758,10 @@
     <Content Include="Views\Shared\_LayoutMember2.cshtml" />
     <Content Include="Views\Home\SGS_Parameter.cshtml" />
     <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
-    <Content Include="Views\Business\InterviewRecordEdit.cshtml" />
-    <Content Include="Views\Business\InterviewRecordList.cshtml" />
     <Content Include="Views\Shared\_LayoutBusiness.cshtml" />
-    <Content Include="Views\Business\RecordList.cshtml" />
-    <Content Include="Views\Business\RecordEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="image\Common\ExceptionForm\" />
-    <Folder Include="Views\WordRender\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

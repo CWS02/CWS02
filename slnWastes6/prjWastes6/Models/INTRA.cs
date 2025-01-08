@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,70 +55,65 @@ namespace prjWastes6.Models
         /// </summary>
         [StringLength(50)]
         public string INT007 { get; set; }
-        /// <summary>
-        /// 訪談時間
-        /// </summary>
-        [StringLength(50)]
-        public string INT008 { get; set; }
 
         /// <summary>
         /// 接洽人1
         /// </summary>
         [StringLength(50)]
-        public string INT009 { get; set; }
+        public string INT008 { get; set; }
 
         /// <summary>
         /// 職稱1
         /// </summary>
         [StringLength(50)]
-        public string INT010 { get; set; }
+        public string INT009 { get; set; }
 
         /// <summary>
         /// 分機1
         /// </summary>
         [StringLength(50)]
-        public string INT011 { get; set; }
+        public string INT010 { get; set; }
 
         /// <summary>
         /// 接洽人2
         /// </summary>
         [StringLength(50)]
-        public string INT012 { get; set; }
+        public string INT011 { get; set; }
 
         /// <summary>
         /// 職稱2
         /// </summary>
         [StringLength(50)]
-        public string INT013 { get; set; }
+        public string INT012 { get; set; }
 
         /// <summary>
         /// 分機2
         /// </summary>
         [StringLength(50)]
-        public string INT014 { get; set; }
+        public string INT013 { get; set; }
 
         /// <summary>
         /// 接洽人3
         /// </summary>
         [StringLength(50)]
-        public string INT015 { get; set; }
+        public string INT014 { get; set; }
 
         /// <summary>
         /// 職稱3
         /// </summary>
         [StringLength(50)]
-        public string INT016 { get; set; }
+        public string INT015 { get; set; }
 
         /// <summary>
         /// 分機3
         /// </summary>
         [StringLength(50)]
-        public string INT017 { get; set; }
+        public string INT016 { get; set; }
 
         /// <summary>
         /// 內容
         /// </summary>
-        public string INT018 { get; set; }
+        public string INT017 { get; set; }
         /// <summary>
         /// IP
         /// </summary>
@@ -134,5 +130,10 @@ namespace prjWastes6.Models
         /// </summary>
         [NotMapped]
         public DateTime CreateTime { get; set; }
+        [JsonIgnore] 
+        public virtual ICollection<INTRB> INTRBs { get; set; }
+
+        [NotMapped]
+        public DateTime LastDate { get; set; }
     }
 }

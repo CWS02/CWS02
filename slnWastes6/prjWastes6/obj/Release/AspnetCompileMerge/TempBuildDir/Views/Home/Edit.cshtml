@@ -315,27 +315,27 @@
         </div>*@
 
         @*20240415在框中顯示千位分隔符號(例如"1,000")的格式*@
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.ACTIVITY_DATA, htmlAttributes: new { @class = "control-label" })
             @Html.EditorFor(model => model.ACTIVITY_DATA, new { htmlAttributes = new { @class = "form-control numeric-input align-right" } })
             @Html.ValidationMessageFor(model => model.ACTIVITY_DATA, "", new { @class = "text-danger" })
         </div>
+        @*
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CARBON_EMISSION_FACTOR, htmlAttributes: new { @class = "control-label" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CARBON_EMISSION_FACTOR, htmlAttributes: new { @class = "control-label" })
+                    @{
+                        var listItemsCARBON_EMISSION_FACTOR = new List<SelectListItem>
+        {
+                            new SelectListItem { Text = "7.07", Value = "7.07", Selected = true },
+                            new SelectListItem { Text = "737", Value = "737" }
+                        };
+                    }
+                    @Html.DropDownList("CARBON_EMISSION_FACTOR", listItemsCARBON_EMISSION_FACTOR, htmlAttributes: new { @class = "form-control" })
 
-            @{
-                var listItemsCARBON_EMISSION_FACTOR = new List<SelectListItem>
-{
-                    new SelectListItem { Text = "7.07", Value = "7.07", Selected = true },
-                    new SelectListItem { Text = "737", Value = "737" }
-                };
-            }
-            @Html.DropDownList("CARBON_EMISSION_FACTOR", listItemsCARBON_EMISSION_FACTOR, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CARBON_EMISSION_FACTOR, "", new { @class = "text-danger" })
 
-            @Html.ValidationMessageFor(model => model.CARBON_EMISSION_FACTOR, "", new { @class = "text-danger" })
-
-        </div>*@
+                </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.CARBON_DIOXIDE, htmlAttributes: new { @class = "control-label" })
@@ -345,14 +345,14 @@
 
         </div>*@
         @*20240415在框中顯示千位分隔符號(例如"1,000")的格式*@
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.CARBON_DIOXIDE, htmlAttributes: new { @class = "control-label" })
             @Html.EditorFor(model => model.CARBON_DIOXIDE, new { htmlAttributes = new { @class = "form-control numeric-input align-right" } })
             @Html.ValidationMessageFor(model => model.CARBON_DIOXIDE, "", new { @class = "text-danger" })
-        </div>
+        </div>*@
 
         <!-- **** 20240327加入輸入傳票號碼**** -->
-        <div class="form-group" ,>
+        <div class="form-group">
             @Html.LabelFor(model => model.VOUCHER_NUMBER, htmlAttributes: new { @class = "control-label" })
 
             @Html.EditorFor(model => model.VOUCHER_NUMBER, new { htmlAttributes = new { @class = "form-control align-right" } })
@@ -407,4 +407,3 @@
             @Html.ActionLink("Back to List", "Index")
         </div>*@
 </body>
-</html>

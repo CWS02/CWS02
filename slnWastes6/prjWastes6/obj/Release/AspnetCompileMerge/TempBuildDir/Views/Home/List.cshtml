@@ -106,22 +106,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.KILOMETERS)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.ACTIVITY_DATA)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CARBON_EMISSION_FACTOR)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.CARBON_DIOXIDE)
-            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.CARBON_EMISSION_FACTOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CARBON_DIOXIDE)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.VOUCHER_NUMBER)
             </th>
             @*
-            <th>
-                秤重照片:上傳(最大2MB)
-            </th>*@
+        <th>
+            秤重照片:上傳(最大2MB)
+        </th>*@
 
             <th></th>
         </tr>
@@ -198,30 +198,30 @@
             <td class="align-right">
                 @Html.DisplayFor(modelItem => item.KILOMETERS)
             </td>
-            @*<td class="align-right">
+            <td class="align-right">
                 @Html.DisplayFor(modelItem => item.ACTIVITY_DATA)
             </td>
-            <td class="align-right">
-                @Html.DisplayFor(modelItem => item.CARBON_EMISSION_FACTOR)
-            </td>*@
-            <td class="align-right">
-                @Html.DisplayFor(modelItem => item.CARBON_DIOXIDE)
-            </td>
+            @*<td class="align-right">
+            @Html.DisplayFor(modelItem => item.CARBON_EMISSION_FACTOR)
+        </td>*@
+            @*<td class="align-right">
+            @Html.DisplayFor(modelItem => item.CARBON_DIOXIDE)
+        </td>*@
             <td class="align-right">
                 @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
             </td>
 
             @*
-            <td>
-                @if (item.PDF_CONTENT != null && item.PDF_CONTENT.Length > 0)
-                {
-                    <a href="@Url.Action("GetPdfFile2", "Home", new { id = item.DOCUMENT_ID })" target="_blank">檢視 PDF 檔案</a>
-                }
-                else
-                {
-                    <span>沒有上傳 PDF 檔案</span>
-                }
-            </td>*@
+        <td>
+            @if (item.PDF_CONTENT != null && item.PDF_CONTENT.Length > 0)
+            {
+                <a href="@Url.Action("GetPdfFile2", "Home", new { id = item.DOCUMENT_ID })" target="_blank">檢視 PDF 檔案</a>
+            }
+            else
+            {
+                <span>沒有上傳 PDF 檔案</span>
+            }
+        </td>*@
 
             <td>
                 @Html.ActionLink("修改", "Edit", new { id = item.DOCUMENT_ID })
