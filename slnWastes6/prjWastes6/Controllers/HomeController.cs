@@ -498,8 +498,8 @@ namespace prjWastes6.Controllers
             else if (search.category == "fireextin")
             {
                 var query = _db.FireExtin
-                    .Where(x => x.FE004 ==search.factory)
-                    .GroupBy(x => x.FE004)
+                    .Where(x => x.FE010 ==search.factory)
+                    .GroupBy(x => x.FE010)
                     .Select(g => new FireExtinViewModel
                     {
                         Factory = search.factory,
@@ -516,26 +516,26 @@ namespace prjWastes6.Controllers
         public JsonResult SGS_ParameterDelete(SGS_Parameter model, string password,string code)
         {
             var codes = code.Split(',').ToList();
-            bool correct = _CommonDAO.CheckPassword(codes, password);
-            if (correct)
+            var user = _db.tMember.FirstOrDefault(p => p.fPwd == password);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "密碼錯誤" });
+            }
+            else
             {
                 model = _db.SGS_Parameter.Find(model.PAR000);
                 model.PAR007 = 1;
                 try
                 {
                     _db.SaveChanges();
+                    return Json(new { success = true, message = "刪除成功" });
                 }
                 catch
                 {
                     return Json(new { success = false, message = "刪除失敗" });
                 }
             }
-            else
-            {
-                return Json(new { success = false, message = "帳號密碼錯誤" });
 
-            }
-            return Json(new { success = true, message = "刪除成功" });
         }
 
         [AllowAnonymous]
@@ -3882,7 +3882,12 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             return View(coldCoals.ToList());
         }
-        
-        
+
+        [HttpGet]
+        public ActionResult WD40List(WD40A model)
+        {
+
+            return View(model);
+        }
     }
 }

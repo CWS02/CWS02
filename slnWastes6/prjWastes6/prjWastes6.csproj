@@ -283,6 +283,7 @@
     <Compile Include="Models\WASTES.cs" />
     <Compile Include="Models\WASTES_BURY.cs" />
     <Compile Include="Models\WASTES_INCINERATION.cs" />
+    <Compile Include="Models\WD40A.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -758,7 +759,6 @@
     <Content Include="Views\Shared\_LayoutMember2.cshtml" />
     <Content Include="Views\Home\SGS_Parameter.cshtml" />
     <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
-    <Content Include="Views\Shared\_LayoutBusiness.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

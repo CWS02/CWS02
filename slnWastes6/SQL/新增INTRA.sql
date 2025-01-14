@@ -45,6 +45,7 @@ CREATE TABLE INTRB (
     INT005 VARCHAR(20),                     -- 訪談時間
     INT006 TEXT,                            -- 主管回覆欄
     INT007 NVARCHAR(50),                    -- 專案名稱
+
     INT999 VARCHAR(36) NOT NULL,            -- INTRA-INT000關聯
     IP NVARCHAR(20),                        -- IP
     status INT,                             -- 狀態 0=未審核,1=已審核 2=刪除
@@ -53,17 +54,3 @@ CREATE TABLE INTRB (
     PRIMARY KEY (INT000)                    -- 設置主鍵
 );
 
-CREATE TABLE INTRC (
-    INT000 VARCHAR(36) NOT NULL,          -- 隨機碼
-    INT001 NVARCHAR(50) ,           	  -- 客戶料號
-    INT002 NVARCHAR(50) ,           	  -- 邊距1
-    INT003 NVARCHAR(50) ,           	  -- 邊距2
-    INT004 NVARCHAR(50) ,           	  -- 單位
-    INT005 NVARCHAR(50) ,           	  -- 數量
-    INT006 NVARCHAR(50) ,           	  -- 單價
-    INT999 VARCHAR(36) NOT NULL,          -- INTRA-INT000關聯
-    IP NVARCHAR(20),                      -- IP
-    status INT,                           -- 狀態 0=未審核,1=已審核 2=刪除
-    CreateTime DATETIME DEFAULT GETDATE(),-- 建立時間(自動帶入)
-    PRIMARY KEY (INT000)                  -- 設置主鍵
-);

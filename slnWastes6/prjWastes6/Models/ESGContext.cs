@@ -68,6 +68,8 @@ namespace prjWastes6.Models
 
         public virtual DbSet<SGS_Parameter> SGS_Parameter { get; set; }
 
+        public virtual DbSet<WD40A> WD40A { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tMember>()
