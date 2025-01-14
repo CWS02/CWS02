@@ -43,6 +43,7 @@ namespace prjWastes6.Models
         public string waterdiameter { get; set; }
         public string methods { get; set; } 
         public string code { get; set; } 
+        public string content { get; set; }
     }
     public class ElectricitySummaryViewModel
     {
@@ -80,7 +81,9 @@ namespace prjWastes6.Models
     public class FireExtinViewModel
     {
         public string Factory { get; set; }
+        public string content { get; set; }
         public decimal? SumFE002 { get; set; }
-        public decimal? SumFE006 { get; set; }
+        public decimal? Sumton { get; set; }
+        public decimal? Sumkg { get; set; }
     }
 }

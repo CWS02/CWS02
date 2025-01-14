@@ -498,14 +498,24 @@ namespace prjWastes6.Controllers
             else if (search.category == "fireextin")
             {
                 var query = _db.FireExtin
-                    .Where(x => x.FE010 ==search.factory)
-                    .GroupBy(x => x.FE010)
+                    .Where(x => x.FE010 == search.factory && x.FE005 == search.content)
+                    .GroupBy(x => new { x.FE010, x.FE005 })
                     .Select(g => new FireExtinViewModel
                     {
-                        Factory = search.factory,
+                        Factory = g.Key.FE010,
+                        content = g.Key.FE005,
                         SumFE002 = g.Sum(x => x.FE002),
-                        SumFE006 = g.Sum(x => x.FE006),
-                    }).ToList();
+                        Sumton = g.Sum(x =>
+                            (x.FE001 != null && !x.FE001.Contains("乾粉") && x.FE002.HasValue && x.FE006.HasValue)
+                            ? (x.FE002.Value * x.FE006.Value / 1000)
+                            : 0),
+                        Sumkg = g.Sum(x =>
+                            (x.FE001 != null && !x.FE001.Contains("乾粉") && x.FE002.HasValue && x.FE006.HasValue)
+                            ? (x.FE002.Value * x.FE006.Value)
+                            : 0)
+                    })
+                    .ToList();
+
 
                 return View(query);
             }
