@@ -3892,12 +3892,94 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             return View(coldCoals.ToList());
         }
-
+        #region WD40
+        [AllowAnonymous]
         [HttpGet]
-        public ActionResult WD40List(WD40A model)
+        public ActionResult WD40List(SGS_Search search)
         {
+            var query = _db.WD40A.Where(x => x.Status == 0);
+
+            if (search.startdate != null && search.enddate != null)
+            {
+                string startDate = search.startdate.Value.ToString("yyyyMMdd");
+                string endDate = search.enddate.Value.ToString("yyyyMMdd");
+
+                query = query.Where(x => string.Compare(x.WD004, startDate) >= 0 &&
+                                string.Compare(x.WD004, endDate) <= 0);
+            }
+
+            var model = query.OrderByDescending(x => x.WD004).ToList();
 
             return View(model);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult WD40Edit(WD40A model)
+        {
+            ViewBag.IsUpdate = false; 
+            model = _db.WD40A.FirstOrDefault(x => x.WD000 == model.WD000); 
+            if (model != null)
+            {
+                ViewBag.IsUpdate = true; 
+            }
+            return View(model); 
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult WD40Edit(WD40A model, bool IsUpdate = false)
+        {
+            if (IsUpdate)
+            {
+                var old = _db.WD40A.Find(model.WD000);
+
+                _db.Entry(old).CurrentValues.SetValues(model);
+            }
+            else
+            {
+                model.WD000 = Guid.NewGuid().ToString("N");  
+                model.IP = Request.UserHostAddress;
+                model.Status = 0;
+                _db.WD40A.Add(model);
+            }
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return RedirectToAction("WD40List", "Home");  
+        }
+
+        [AllowAnonymous]
+        public JsonResult WD40Delete(WD40A model, string password)
+        {
+            var user = _db.tMember.FirstOrDefault(p => p.fPwd == password);
+            if (user == null)
+            {
+                return Json(new { success = false, message = "密碼錯誤" });
+            }
+            else
+            {
+                model = _db.WD40A.Find(model.WD000);
+                model.Status = 1;
+                try
+                {
+                    _db.SaveChanges();
+                    return Json(new { success = true, message = "刪除成功" });
+                }
+                catch
+                {
+                    return Json(new { success = false, message = "刪除失敗" });
+                }
+            }
+
+        }
+        #endregion
     }
 }

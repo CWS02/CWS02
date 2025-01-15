@@ -2,7 +2,7 @@
     go
     drop TABLE if EXISTS WD40A
     CREATE TABLE WD40A (
-    WD000 VARCHAR(50) NOT NULL UNIQUE,      -- 唯一碼
+    WD000 CHAR(32) NOT NULL DEFAULT (REPLACE(NEWID(), '-', '')),  -- 唯一碼
     WD001 VARCHAR(50),                      -- 採購單
     WD002 VARCHAR(50),                      -- 進貨單
     WD003 NVARCHAR(50),                     -- 供應廠

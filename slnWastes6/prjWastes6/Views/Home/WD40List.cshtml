@@ -1,0 +1,146 @@
+﻿@model IEnumerable<prjWastes6.Models.WD40A>
+
+@{
+    Layout = "~/Views/Shared/_LayoutMember2.cshtml";
+    ViewBag.Title = "WD40";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/style3.css" />
+</head>
+
+
+<form method="get" class="form-inline justify-content-center mb-4">
+    <h2 class="text-center" style="margin-top:50px">WD40</h2>
+
+    <div class="form-group mr-5">
+        <label for="startdate" class="mr-3">開始時間:</label>
+        <input type="date" name="startdate" class="form-control" value="@Request.QueryString["startdate"]" />
+        <label for="enddate" class="mr-3">結束時間:</label>
+        <input type="date" name="enddate" class="form-control" value="@Request.QueryString["enddate"]" />
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary btn-spacing" type="submit">搜索</button>
+        <a class="btn btn-success btn-spacing" href="@Url.Action("WD40Edit","Home")">新增</a>
+
+    </div>
+</form>
+
+<br />
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive" style="overflow-x: auto;">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>序</th>
+                        <th>@Html.DisplayNameFor(model => model.WD001)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD002)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD003)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD004)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD005)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD006)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD007)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD008)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD009)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD010)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD011)</th>
+                        <th>@Html.DisplayNameFor(model => model.WD012)</th>
+                        <th>刪除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var (item, index) in Model.Select((value, idx) => (value, idx + 1)))
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@item.WD001</td>
+                            <td>@item.WD002</td>
+                            <td>@item.WD003</td>
+                            <td>@item.WD004</td>
+                            <td>@item.WD005</td>
+                            <td>@item.WD006</td>
+                            <td>@item.WD007</td>
+                            <td>@item.WD008</td>
+                            <td>@item.WD009</td>
+                            <td>@item.WD010</td>
+                            <td>@item.WD011</td>
+                            <td>@item.WD012</td>
+                            <td>
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#passwordModal"
+                                        data-wd000="@item.WD000">
+                                    刪除
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordModalLabel">刪除確認</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="passwordForm">
+                <div class="modal-body">
+                    <input type="hidden" id="WD000" name="WD000" />
+                    <div class="form-group">
+                        <label for="password">輸入密碼以確認刪除：</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">確認刪除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#passwordModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var wd000 = button.data('wd000');
+            var modal = $(this);
+            modal.find('#WD000').val(wd000);
+        });
+
+        $('#passwordForm').on('submit', function (event) {
+            event.preventDefault();
+
+            var wd000 = $('#WD000').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url: '@Url.Action("WD40Delete", "Home")',
+                type: 'POST',
+                data: { WD000: wd000, password: password },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                        location.reload();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("發生錯誤，請稍後再試");
+                }
+            });
+
+            $('#passwordModal').modal('hide');
+        });
+    });
+</script>

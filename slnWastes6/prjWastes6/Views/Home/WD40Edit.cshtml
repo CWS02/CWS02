@@ -1,0 +1,143 @@
+﻿@model prjWastes6.Models.WD40A
+@{
+    Layout = "~/Views/Shared/_LayoutMember2.cshtml";
+    ViewBag.Title = "WD40";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/style2.css" />
+</head>
+
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="passwordForm" method="post" action="@Url.Action("SGS_ParameterDelete", "Home")">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password">請輸入密碼</label>
+                        <input type="password" class="form-control" id="password" name="password" required />
+                        <input type="hidden" id="PAR000" name="PAR000" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">確定刪除</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="app" class="container" style="margin-top: 50px;">
+    <h2 class="text-center">{{ isUpdate ? '編輯WD40' : '新增WD40' }}</h2>
+
+    <form ref="form" :action="formAction" method="post" enctype="multipart/form-data" v-on:submit.prevent="submitForm">
+        <input type="hidden" name="WD000" v-model="model.WD000" />
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD001">採購單</label><span style="color:red">*</span>
+                    <input type="text" class="form-control" name="WD001" v-model="model.WD001" required />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD002">進貨單</label>
+                    <input type="text" class="form-control" name="WD002" v-model="model.WD002" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD003">供應廠</label>
+                    <input type="text" class="form-control" name="WD003" v-model="model.WD003" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD004">日期</label>
+                    <input type="text" class="form-control" name="WD004" v-model="model.WD004" placeholder="ex:20240101"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD005">品號</label>
+                    <input type="text" class="form-control" name="WD005" v-model="model.WD005" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD006">品名</label>
+                    <input type="text" class="form-control" name="WD006" v-model="model.WD006" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD007">已交量</label>
+                    <input type="text" class="form-control" name="WD007" v-model="model.WD007" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD008">交期</label>
+                    <input type="text" class="form-control" name="WD008" v-model="model.WD008" placeholder="ex:20240101"  />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD009">內容量(克/罐)</label>
+                    <input type="text" class="form-control" name="WD009" v-model="model.WD009" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD010">重量(克)</label>
+                    <input type="text" class="form-control" name="WD010" v-model="model.WD010" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD011">二氧化碳占比%</label>
+                    <input type="text" class="form-control" name="WD011" v-model="model.WD011" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="WD012">二氧化碳重量(克)</label>
+                    <input type="text" class="form-control" name="WD012" v-model="model.WD012" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-center mt-3 mb-3">
+                <button id="submitBtn" type="submit" class="btn btn-primary">{{ isUpdate ? '儲存' : '儲存' }}</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        model: @Html.Raw(Json.Encode(Model ?? new prjWastes6.Models.WD40A())),
+        isUpdate: @ViewBag.IsUpdate.ToString().ToLower() === 'true', 
+        formAction: '@Url.Action("WD40Edit", "Home")',
+    },
+    methods: {       
+        submitForm() {
+            this.$refs.form.submit();
+        }
+    }
+
+});
+</script>

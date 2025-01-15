@@ -119,9 +119,9 @@
                                 <th>半尖峰<br />用電度數(kWh)</th>
                                 <th>週六半尖峰<br />用電度數(kWh)</th>
                                 <th>離峰<br />用電度數(kWh)</th>
-                                <th>總用電數(kWh)</th>
                                 <th>總費用(含稅)</th>
                                 <th>本期碳排量</th>
+                                <th>總用電數(kWh)</th>
                                 <th style="width:150px">係數</th>
                                 <th style="width:150px">計算結果</th>
                             </tr>
@@ -135,9 +135,9 @@
                                     <td>@string.Format("{0:N2}", item.SumHalfSpikePower)</td>
                                     <td>@string.Format("{0:N2}", item.SumSaturdayHalfPeak)</td>
                                     <td>@string.Format("{0:N2}", item.SumOffPeakElectricity)</td>
-                                    <td>@string.Format("{0:N2}", item.SumTotalElectricity)</td>
                                     <td>@string.Format("{0:N2}", item.SumTotalBillTax)</td>
                                     <td>@string.Format("{0:N2}", item.SumCarbonPeriod)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTotalElectricity)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -169,9 +169,9 @@
                                 <th>廠區</th>
                                 <th>水表口徑(mm)</th>
                                 <th>本期指針數</th>
-                                <th>總用度數(m³)</th>
                                 <th>總水費(含稅)</th>
                                 <th>本期碳排量</th>
+                                <th>總用度數(m³)</th>
                                 <th style="width:150px">係數</th>
                                 <th style="width:150px">計算結果</th>
                             </tr>
@@ -183,9 +183,9 @@
                                     <td>@item.Factory</td>
                                     <td>@item.Waterdiameter</td>
                                     <td>@string.Format("{0:N2}", item.SumNUMBERPOINTERS)</td>
-                                    <td>@string.Format("{0:N2}", item.SumTOTALWATER)</td>
                                     <td>@string.Format("{0:N2}", item.SumTOTALBILLTAX)</td>
                                     <td>@string.Format("{0:N2}", item.SumCARBONPERIOD)</td>
+                                    <td>@string.Format("{0:N2}", item.SumTOTALWATER)</td>
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
                                         <select v-model="selectedCoefficient" class="form-control" v-on:change="updateSelectedCoefficient">
@@ -265,8 +265,8 @@
                                 <th>內容物</th>
                                 <th>數量(瓶)</th>
                                 <th>總量(公噸)</th>
-                                <th>計算結果(kgCo₂e/公噸)</th>
                                 <th style="width:150px">係數</th>
+                                <th style="width:150px">計算結果</th>
                                 <th style="width:150px">計算結果</th>
                             </tr>
                         </thead>
@@ -278,7 +278,6 @@
                                     <td>@item.content</td>
                                     <td>@(item.SumFE002?.ToString("G29") ?? "N/A")</td>
                                     <td>@(item.Sumton?.ToString("G29") ?? "N/A")</td>
-                                    <td>@(item.Sumkg?.ToString("G29") ?? "N/A")</td>
 
                                     <td>
                                         <input type="text" v-model="searchQuery" class="form-control mb-3" placeholder="輸入搜尋詞..." />
@@ -290,6 +289,10 @@
                                     </td>
                                     <td>
                                         <input type="text" class="form-control" :value="calculateCarbonEmission(@item.Sumton)" readonly />
+                                        <span class="input-group-text">kgCo₂e/公噸</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" :value="calculateCarbonEmission2(@item.Sumton)" readonly />
                                         <span class="input-group-text">tonCo₂e/公噸</span>
                                     </td>
                                 </tr>

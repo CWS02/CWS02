@@ -74,20 +74,11 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-item">@Html.ActionLink("員工交通-建檔", "GHG_MST_COMMUTE_Index", "Home")</div>
                         <div class="dropdown-item">@Html.ActionLink("員工通勤", "CombinedIndex", "Home")</div>
-
-                        @*<div class="dropdown-item">@Html.ActionLink("出差申請單-列表", "BUSINESS_TRIP_List2", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("出差申請單-新增", "BUSINESS_TRIP2_Create", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("計程車", "TAXI_APPLICATIONList", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("交通費_應付憑單_未完成", "HIGH_SPEED_RAIL_List", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("交通費_費用申請單_測試應付憑單_連結", "HIGH_SPEED_RAIL_List2", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("交通類_未完成", "CombinedHighSpeedRailListList", "Home")</div>*@
-                        <div class="dropdown-item">@Html.ActionLink("交通類", "CombinedHighSpeedRailList", "Home")</div>
-                        @*<div class="dropdown-item">@Html.ActionLink("交通費_費用申請單_測試應付憑單_連結", "CombinedHighSpeedRailList2", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("交通費_費用申請單_測試應付憑單_連結2", "CombinedHighSpeedRailList4", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("交通費_測試票據單別單號_連結_依", "CombinedHighSpeedRailList5", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("計程車", "TAXI_APPLICATIONList", "Home")</div>*@
-                        @*<div class="dropdown-item">@Html.ActionLink("員工國外差旅", "TRAVEL_ABROAD_List", "Home")</div>*@
-                    </div>
+                        @*<div class="dropdown-item">@Html.ActionLink("交通類", "CombinedHighSpeedRailList", "Home")</div>*@
+                        <div class="dropdown-item">
+                            <a href="http://192.168.3.111/esg/traffic.asp">交通類</a>
+                            </div>
+                        </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,7 +102,6 @@
 
                     </div>
                 </li>
-                <li><a href="http://192.168.3.111/esg/traffic.asp">交通類</a></li>
                 <li><a href="@Url.Action("SGS_Parameter","Home")">係數表設定</a></li>
                 <li><a href="@Url.Action("SGS_Calculate","Home")">數據統計</a></li>
 

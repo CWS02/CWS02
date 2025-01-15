@@ -37,8 +37,8 @@ namespace prjWastes6.Models
     public class SGS_Search
     {
         public string category { get; set; }
-        public DateTime startdate { get; set; } 
-        public DateTime enddate { get; set; }
+        public DateTime? startdate { get; set; } 
+        public DateTime? enddate { get; set; }
         public string factory { get; set; } 
         public string waterdiameter { get; set; }
         public string methods { get; set; } 

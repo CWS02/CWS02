@@ -38,7 +38,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -307,6 +307,7 @@
     <Content Include="Content\skin-red-light.min.css" />
     <Content Include="css\datatable\dataTables.bootstrap5.min.css" />
     <Content Include="css\datatable\jquery.dataTables.min.css" />
+    <Content Include="css\style3.css" />
     <Content Include="css\style2CPC.css" />
     <Content Include="css\style2.css" />
     <Content Include="css\style1.css" />
@@ -759,6 +760,8 @@
     <Content Include="Views\Shared\_LayoutMember2.cshtml" />
     <Content Include="Views\Home\SGS_Parameter.cshtml" />
     <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
+    <Content Include="Views\Home\WD40List.cshtml" />
+    <Content Include="Views\Home\WD40Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
