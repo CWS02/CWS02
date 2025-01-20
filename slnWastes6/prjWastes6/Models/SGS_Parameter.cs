@@ -39,11 +39,13 @@ namespace prjWastes6.Models
         public string category { get; set; }
         public DateTime? startdate { get; set; } 
         public DateTime? enddate { get; set; }
-        public string factory { get; set; } 
+        public string factory { get; set; }
+        public string item { get; set; }
         public string waterdiameter { get; set; }
         public string methods { get; set; } 
         public string code { get; set; } 
         public string content { get; set; }
+        public string year { get; set; }
     }
     public class ElectricitySummaryViewModel
     {
@@ -55,6 +57,14 @@ namespace prjWastes6.Models
         public decimal? SumTotalElectricity { get; set; }
         public decimal? SumTotalBillTax { get; set; }
         public decimal? SumCarbonPeriod { get; set; }
+    }
+    public class WD40ViewModel
+    {
+        public decimal? SumWD011 { get; set; }
+    }
+    public class ColdCoalViewModel
+    {
+        public decimal? SumCC012 { get; set; }
     }
 
     public class WaterSummaryViewModel

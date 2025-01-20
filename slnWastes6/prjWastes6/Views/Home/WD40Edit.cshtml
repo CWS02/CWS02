@@ -43,14 +43,14 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD002">進貨單</label>
+                    <label for="WD002">供應廠</label>
                     <input type="text" class="form-control" name="WD002" v-model="model.WD002" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD003">供應廠</label>
-                    <input type="text" class="form-control" name="WD003" v-model="model.WD003" />
+                    <label for="WD003">日期</label>
+                    <input type="text" class="form-control" name="WD003" v-model="model.WD003" placeholder="ex:20240101" />
                 </div>
             </div>
         </div>
@@ -58,19 +58,19 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD004">日期</label>
-                    <input type="text" class="form-control" name="WD004" v-model="model.WD004" placeholder="ex:20240101"/>
+                    <label for="WD004">品號</label>
+                    <input type="text" class="form-control" name="WD004" v-model="model.WD004" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD005">品號</label>
+                    <label for="WD005">品名</label>
                     <input type="text" class="form-control" name="WD005" v-model="model.WD005" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD006">品名</label>
+                    <label for="WD006">已交量</label>
                     <input type="text" class="form-control" name="WD006" v-model="model.WD006" />
                 </div>
             </div>
@@ -79,40 +79,35 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD007">已交量</label>
-                    <input type="text" class="form-control" name="WD007" v-model="model.WD007" />
+                    <label for="WD007">交期</label>
+                    <input type="text" class="form-control" name="WD007" v-model="model.WD007" placeholder="ex:20240101" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD008">交期</label>
-                    <input type="text" class="form-control" name="WD008" v-model="model.WD008" placeholder="ex:20240101"  />
+                    <label for="WD008">內容量(克/罐)</label>
+                    <input type="text" class="form-control" name="WD008" v-model="model.WD008" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD009">內容量(克/罐)</label>
+                    <label for="WD009">重量(克)</label>
                     <input type="text" class="form-control" name="WD009" v-model="model.WD009" />
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD010">重量(克)</label>
+                    <label for="WD010">二氧化碳占比%</label>
                     <input type="text" class="form-control" name="WD010" v-model="model.WD010" />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="WD011">二氧化碳占比%</label>
+                    <label for="WD011">二氧化碳重量(克)</label>
                     <input type="text" class="form-control" name="WD011" v-model="model.WD011" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="WD012">二氧化碳重量(克)</label>
-                    <input type="text" class="form-control" name="WD012" v-model="model.WD012" />
                 </div>
             </div>
         </div>

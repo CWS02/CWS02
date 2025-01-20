@@ -18,6 +18,7 @@ using NPOI.SS.UserModel;
 using System.IO;
 using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 
 namespace prjWastes6.Controllers
@@ -518,6 +519,38 @@ namespace prjWastes6.Controllers
 
 
                 return View(query);
+            }
+           else if (search.category == "wd40")
+            {  
+                if(search.year!=null)
+                {
+                    var query = _db.WD40A
+                   .Where(x => x.WD003.Contains(search.year))
+                   .GroupBy(x => x.WD003.Contains(search.year))
+                   .Select(g => new WD40ViewModel
+                   {
+                       SumWD011 =g.Sum(x=>x.WD011),
+                   })
+                   .ToList();
+
+                    return View(query);
+                }
+            }
+            else if (search.category == "coldcoal")
+            {
+                if (search.code != null && search.factory != null)
+                {
+                    var query = _db.ColdCoal
+                   .Where(x => x.CC007 == search.code && x.CC010 == search.factory)
+                   .GroupBy(x => new { x.CC007, x.CC010 })
+                   .Select(g => new ColdCoalViewModel
+                   {
+                       SumCC012 = g.Sum(x => x.CC012),
+                   })
+                   .ToList();
+
+                    return View(query);
+                }
             }
             return View();
         }
@@ -3851,13 +3884,12 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         //20240423增加:冷媒欄位用關鍵字搜尋
         //20240429增加:冷媒欄位用廠區搜尋
         [AllowAnonymous]
-        public ActionResult ColdCoal_List(string searchString, string plantArea)
+        public ActionResult ColdCoal_List(string searchString, string plantArea,string category)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
-            ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
             var coldCoals = _db.ColdCoal.AsQueryable();
 
@@ -3889,23 +3921,28 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
                 coldCoals = coldCoals.Where(c => c.CC010 == "樹谷");
             }
 
+            if (category != null && category != "全部")
+            { 
+                coldCoals = coldCoals.Where(c => c.CC007 == category); 
+            }
 
             return View(coldCoals.ToList());
         }
+
         #region WD40
         [AllowAnonymous]
         [HttpGet]
         public ActionResult WD40List(SGS_Search search)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             var query = _db.WD40A.Where(x => x.Status == 0);
 
-            if (search.startdate != null && search.enddate != null)
+            if (search.year != null )
             {
-                string startDate = search.startdate.Value.ToString("yyyyMMdd");
-                string endDate = search.enddate.Value.ToString("yyyyMMdd");
-
-                query = query.Where(x => string.Compare(x.WD004, startDate) >= 0 &&
-                                string.Compare(x.WD004, endDate) <= 0);
+                query = query.Where(x =>x.WD003.Contains(search.year));
             }
 
             var model = query.OrderByDescending(x => x.WD004).ToList();
@@ -3917,6 +3954,10 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         [HttpGet]
         public ActionResult WD40Edit(WD40A model)
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
             ViewBag.IsUpdate = false; 
             model = _db.WD40A.FirstOrDefault(x => x.WD000 == model.WD000); 
             if (model != null)
@@ -3934,7 +3975,6 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             if (IsUpdate)
             {
                 var old = _db.WD40A.Find(model.WD000);
-
                 _db.Entry(old).CurrentValues.SetValues(model);
             }
             else

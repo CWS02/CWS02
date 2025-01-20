@@ -47,5 +47,10 @@ namespace prjWastes6.Models
         [Display(Name = "廠區")]
         [StringLength(20)]
         public string CC010 { get; set; }
+        [Display(Name = "採用之年逸散率（%）")]
+        [StringLength(20)]
+        public string CC011 { get; set; }
+        [Display(Name = "逸散量(公噸)")]
+        public decimal? CC012 { get; set; }
     }
 }

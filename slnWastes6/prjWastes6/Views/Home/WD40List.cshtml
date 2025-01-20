@@ -14,10 +14,8 @@
     <h2 class="text-center" style="margin-top:50px">WD40</h2>
 
     <div class="form-group mr-5">
-        <label for="startdate" class="mr-3">開始時間:</label>
-        <input type="date" name="startdate" class="form-control" value="@Request.QueryString["startdate"]" />
-        <label for="enddate" class="mr-3">結束時間:</label>
-        <input type="date" name="enddate" class="form-control" value="@Request.QueryString["enddate"]" />
+        <label for="year" class="mr-3">年份:</label>
+        <input type="number" name="year" class="form-control" min="2023" max="2100" step="1" value="@Request.QueryString["year"]" />        
     </div>
 
     <div class="form-group">
@@ -47,7 +45,7 @@
                         <th>@Html.DisplayNameFor(model => model.WD009)</th>
                         <th>@Html.DisplayNameFor(model => model.WD010)</th>
                         <th>@Html.DisplayNameFor(model => model.WD011)</th>
-                        <th>@Html.DisplayNameFor(model => model.WD012)</th>
+                        <th>二氧化碳重量 (公噸)</th>
                         <th>刪除</th>
                     </tr>
                 </thead>
@@ -67,7 +65,7 @@
                             <td>@item.WD009</td>
                             <td>@item.WD010</td>
                             <td>@item.WD011</td>
-                            <td>@item.WD012</td>
+                            <td>@(item.WD011 / 1000000)</td>
                             <td>
                                 <button class="btn btn-danger" data-toggle="modal" data-target="#passwordModal"
                                         data-wd000="@item.WD000">
@@ -106,6 +104,11 @@
             </form>
         </div>
     </div>
+</div>
+<div>
+    <p>資料來源：採購單查詢系統</p>
+    <p>WD-40 多功能除鏽潤滑劑 11.2oz = 333ml</p>
+    <p>WD-40 多功能除鏽潤滑劑 11.2oz = 412ml</p>
 </div>
 
 <script>
