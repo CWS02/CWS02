@@ -53,4 +53,27 @@ CREATE TABLE INTRB (
     Level INT,
     PRIMARY KEY (INT000)                    -- 設置主鍵
 );
+drop table if EXISTS INTRD;
+CREATE TABLE INTRD (
+    INT000 UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL, -- 自動生成 GUID
+    INT001 NVARCHAR(100) NOT NULL,           -- 名稱
+    INT002 NVARCHAR(100) NOT NULL,           -- 國家
+    INT003 NVARCHAR(100),                    -- 區間
+    status int,                              -- 顯示 0=追蹤中 1=已結案 2=正式訂單
+    CreateTime DATETIME DEFAULT GETDATE(),   -- 建立時間(自動帶入)
+    PRIMARY KEY (INT000)                     -- 設置主鍵
+);
+
+
+CREATE TABLE INTRE (
+    INT000 VARCHAR(36) DEFAULT NEWID() PRIMARY KEY, -- 唯一值
+    INT001 NVARCHAR(20),          -- 追蹤日期
+    INT002 NVARCHAR(MAX),         -- 內容
+    INT003 INT,                   -- 聯絡方式
+    INT004 NVARCHAR(MAX),         -- 後續步驟
+    IP NVARCHAR(20),              -- IP
+    status INT,                   -- 狀態 (0=啟用, 1=刪除)
+    CreateTime DATETIME DEFAULT GETDATE(), -- 建立時間 (自動帶入)
+    INT999 VARCHAR(36),      -- 與 INTRB 關聯
+);
 

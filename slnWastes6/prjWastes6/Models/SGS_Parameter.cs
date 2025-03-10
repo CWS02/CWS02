@@ -64,7 +64,9 @@ namespace prjWastes6.Models
     }
     public class ColdCoalViewModel
     {
+        public string Code { get; set; }
         public decimal? SumCC012 { get; set; }
+        public int GWP { get; set; }
     }
 
     public class WaterSummaryViewModel

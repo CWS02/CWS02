@@ -19,6 +19,7 @@ using System.IO;
 using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
 using DocumentFormat.OpenXml.Wordprocessing;
+using NPOI.SS.Formula.Functions;
 
 
 namespace prjWastes6.Controllers
@@ -538,16 +539,19 @@ namespace prjWastes6.Controllers
             }
             else if (search.category == "coldcoal")
             {
-                if (search.code != null && search.factory != null)
+                if (search.factory != null)
                 {
+                    var validCC007Values = new List<string> { "R-134A", "HFC-134A", "R-407C", "R-410A" };
+
                     var query = _db.ColdCoal
-                   .Where(x => x.CC007 == search.code && x.CC010 == search.factory)
-                   .GroupBy(x => new { x.CC007, x.CC010 })
-                   .Select(g => new ColdCoalViewModel
-                   {
-                       SumCC012 = g.Sum(x => x.CC012),
-                   })
-                   .ToList();
+                        .Where(x => x.CC010 == search.factory && validCC007Values.Contains(x.CC007))
+                        .GroupBy(x => new { x.CC007, x.CC010 })
+                        .Select(g => new ColdCoalViewModel
+                        {
+                            Code=g.Key.CC007,
+                            SumCC012 = g.Sum(x => x.CC012),
+                        })
+                        .ToList();
 
                     return View(query);
                 }

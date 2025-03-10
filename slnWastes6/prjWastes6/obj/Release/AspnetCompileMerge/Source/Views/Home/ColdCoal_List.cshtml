@@ -34,7 +34,7 @@
         <div class="col-md-3">
             <p>
                 廠區: @Html.DropDownList("plantArea", new SelectList(new[] { "全部", "南科", "非公司", "樹谷" }), "選擇廠區", new { @class = "form-control" })
-                類型: @Html.DropDownList("category", new SelectList(new[] { "全部", "HC-R600a", "HFC-134A", "R134a", "R-134A", "R-22", "R-407C", "R-410A", "R600a", "R-600A" }), "選擇類型", new { @class = "form-control" })
+                類型: @Html.DropDownList("category", new SelectList(new[] { "全部", "HC-R600a", "HFC-134A",  "R-134A", "R-22", "R-407C", "R-410A", "R-600A" }), "選擇類型", new { @class = "form-control" })
             </p>
         </div>
     }
@@ -190,5 +190,6 @@
 
     </table>
     <div>參考來源：2006 IPCC Guidelines for National Greenhouse Gas Inventories, volume 3, chapter7, table 7.9 及環境部氣候變遷署溫室氣體排放係數管理表6.0.4版 預設參考係數。年逸散量計算採公噸單位，並依環境部建議採小數點後四位。</div>
+    <div>冷媒(R600a、R22等等)屬於蒙特婁公約管制氣體，環保署未公告其GWP 值，本盤查不列入計算。</div>
 </body>
 </html>
