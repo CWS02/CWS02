@@ -1305,6 +1305,7 @@ namespace prjWastes6.Controllers
             {
                 return RedirectToAction("login", "Home");
             }
+
             DateTime today = DateTime.Today;
             int currentPage = page < 1 ? 1 : page; // Assign a value
 
@@ -1324,7 +1325,6 @@ namespace prjWastes6.Controllers
                                     USER_ADDRESS = groupedData.FirstOrDefault().emp.USER_ADDRESS,
                                     DEPARTMENT_NAME = groupedData.FirstOrDefault().emp.DEPARTMENT_NAME,
                                     TITLE_NAME = groupedData.FirstOrDefault().emp.TITLE_NAME,
-
                                     SHIFT_NAME = groupedData.FirstOrDefault().emp.SHIFT_NAME,
                                     CLOCK_IN = groupedData.FirstOrDefault().emp.CLOCK_IN,
                                     CLOCK_OUT = groupedData.FirstOrDefault().emp.CLOCK_OUT,
@@ -1334,77 +1334,40 @@ namespace prjWastes6.Controllers
                                     TRANSPORTATION = groupedData.FirstOrDefault().commute.TRANSPORTATION,
                                     ONEWAY_KM = groupedData.FirstOrDefault().commute.ONEWAY_KM,
                                     DOUBLE_KM = groupedData.FirstOrDefault().commute.DOUBLE_KM,
-                                    WORK_DATE_COUNT_2022 = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) == "2022"),
-                                    WORK_DATE_COUNT_2023 = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) == "2023"),
-                                    WORK_DATE_COUNT_2024 = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) == "2024"),
-
-
-                                    //WORK_DATE = groupedData.Count()
-
-
-
-
+                                    WORK_DATE_COUNT = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) ==year.ToString()),
                                 }).OrderBy(m => m.USER_ID).ToList();
 
-
-
-
-
-            var result = combinedData.ToPagedList(currentPage, pageSize);
             var deptNames = _db.CAT_THREE_EMPLOYEE_COMMUTING
-    .Select(x => x.DEPARTMENT_NAME)
-    .Distinct()
-    .OrderBy(x => x)
-    .ToList();
-            // 從BRM_MST_EMISSION_FACTOR查詢emission factor
-            //當TRANSPORTATION是電動腳踏車EmissionFactor填入0.025，使用資料表BRM_MST_EMISSION_FACTOR相對填入資料
-
+                .Select(x => x.DEPARTMENT_NAME)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
 
             var emissionFactors = _db.BRM_MST_EMISSION_FACTOR
 
          .Where(x => x.EF_YEAR.ToString() == year.ToString() &&
                      _db.GHG_MST_COMMUTE.Any(y => y.TRANSPORTATION == x.EF_NAME))
-         .ToDictionary(x => x.EF_NAME, x => x.EF_VALUE);
+                    .ToDictionary(x => x.EF_NAME, x => x.EF_VALUE);
+
             foreach (var item in combinedData)
-            {// 根據TRANSPORTATION查詢emission factor
-                //item.EmissionFactor = emissionFactors[item.TRANSPORTATION];
+            {
                 if (emissionFactors.ContainsKey(item.TRANSPORTATION))
                 {
                     item.EmissionFactor = emissionFactors[item.TRANSPORTATION];
                 }
                 else
                 {
-                    item.EmissionFactor = 0; //設定default值
+                    item.EmissionFactor = 0; 
                 }
-                if (year == 2022)
-                {
-                    item.WORK_DATE = item.WORK_DATE_COUNT_2022;
-                }
-                else if (year == 2023)
-                {
-                    item.WORK_DATE = item.WORK_DATE_COUNT_2023;
-                }
-                else if (year == 2024)
-                {
-                    item.WORK_DATE = item.WORK_DATE_COUNT_2024;
-                }
+                item.WORK_DATE = item.WORK_DATE_COUNT;
 
-
-
-
-
-
-
-                // 在執行乘法之前檢查 DOUBLE_KM 是否不為 null
                 if (item.DOUBLE_KM != null)
                 {
-
                     item.ActivityData = Convert.ToDecimal(item.WORK_DATE) * (decimal)item.DOUBLE_KM;
                 }
                 else
                 {
-                    // 處理 DOUBLE_KM 為 null 的情況（提供默認值或採取適當的措施）
-                    item.ActivityData = 0; // 根據你的邏輯，你可能需要更改這個值
+                    item.ActivityData = 0; 
                 }
 
                 //碳排放量 = 活動數據 x 碳排係數
@@ -1412,7 +1375,6 @@ namespace prjWastes6.Controllers
 
                 //CO2 排放量 = 碳排放量 * (44/12) / 1000,算出KG再換算為噸 = 公斤 / 1000
                 item.CO2e = item.Emissions * (44.0m / 12.0m) / 1000;
-
             }
             decimal totalCO2e = 0;
 
@@ -1423,24 +1385,16 @@ namespace prjWastes6.Controllers
                 totalCO2e += item.CO2e;
             }
 
-
-
-
-
-
-
-
             ViewBag.TotalCO2e = totalCO2e;
-
-            // 將 ViewBag 設定移到循環外部
             ViewBag.DeptNames = new SelectList(deptNames);
             ViewBag.UserId = userId;
             ViewBag.DepartmentName = departmentName;
-            ViewBag.TotalCO2e = totalCO2e; // 移到這裡
-            // 將 year 儲存到 ViewBag
-            ViewBag.Year = year;
-            return View(result);
+            ViewBag.TotalCO2e = totalCO2e;
+            ViewBag.Year = year ?? DateTime.Now.Year;
+            return View(combinedData.ToList());
         }
+
+
         //出勤天數:跳出視窗:詳細放大版
         //CAT_THREE_EMPLOYEE_COMMUTING內容
         // GET: Home

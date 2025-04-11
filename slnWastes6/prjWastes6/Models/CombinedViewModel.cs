@@ -30,15 +30,12 @@ namespace prjWastes6.Models
         public string DEPARTMENT_NAME { get; set; }
         [Display(Name = "職稱")]
         public string TITLE_NAME { get; set; }
-        [Display(Name = "WORK_DATE_COUNT_2022")]
-        public int WORK_DATE_COUNT_2022 { get; set; }
-        [Display(Name = "WORK_DATE_COUNT_2023")]
-        public int WORK_DATE_COUNT_2023 { get; set; }
-        [Display(Name = "WORK_DATE_COUNT_2024")]
-        public int WORK_DATE_COUNT_2024 { get; set; }
+        [Display(Name = "WORK_DATE")]
+        public int WORK_DATE { get; set; }
+     
 
         [Display(Name = "出勤天數")]
-        public int WORK_DATE { get; set; }
+        public int WORK_DATE_COUNT { get; set; }
         [Display(Name = "班別")]
         public string SHIFT_NAME { get; set; }
         public string CLOCK_IN { get; set; }
