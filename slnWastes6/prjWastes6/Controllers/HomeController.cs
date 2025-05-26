@@ -431,22 +431,92 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SGS_Calculate(SGS_Search search)
+        [HttpGet]
+        public ActionResult SGS_ParameterSetting()
         {
-            if (Session["Member"] == null) 
+            if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
 
+            var model = _db.SGS_ParameterSetting.OrderBy(x=>x.CreateTime).ToList();
+
             var coefficientOptions = _db.SGS_Parameter
-                .Select(p => p.PAR002 + "-" + p.PAR003+ "-" +p.PAR001 + "-" + p.PAR004)
+                .Select(p => new {
+                    Id = p.PAR000, 
+                    Display = p.PAR002 + "-" + p.PAR003 + "-" + p.PAR001 + "-" + p.PAR004
+                })
                 .ToList();
+
             ViewBag.CoefficientOptions = coefficientOptions;
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateInput(false)] 
+        public JsonResult UpdateCoefficient(Guid id, Guid coefficientId)
+        {
+            try
+            {
+                var setting = _db.SGS_ParameterSetting.FirstOrDefault(p => p.PAR000 == id);
+                if (setting == null)
+                    return Json(new { success = false, message = "找不到資料" }, JsonRequestBehavior.AllowGet);
+
+                setting.PAR001 = coefficientId;
+                setting.UpdateTime = DateTime.Now;
+                setting.IP =Request.UserHostAddress;
+                _db.SaveChanges();
+
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult SGS_Calculate(SGS_Search search)
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+
+            var coefficientOptions = (from p in _db.SGS_Parameter
+            join s in _db.SGS_ParameterSetting
+            on p.PAR000 equals s.PAR001.ToString() into joined
+            from s in joined.DefaultIfEmpty()
+            select new
+            {
+                Id = p.PAR000,
+                Label = p.PAR002 + "-" + p.PAR001 + "-" + p.PAR004,
+                Value = p.PAR002
+            }).ToList();
+
+            var allParameters = _db.SGS_ParameterSetting
+            .Select(s => new
+            {
+                Id = s.PAR001,
+                Category = s.PAR003,
+                Category2 = s.PAR004,
+            }).ToList();
+
+            ViewBag.AllParameters = allParameters;
+            ViewBag.CoefficientOptions = coefficientOptions;
+
 
             if (search.category == "electricity")
             {
                 var query = _db.ELECTRICITY_BILL
-                               .Where(x => x.FROM_BILLING_PERIOD >= search.startdate && x.FROM_BILLING_PERIOD <= search.enddate&&x.FACTORY==search.factory)
+               .Where(x => x.FACTORY == search.factory);
+                if (!string.IsNullOrEmpty(search.year))
+                {
+                    query = query.Where(x => x.FROM_BILLING_PERIOD.Value.Year.ToString() == search.year);
+                }
+                var result = query
                                .GroupBy(x => x.FACTORY)
                                .Select(g => new ElectricitySummaryViewModel
                                {
@@ -460,12 +530,17 @@ namespace prjWastes6.Controllers
                                    SumCarbonPeriod = g.Sum(x => x.CARBON_PERIOD)
                                }).ToList();
 
-                return View(query);
+                return View(result);
             }
             else if (search.category == "water")
             {
                 var query = _db.WATER_BILL
-                               .Where(x => x.FROM_BILLING_PERIOD >= search.startdate && x.FROM_BILLING_PERIOD <= search.enddate && x.FACTORY == search.factory&&x.METER_DIAMETER.ToString()==search.waterdiameter)
+               .Where(x => x.FACTORY == search.factory && x.METER_DIAMETER.ToString() == search.waterdiameter);
+                if (!string.IsNullOrEmpty(search.year))
+                {
+                    query = query.Where(x => x.FROM_BILLING_PERIOD.Value.Year.ToString() == search.year);
+                }
+                var result = query
                                .GroupBy(x => x.FACTORY)
                                .Select(g => new WaterSummaryViewModel
                                {
@@ -477,12 +552,17 @@ namespace prjWastes6.Controllers
                                    SumCARBONPERIOD = g.Sum(x => x.CARBON_PERIOD),
                                }).ToList();
 
-                return View(query);
+                return View(result);
             }
             else if (search.category == "waste")
             {
                 var query = _db.WASTES
-                               .Where(x => x.REMOVAL_DATE >= search.startdate && x.REMOVAL_DATE <= search.enddate&& x.TREATMENT==search.methods&&x.SCRAP_CODE==search.code)
+               .Where(x => x.TREATMENT == search.methods && x.SCRAP_CODE == search.code);
+                if (!string.IsNullOrEmpty(search.year))
+                {
+                    query = query.Where(x => x.REMOVAL_DATE.Value.Year.ToString() == search.year);
+                }
+                var result = query
                                .GroupBy(x => x.TREATMENT)
                                .Select(g => new WasteSummaryViewModel
                                {
@@ -495,7 +575,7 @@ namespace prjWastes6.Controllers
                                    SumCCARBONDIOXIDE = g.Sum(x => x.CARBON_DIOXIDE),
                                }).ToList();
 
-                return View(query);
+                return View(result);
             }
             else if (search.category == "fireextin")
             {

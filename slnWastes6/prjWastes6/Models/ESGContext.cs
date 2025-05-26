@@ -70,6 +70,9 @@ namespace prjWastes6.Models
 
         public virtual DbSet<WD40A> WD40A { get; set; }
 
+        public virtual DbSet<SGS_ParameterSetting> SGS_ParameterSetting { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tMember>()

@@ -229,6 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SGS_ParameterSetting.cs" />
     <Compile Include="Models\INTRB.cs" />
     <Compile Include="Models\INTRA.cs" />
     <Compile Include="Models\ACPTA.cs" />
@@ -762,6 +763,7 @@
     <Content Include="Views\Home\SGS_ParameterEdit.cshtml" />
     <Content Include="Views\Home\WD40List.cshtml" />
     <Content Include="Views\Home\WD40Edit.cshtml" />
+    <Content Include="Views\Home\SGS_ParameterSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
