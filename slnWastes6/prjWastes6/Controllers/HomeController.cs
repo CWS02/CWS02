@@ -20,6 +20,7 @@ using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
 using DocumentFormat.OpenXml.Wordprocessing;
 using NPOI.SS.Formula.Functions;
+using DocumentFormat.OpenXml.Bibliography;
 
 
 namespace prjWastes6.Controllers
@@ -541,16 +542,16 @@ namespace prjWastes6.Controllers
                     query = query.Where(x => x.FROM_BILLING_PERIOD.Value.Year.ToString() == search.year);
                 }
                 var result = query
-                               .GroupBy(x => x.FACTORY)
-                               .Select(g => new WaterSummaryViewModel
-                               {
-                                   Factory = g.Key,
-                                   Waterdiameter = search.waterdiameter,
-                                   SumNUMBERPOINTERS = g.Sum(x => x.NUMBER_POINTERS),
-                                   SumTOTALWATER = g.Sum(x => x.TOTAL_WATER),
-                                   SumTOTALBILLTAX = g.Sum(x => x.TOTAL_BILL_TAX),
-                                   SumCARBONPERIOD = g.Sum(x => x.CARBON_PERIOD),
-                               }).ToList();
+                .GroupBy(x => x.FACTORY)
+                .Select(g => new WaterSummaryViewModel
+                {
+                    Factory = g.Key,
+                    Waterdiameter = search.waterdiameter,
+                    SumNUMBERPOINTERS = g.Sum(x => x.NUMBER_POINTERS),
+                    SumTOTALWATER = g.Sum(x => x.TOTAL_WATER),
+                    SumTOTALBILLTAX = g.Sum(x => x.TOTAL_BILL_TAX),
+                    SumCARBONPERIOD = g.Sum(x => x.CARBON_PERIOD),
+                }).ToList();
 
                 return View(result);
             }
@@ -635,6 +636,51 @@ namespace prjWastes6.Controllers
 
                     return View(query);
                 }
+            }
+            else if (search.category == "commuting")
+            {
+                var emissionFactors = _db.BRM_MST_EMISSION_FACTOR
+                    .Where(b=>b.EF_YEAR==search.year)
+                .GroupBy(b => b.EF_NAME)
+                .Select(g => g.FirstOrDefault());
+
+                var result = (from c in _db.CAT_THREE_EMPLOYEE_COMMUTING
+                              join g in _db.GHG_MST_COMMUTE on c.USER_ID equals g.USER_ID
+                              join b in emissionFactors on g.TRANSPORTATION equals b.EF_NAME
+                              where c.WORK_DATE.Substring(0, 4) == search.year
+                              group new { g, b } by g.TRANSPORTATION into grp
+                              select new CommutingViewModel
+                              {
+                                  TRANSPORTATION = grp.Key,
+                                  TotalDoubleKM = grp.Sum(x => x.g.DOUBLE_KM),
+                                  EF_VALUE = grp.Select(x => x.b.EF_VALUE).FirstOrDefault()
+                              }).ToList();
+
+                return View(result);        
+            }
+            else if (search.category == "traffic")
+            {
+                var trafficList = new List<TrafficViewModel>();
+                var sumACPTB = (
+                    from a in _TWNCPCdb.ACPTA
+                    join b in _TWNCPCdb.ACPTB
+                        on new { Key1 = a.TA001.Trim(), Key2 = a.TA002.Trim() }
+                        equals new { Key1 = b.TB001.Trim(), Key2 = b.TB002.Trim() }
+                    where (b.UDF01 ?? "").StartsWith(search.methods)
+                       && (a.TA015 ?? "").Substring(0, 4) == search.year
+                    select (decimal?)b.UDF06
+                ).Sum() ?? 0;
+
+                var sumPCMTG = _TWNCPCdb.PCMTG
+                    .Where(x => x.UDF01.StartsWith(search.methods) && x.TG013.Substring(0, 4) == search.year)
+                    .Sum(x => (decimal?)x.UDF06) ?? 0;
+
+                trafficList.Add(new TrafficViewModel
+                {
+                    TotalEmission = sumACPTB + sumPCMTG
+                });
+
+                return View(trafficList);
             }
             return View();
         }

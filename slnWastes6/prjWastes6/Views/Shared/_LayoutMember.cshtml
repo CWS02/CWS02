@@ -76,9 +76,9 @@
                         <div class="dropdown-item">@Html.ActionLink("員工通勤", "CombinedIndex", "Home")</div>
                         @*<div class="dropdown-item">@Html.ActionLink("交通類", "CombinedHighSpeedRailList", "Home")</div>*@
                         <div class="dropdown-item">
-                            <a href="http://192.168.3.111/esg/traffic.asp">交通類</a>
-                            </div>
+                            <a href="http://192.168.3.111/esg/traffic.asp" target="_blank">交通類</a>
                         </div>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,12 +103,9 @@
                     </div>
                 </li>
                 <li><a href="@Url.Action("SGS_Parameter","Home")">係數表設定</a></li>
-                <li><a href="@Url.Action("SGS_Calculate","Home")">數據統計</a></li>
+                <li><a href="http://192.168.253.2:8892/ESG/SGS_Calculate" target="_blank">數據統計</a></li>
+                @*<li><a href="@Url.Action("SGS_Calculate","Home")">數據統計</a></li>*@
 
-                
-
-
-                @*<li><a href="@Url.Action("SGS_Calculate", "Home")">係數計算</a></li>*@
             </ul>
                 </div>
             </div>

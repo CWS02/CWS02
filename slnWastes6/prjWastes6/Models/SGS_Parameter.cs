@@ -98,4 +98,16 @@ namespace prjWastes6.Models
         public decimal? Sumton { get; set; }
         public decimal? Sumkg { get; set; }
     }
+
+    public class CommutingViewModel
+    {
+        public string TRANSPORTATION { get; set; }
+        public decimal? TotalDoubleKM { get; set; }
+        public decimal? EF_VALUE { get; set; }
+
+    }
+    public class TrafficViewModel
+    {
+        public decimal TotalEmission { get; set; } 
+    }
 }
