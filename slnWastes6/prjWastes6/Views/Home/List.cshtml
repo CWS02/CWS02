@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<prjWastes6.Models.WASTES>
-@*@model prjWastes6.Models.WASTES*@
 @{
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
-}
-@{
+    decimal codeValue = 0;
+    decimal transport1 = 0;
+    decimal transport2 = 0;
     ViewBag.Title = "List";
 }
+
 
 <style>
     .align-right {
@@ -16,12 +17,11 @@
         white-space: nowrap;
     }
 </style>
+
 <div style="margin-top: 50px;">
     <h2>廢棄物:列表</h2>
     <p>
         @Html.ActionLink("廢棄物:新增", "Create", null, new { @class = "btn btn-danger" })
-
-        @*@Html.ActionLink("廢棄物:新增", "Create")*@
     </p>
     <form method="get">
 
@@ -31,7 +31,6 @@
 
         <label for="endDate">結束日期:</label>
         <input type="date" name="endDate">
-        @*20240430修改為一個搜索按鈕*@
         <label>廢棄物代碼:</label>
 
         @Html.DropDownList("scrapCode", new List<SelectListItem>
@@ -44,20 +43,7 @@
         <button type="submit">搜索</button>
     </form>
 </div>
-@*@using (Html.BeginForm())
-{
-    <label>廢棄物代碼:</label>
 
-    @Html.DropDownList("scrapCode", new List<SelectListItem>
-{
-  new SelectListItem { Value = "D-2499", Text = "D-2499" },
-  new SelectListItem { Value = "D-2399", Text = "D-2399" },
-  new SelectListItem { Value = "D-1801", Text = "D-1801" },
-  new SelectListItem { Value = "D-2406", Text = "D-2406" }
-})
-
-    <input type="submit" value="搜索" />
-}*@
 <div>
     二氧化碳當量總量: @ViewBag.TotalCarbonDioxide
 </div>
@@ -104,26 +90,39 @@
                 @Html.DisplayNameFor(model => model.DECLARED_WEIGHT)
             </th>
             <th>
+                係數
+                廢棄物掩埋清理服務(南部科學工業園區-台南園區)
+                (kg CO2e）/公噸)
+            </th>
+            <th>
+                廢棄物掩埋計算結果
+                ton CO2e/ton
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.KILOMETERS)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ACTIVITY_DATA)
+                係數
+                營業大貨車(柴油)
+                (kg CO2e）/延噸公里(tkm))
             </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.CARBON_EMISSION_FACTOR)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CARBON_DIOXIDE)
-        </th>*@
+            <th>
+                係數
+                以柴油動力垃圾車清除運輸一般廢棄物
+                (kg CO2e）/延噸公里(tkm))
+            </th>
+            <th>
+                廢棄物運輸計算結果
+                ton CO2e/延噸公里(tkm)
+            </th>
+
+
             <th>
                 @Html.DisplayNameFor(model => model.VOUCHER_NUMBER)
             </th>
-            @*
-        <th>
-            秤重照片:上傳(最大2MB)
-        </th>*@
 
-            <th></th>
+
+            <th>修改</th>
         </tr>
     </thead>
     <tbody>
@@ -196,37 +195,75 @@
                 @Html.DisplayFor(modelItem => item.DECLARED_WEIGHT)
             </td>
             <td class="align-right">
+                @{
+                    switch (item.SCRAP_CODE)
+                    {
+                        case "D-2499":
+                        case "D-2406":
+                            codeValue = 7.07m;
+                            break;
+
+                        case "D-2399":
+                        case "D-1801":
+                            codeValue = 737.14m;
+                            break;
+                    }
+                }
+                @codeValue
+            </td>
+
+            <td class="align-right">@(((item.DECLARED_WEIGHT * codeValue / 1000) ?? 0).ToString("F4"))</td>
+            <td class="align-right">
                 @Html.DisplayFor(modelItem => item.KILOMETERS)
             </td>
             <td class="align-right">
-                @Html.DisplayFor(modelItem => item.ACTIVITY_DATA)
+                @{
+                    transport1 = 0;
+                    switch (item.SCRAP_CODE)
+                    {
+                        case "D-2499":
+                        case "D-2406":
+                        case "D-2399":
+                            transport1 = 0.131m;
+                            break;
+                    }
+                }
+                @(transport1 != 0 ? transport1.ToString("F4") : "")
             </td>
-            @*<td class="align-right">
-            @Html.DisplayFor(modelItem => item.CARBON_EMISSION_FACTOR)
-        </td>*@
-            @*<td class="align-right">
-            @Html.DisplayFor(modelItem => item.CARBON_DIOXIDE)
-        </td>*@
+            <td class="align-right">
+                @{
+                    transport2 = 0;
+                    switch (item.SCRAP_CODE)
+                    {
+                        case "D-1801":
+                            transport2 = 1.31m;
+                            break;
+                    }
+                }
+                @(transport2 != 0 ? transport2.ToString("F4") : "")
+            </td>
+            <td class="align-right">
+                @{
+                    decimal result = 0;
+
+                    if (transport1 != 0)
+                    {
+                        result = item.KILOMETERS.Value * transport1/1000;
+                    }
+                    else if (transport2 != 0)
+                    {
+                        result = item.KILOMETERS.Value * transport2/1000;
+                    }
+                }
+                @String.Format("{0:F4}", result)
+            </td>
+
             <td class="align-right">
                 @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
             </td>
 
-            @*
-        <td>
-            @if (item.PDF_CONTENT != null && item.PDF_CONTENT.Length > 0)
-            {
-                <a href="@Url.Action("GetPdfFile2", "Home", new { id = item.DOCUMENT_ID })" target="_blank">檢視 PDF 檔案</a>
-            }
-            else
-            {
-                <span>沒有上傳 PDF 檔案</span>
-            }
-        </td>*@
-
             <td>
                 @Html.ActionLink("修改", "Edit", new { id = item.DOCUMENT_ID })
-                @*@Html.ActionLink("Details", "Details", new { id = item.DOCUMENT_ID }) |*@
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.DOCUMENT_ID })*@
             </td>
         </tr>
         }
