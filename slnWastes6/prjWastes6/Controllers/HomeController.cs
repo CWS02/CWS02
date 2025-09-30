@@ -4105,5 +4105,15 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
         }
         #endregion
+
+        #region 係數外部連結
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult OpenCoefficientLink()
+        {
+
+            return View();
+        }
+        #endregion
     }
 }

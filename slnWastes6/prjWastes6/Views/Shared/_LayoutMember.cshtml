@@ -50,6 +50,8 @@
                         @*<div class="dropdown-item"><a href="http://192.168.3.111/esg/FireExtin.asp">滅火器</a></div>*@
                         <div class="dropdown-item">@Html.ActionLink("滅火器", "FireExtin_List", "Home")</div>
                         <div class="dropdown-item">@Html.ActionLink("WD40", "WD40List", "Home")</div>
+                        <a href="http://192.168.3.111/esg/traffic3.asp" target="_blank">公務車</a>
+
 
                         @*<div class="dropdown-item">@Html.ActionLink("車輛用油", "VEHICLE_OIL_List", "Home")</div>*@
                         @*<div class="dropdown-item">@Html.ActionLink("erp幣別測試", "CMSMFList", "Home")</div>*@
@@ -104,6 +106,8 @@
                 </li>
                 <li><a href="@Url.Action("SGS_Parameter","Home")">係數表設定</a></li>
                 <li><a href="http://192.168.253.2:8892/ESG/SGS_Calculate" target="_blank">數據統計</a></li>
+                <li><a href="@Url.Action("OpenCoefficientLink","Home")">係數外部連結</a></li>
+
                 @*<li><a href="@Url.Action("SGS_Calculate","Home")">數據統計</a></li>*@
 
             </ul>
