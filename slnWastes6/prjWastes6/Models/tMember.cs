@@ -6,7 +6,6 @@ namespace prjWastes6.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     [Table("tMember")]
     public partial class tMember
     {

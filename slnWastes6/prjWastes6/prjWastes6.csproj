@@ -229,6 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CoefficientLink.cs" />
     <Compile Include="Models\SGS_ParameterSetting.cs" />
     <Compile Include="Models\INTRB.cs" />
     <Compile Include="Models\INTRA.cs" />
@@ -648,6 +649,12 @@
     <Content Include="files\SGS\113年2月5日環境部公告溫室氣體排放係數.pdf" />
     <Content Include="files\SGS\台北捷運2016年企業社會責任報告書.pdf" />
     <Content Include="files\SGS\飛機-IEA國際能源署.pdf" />
+    <Content Include="files\SGS\113年度自來水排放係數.pdf" />
+    <Content Include="files\SGS\2016能源統計手冊_download.pdf" />
+    <Content Include="files\SGS\南部科學園區台南園區資源再生中心-公司路程圖.pdf" />
+    <Content Include="files\SGS\大寧掩埋場-公司路程圖.pdf" />
+    <Content Include="files\SGS\德國鐵路排放係數.pdf" />
+    <Content Include="files\SGS\溫室氣體排放係數管理表6.0.4%28修%29.ods" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />

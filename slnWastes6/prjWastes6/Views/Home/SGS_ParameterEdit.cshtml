@@ -58,7 +58,7 @@ new Vue({
     data: {
         model: @Html.Raw(Json.Encode(Model ?? new prjWastes6.Models.SGS_Parameter())),
         isUpdate: @((bool)ViewBag.IsUpdate ? "true" : "false") == "true",
-        units: ['公斤(kg)', '公升(L)', '公噸(mt)', '平方公尺(m²)', '立方公尺(m³)', '度(kwh)','每延人公里'],
+        units: ['公斤(kg)', '公升(L)', '公噸(mt)', '平方公尺(m²)', '立方公尺(m³)', '度(kwh)','每延人公里','延噸公里'],
         formAction: '@Url.Action("SGS_ParameterEdit", "Home")'
     },
     methods: {

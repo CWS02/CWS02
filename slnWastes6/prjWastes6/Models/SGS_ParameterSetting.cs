@@ -34,7 +34,6 @@ namespace prjWastes6.Models
         /// <summary>
         /// Ãþ§O²Ó¶µ
         /// </summary>
-        [Required]
         public string PAR004 { get; set; }
 
         /// <summary>

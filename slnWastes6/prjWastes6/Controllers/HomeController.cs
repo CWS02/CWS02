@@ -4111,8 +4111,13 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         [HttpGet]
         public ActionResult OpenCoefficientLink()
         {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
 
-            return View();
+            var model = _db.CoefficientLink.Where(x => x.Status != -1).OrderBy(x => x.ID).ToList();
+            return View(model);
         }
         #endregion
     }

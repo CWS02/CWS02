@@ -88,7 +88,9 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <div class="dropdown-item">@Html.ActionLink("水費", "WaterList", "Home")</div>
-
+                        <div class="dropdown-item">@Html.ActionLink("廢棄物(南科廠)", "List", "Home")</div>
+                        <div class="dropdown-item">@Html.ActionLink("外購電力上游排放(含運輸)", "ElectricityList", "Home")</div>
+                        <a href="http://192.168.3.111/esg/traffic3.asp" target="_blank">汽油有關的上游排放</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -97,7 +99,6 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                        <div class="dropdown-item">@Html.ActionLink("廢棄物(南科廠)", "List", "Home")</div>
                         <div class="dropdown-item">@Html.ActionLink("空壓機用電量表", "keyenec", "Home")</div>
 
                         <div class="dropdown-divider"></div>
