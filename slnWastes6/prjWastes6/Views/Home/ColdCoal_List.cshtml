@@ -186,7 +186,11 @@
             <td class="align-right">@Model.Where(m => m.CC008.HasValue).Sum(m => m.CC008.Value)</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.CC009))</td>*@
             <td></td>
+            <td></td>
+            <td></td>
+            <td>@Model.Where(m=>m.CC012.HasValue).Sum(m=>m.CC012.Value)</td>
         </tr>
+
 
     </table>
     <div>參考來源：2006 IPCC Guidelines for National Greenhouse Gas Inventories, volume 3, chapter7, table 7.9 及環境部氣候變遷署溫室氣體排放係數管理表6.0.4版 預設參考係數。年逸散量計算採公噸單位，並依環境部建議採小數點後四位。</div>

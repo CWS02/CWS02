@@ -51,6 +51,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>序</th>
             <th>
                 @Html.DisplayNameFor(model => model.DOCUMENT_ID)
             </th>
@@ -126,146 +127,151 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            var index = 1; // 計數器起始值
+        }
         @foreach (var item in Model)
         {
-        <tr>
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
-            </td>
-            @*<td>
-        @Html.DisplayFor(modelItem => item.REMOVAL_DATE)
-        @Html.DisplayFor(modelItem => item.REMOVAL_DATE.HasValue ? item.REMOVAL_DATE.Value.ToString("yyyy-MM-dd HH:mm:ss.fffffff") : "")
-        </td>*@
+            <tr>
+                <td>@index</td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
+                </td>
+                @*<td>
+                @Html.DisplayFor(modelItem => item.REMOVAL_DATE)
+                @Html.DisplayFor(modelItem => item.REMOVAL_DATE.HasValue ? item.REMOVAL_DATE.Value.ToString("yyyy-MM-dd HH:mm:ss.fffffff") : "")
+                </td>*@
 
-            <td>
+                <td>
 
-                @{//20240424改成外部連結
-                    //var imagePath = "~/files/" + item.CC009;
-                    var imagePath = "http://192.168.3.151/WASTES/" + item.DOCUMENT_ID + ".pdf";
-                    var imageUrl = Url.Content(imagePath);
-                    var imageFileName = item.DOCUMENT_ID; // DOCUMENT_ID 欄位中的檔案名稱
-                }
-
-                <a href="@imageUrl" target="_blank" title="@imageFileName">@imageFileName</a>
-
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.FormattedRemovalDate)
-            </td>
-
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.CLEANER_CODE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PURGE_NAME)
-            </td>
-
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.NUMBER_CARRIER)
-            </td>
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.TREATMENT)
-            </td>
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_CODE)
-            </td>
-            @*
-        <td>
-            @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_NAME)
-        </td>20240422帶入地圖連結*@
-            <td>
-                @if (item.FINAL_DISPOSER_NAME == "大寧股份有限公司")
-                {
-                    <a href="~/templates/大寧掩埋場-公司路程圖.pdf" target="_blank">大寧股份有限公司</a>
-                }
-                else if (item.FINAL_DISPOSER_NAME == "國家科學及技術委員會南部科學園區管理局(臺南園區資源再生中心)")
-                {
-                    <a href="~/templates/南部科學園區台南園區資源再生中心-公司路程圖.pdf" target="_blank">國家科學及技術委員會南部科學園區管理局(臺南園區資源再生中心)</a>
-                }
-            </td>
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.FINAL_DISPOSER)
-            </td>
-            <td class="nowrap">
-                @Html.DisplayFor(modelItem => item.SCRAP_CODE)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SCRAP_NAME)
-            </td>
-            <td class="align-right">
-                @Html.DisplayFor(modelItem => item.DECLARED_WEIGHT)
-            </td>
-            <td class="align-right">
-                @{
-                    switch (item.SCRAP_CODE)
-                    {
-                        case "D-2499":
-                        case "D-2406":
-                            codeValue = 7.07m;
-                            break;
-
-                        case "D-2399":
-                        case "D-1801":
-                            codeValue = 737.14m;
-                            break;
+                    @{//20240424改成外部連結
+                        //var imagePath = "~/files/" + item.CC009;
+                        var imagePath = "http://192.168.3.151/WASTES/" + item.DOCUMENT_ID + ".pdf";
+                        var imageUrl = Url.Content(imagePath);
+                        var imageFileName = item.DOCUMENT_ID; // DOCUMENT_ID 欄位中的檔案名稱
                     }
-                }
-                @codeValue
-            </td>
 
-            <td class="align-right">@(((item.DECLARED_WEIGHT * codeValue / 1000) ?? 0).ToString("F4"))</td>
-            <td class="align-right">
-                @Html.DisplayFor(modelItem => item.KILOMETERS)
-            </td>
-            <td class="align-right">
-                @{
-                    transport1 = 0;
-                    switch (item.SCRAP_CODE)
-                    {
-                        case "D-2499":
-                        case "D-2406":
-                        case "D-2399":
-                            transport1 = 0.131m;
-                            break;
-                    }
-                }
-                @(transport1 != 0 ? transport1.ToString("F4") : "")
-            </td>
-            <td class="align-right">
-                @{
-                    transport2 = 0;
-                    switch (item.SCRAP_CODE)
-                    {
-                        case "D-1801":
-                            transport2 = 1.31m;
-                            break;
-                    }
-                }
-                @(transport2 != 0 ? transport2.ToString("F4") : "")
-            </td>
-            <td class="align-right">
-                @{
-                    decimal result = 0;
+                    <a href="@imageUrl" target="_blank" title="@imageFileName">@imageFileName</a>
 
-                    if (transport1 != 0)
-                    {
-                        result = item.KILOMETERS.Value * transport1/1000;
-                    }
-                    else if (transport2 != 0)
-                    {
-                        result = item.KILOMETERS.Value * transport2/1000;
-                    }
-                }
-                @String.Format("{0:F4}", result)
-            </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.FormattedRemovalDate)
+                </td>
 
-            <td class="align-right">
-                @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
-            </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.CLEANER_CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PURGE_NAME)
+                </td>
 
-            <td>
-                @Html.ActionLink("修改", "Edit", new { id = item.DOCUMENT_ID })
-            </td>
-        </tr>
-        }
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.NUMBER_CARRIER)
+                </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.TREATMENT)
+                </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_CODE)
+                </td>
+                @*
+                <td>
+                    @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_NAME)
+                </td>20240422帶入地圖連結*@
+                <td>
+                    @if (item.FINAL_DISPOSER_NAME == "大寧股份有限公司")
+                    {
+                        <a href="~/templates/大寧掩埋場-公司路程圖.pdf" target="_blank">大寧股份有限公司</a>
+                    }
+                    else if (item.FINAL_DISPOSER_NAME == "國家科學及技術委員會南部科學園區管理局(臺南園區資源再生中心)")
+                    {
+                        <a href="~/templates/南部科學園區台南園區資源再生中心-公司路程圖.pdf" target="_blank">國家科學及技術委員會南部科學園區管理局(臺南園區資源再生中心)</a>
+                    }
+                </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.FINAL_DISPOSER)
+                </td>
+                <td class="nowrap">
+                    @Html.DisplayFor(modelItem => item.SCRAP_CODE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SCRAP_NAME)
+                </td>
+                <td class="align-right">
+                    @Html.DisplayFor(modelItem => item.DECLARED_WEIGHT)
+                </td>
+                <td class="align-right">
+                    @{
+                        switch (item.SCRAP_CODE)
+                        {
+                            case "D-2499":
+                            case "D-2406":
+                                codeValue = 7.07m;
+                                break;
+
+                            case "D-2399":
+                            case "D-1801":
+                                codeValue = 737.14m;
+                                break;
+                        }
+                    }
+                    @codeValue
+                </td>
+
+                <td class="align-right">@(((item.DECLARED_WEIGHT * codeValue / 1000) ?? 0).ToString("F4"))</td>
+                <td class="align-right">
+                    @Html.DisplayFor(modelItem => item.KILOMETERS)
+                </td>
+                <td class="align-right">
+                    @{
+                        transport1 = 0;
+                        switch (item.SCRAP_CODE)
+                        {
+                            case "D-2499":
+                            case "D-2406":
+                            case "D-2399":
+                                transport1 = 0.131m;
+                                break;
+                        }
+                    }
+                    @(transport1 != 0 ? transport1.ToString("F4") : "")
+                </td>
+                <td class="align-right">
+                    @{
+                        transport2 = 0;
+                        switch (item.SCRAP_CODE)
+                        {
+                            case "D-1801":
+                                transport2 = 1.31m;
+                                break;
+                        }
+                    }
+                    @(transport2 != 0 ? transport2.ToString("F4") : "")
+                </td>
+                <td class="align-right">
+                    @{
+                        decimal result = 0;
+
+                        if (transport1 != 0)
+                        {
+                            result = item.KILOMETERS.Value * transport1 / 1000;
+                        }
+                        else if (transport2 != 0)
+                        {
+                            result = item.KILOMETERS.Value * transport2 / 1000;
+                        }
+                    }
+                    @String.Format("{0:F4}", result)
+                </td>
+
+                <td class="align-right">
+                    @Html.DisplayFor(modelItem => item.VOUCHER_NUMBER)
+                </td>
+
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { id = item.DOCUMENT_ID })
+                </td>
+            </tr>
+                            index++;
+                        }
     </tbody>
 </table>

@@ -443,6 +443,7 @@ namespace prjWastes6.Controllers
             var model = _db.SGS_ParameterSetting.OrderBy(x=>x.CreateTime).ToList();
 
             var coefficientOptions = _db.SGS_Parameter
+                .Where(p => p.PAR007 == 0)
                 .Select(p => new {
                     Id = p.PAR000, 
                     Display = p.PAR002 + "-" + p.PAR003 + "-" + p.PAR001 + "-" + p.PAR004
