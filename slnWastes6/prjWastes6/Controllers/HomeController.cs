@@ -440,10 +440,11 @@ namespace prjWastes6.Controllers
                 return RedirectToAction("login", "Home");
             }
 
-            var model = _db.SGS_ParameterSetting.OrderBy(x=>x.CreateTime).ToList();
+            var model = _db.SGS_ParameterSetting.OrderBy(x=>x.PAR002).ThenBy(x => x.PAR004) .ThenBy(x => x.PAR005) .ToList();
 
             var coefficientOptions = _db.SGS_Parameter
                 .Where(p => p.PAR007 == 0)
+
                 .Select(p => new {
                     Id = p.PAR000, 
                     Display = p.PAR002 + "-" + p.PAR003 + "-" + p.PAR001 + "-" + p.PAR004
@@ -1426,7 +1427,7 @@ namespace prjWastes6.Controllers
         //使用員工工號查詢
         //使用部門查詢
         [AllowAnonymous]
-        public ActionResult CombinedIndex(string userId, string departmentName, int? year, int page = 1)
+        public ActionResult CombinedIndex(string userId, string Transportation, int? year, int page = 1)
         {
             if (Session["Member"] == null)
             {
@@ -1439,7 +1440,7 @@ namespace prjWastes6.Controllers
             var combinedData = (from emp in _db.CAT_THREE_EMPLOYEE_COMMUTING
                                 join commute in _db.GHG_MST_COMMUTE on emp.USER_ID equals commute.USER_ID
                                 where (string.IsNullOrEmpty(userId) || emp.USER_ID == userId) &&
-                                      (string.IsNullOrEmpty(departmentName) || emp.DEPARTMENT_NAME.Contains(departmentName))
+                                (string.IsNullOrEmpty(Transportation) || commute.TRANSPORTATION == Transportation) 
 
                                 group new { emp, commute } by emp.USER_ID into groupedData
                                 select new CombinedViewModel
@@ -1464,8 +1465,8 @@ namespace prjWastes6.Controllers
                                     WORK_DATE_COUNT = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) ==year.ToString()),
                                 }).OrderBy(m => m.USER_ID).ToList();
 
-            var deptNames = _db.CAT_THREE_EMPLOYEE_COMMUTING
-                .Select(x => x.DEPARTMENT_NAME)
+            var transportation = _db.GHG_MST_COMMUTE
+                .Select(x => x.TRANSPORTATION)
                 .Distinct()
                 .OrderBy(x => x)
                 .ToList();
@@ -1513,11 +1514,10 @@ namespace prjWastes6.Controllers
             }
 
             ViewBag.TotalCO2e = totalCO2e;
-            ViewBag.DeptNames = new SelectList(deptNames);
+            ViewBag.Transportation = new SelectList(transportation);
             ViewBag.UserId = userId;
-            ViewBag.DepartmentName = departmentName;
             ViewBag.TotalCO2e = totalCO2e;
-            ViewBag.Year = year ?? DateTime.Now.Year;
+            ViewBag.Year = year ?? DateTime.Now.Year-1;
             return View(combinedData.ToList());
         }
 
@@ -4117,7 +4117,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
                 return RedirectToAction("login", "Home");
             }
 
-            var model = _db.CoefficientLink.Where(x => x.Status != -1).OrderBy(x => x.ID).ToList();
+            var model = _db.CoefficientLink.Where(x => x.Status != -1).OrderBy(x => x.Name).ToList();
             return View(model);
         }
         #endregion

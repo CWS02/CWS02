@@ -655,6 +655,11 @@
     <Content Include="files\SGS\大寧掩埋場-公司路程圖.pdf" />
     <Content Include="files\SGS\德國鐵路排放係數.pdf" />
     <Content Include="files\SGS\溫室氣體排放係數管理表6.0.4%28修%29.ods" />
+    <Content Include="files\SGS\113年度消防檢修申報書.pdf" />
+    <Content Include="files\SGS\防锈噴漆-安全資料表%28第五版%29.pdf" />
+    <Content Include="files\SGS\交通類.xlsx" />
+    <Content Include="files\SGS\淨零綠生活.pdf" />
+    <Content Include="files\SGS\環境部-淨零綠生活行動指引.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />

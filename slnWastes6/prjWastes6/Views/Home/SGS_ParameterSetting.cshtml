@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in items" :key="item.PAR001">
-                            <td>{{ item.PAR002 }} {{item.PAR004}}</td>
+                            <td>{{ item.PAR002 }} {{item.PAR004}} {{item.PAR005}}</td>
                             <td>
                                 <input type="text" v-model="item.searchQuery" class="form-control mb-2" placeholder="輸入搜尋詞..." />
                                 <select v-model="item.selectedCoefficient" class="form-control">

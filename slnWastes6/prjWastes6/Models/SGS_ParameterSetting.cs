@@ -35,6 +35,11 @@ namespace prjWastes6.Models
         /// 類別細項
         /// </summary>
         public string PAR004 { get; set; }
+        /// <summary>
+        /// 類別細項2
+        /// </summary>
+        public string PAR005 { get; set; }
+
 
         /// <summary>
         /// 建立時間。

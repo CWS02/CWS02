@@ -160,7 +160,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.CC011)
                 </td>
-                <td>@string.Format("{0:F6}", item.CC012)</td>
+                <td>@string.Format("{0:F8}", item.CC012)</td>
 
             </tr>
         }
@@ -168,14 +168,6 @@
         @*20240425最下面加合計*@
         <tr>
             <td colspan="1" class="align-left">合計</td>
-            @*
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC001))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC002))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC003))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC004))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC005))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC006))</td>
-                <td>@Model.Count(m => !string.IsNullOrEmpty(m.CC007))</td>*@
             <td></td>
             <td></td>
             <td></td>
@@ -186,7 +178,13 @@
             <td class="align-right">@Model.Where(m => m.CC008.HasValue).Sum(m => m.CC008.Value)</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.CC009))</td>*@
             <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                @(Model.Where(m => m.CC012.HasValue).Sum(m => m.CC012.Value).ToString("F8"))
+            </td>
         </tr>
+
 
     </table>
     <div>參考來源：2006 IPCC Guidelines for National Greenhouse Gas Inventories, volume 3, chapter7, table 7.9 及環境部氣候變遷署溫室氣體排放係數管理表6.0.4版 預設參考係數。年逸散量計算採公噸單位，並依環境部建議採小數點後四位。</div>

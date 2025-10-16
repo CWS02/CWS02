@@ -23,10 +23,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+                            var index = 1;
+                        }
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.ID</td>
+                                <td>@index</td>
                                 <td>@item.Name</td>
                                 <td>
                                     @if (!string.IsNullOrWhiteSpace(item.Url))
@@ -35,8 +38,9 @@
                                             @(item.Url.StartsWith("http") ? item.Url : System.IO.Path.GetFileName(item.Url))
                                         </a>
                                     }
-                                    </td>
+                                </td>
                             </tr>
+                            index++;
                         }
                     </tbody>
                 </table>
