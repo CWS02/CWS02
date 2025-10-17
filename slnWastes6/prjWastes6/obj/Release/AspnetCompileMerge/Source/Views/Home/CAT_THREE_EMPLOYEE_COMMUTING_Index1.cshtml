@@ -1,30 +1,8 @@
-﻿@*@model IEnumerable<prjWastes6.Models.CAT_THREE_EMPLOYEE_COMMUTING> *@
-
+﻿@model IEnumerable<prjWastes6.Models.CAT_THREE_EMPLOYEE_COMMUTING>
 
 @{
     Layout = null;
 }
-
-@using PagedList
-@using PagedList.Mvc
-
-@model IPagedList<prjWastes6.Models.CAT_THREE_EMPLOYEE_COMMUTING>
-@{
-    Layout = null;
-}
-@*@using (Html.BeginForm("CAT_THREE_EMPLOYEE_COMMUTING_Index1", "Home", FormMethod.Get))
-{
-    <p>
-        @Html.TextBox("userId", (string)ViewBag.UserId, new { placeholder = "Enter User ID" })
-        @Html.TextBox("departmentName", (string)ViewBag.DepartmentName, new { placeholder = "Enter Department Name" })
-        @Html.DropDownList("year", new List<SelectListItem>{
-            new SelectListItem{Text="2022", Value="2022"},
-            new SelectListItem{Text="2023", Value="2023"}},
-            new { @class = "form-control" })
-        <button type="submit">Search</button>
-    </p>
-}*@
-
 
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 <!DOCTYPE html>
@@ -33,10 +11,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <p>
-      
-        @Html.ActionLink("員工通勤:總列表", "CombinedIndex", null, new { @class = "btn btn-danger" })
-    </p>
+
 </head>
 <body>
 
@@ -53,103 +28,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().USER_NAME)
             </th>
-            @*
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().FIRST_WORK_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().LAST_WORK_DATE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().USER_ADDRESS)
-        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().DEPARTMENT_NAME)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().TITLE_NAME)
             </th>
-            <th
+            <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().WORK_DATE)
-               
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstOrDefault().SHIFT_NAME)
             </th>
-            @*
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().CLOCK_IN)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstOrDefault().CLOCK_OUT)
-            </th>*@
-            @*
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().WORKING_HOURS)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstOrDefault().UNIT)
-        </th>*@
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-    <tr>
-        <td>@counter</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USER_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USER_NAME)
-        </td>
-        @*
-        <td>
-            @Html.DisplayFor(modelItem => item.FIRST_WORK_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LAST_WORK_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USER_ADDRESS)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.DEPARTMENT_NAME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TITLE_NAME)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.WORK_DATE)*@
-            @item.WorkDate.ToString("yyyy-MM-dd")
+            <tr>
+                <td>@counter</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USER_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USER_NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DEPARTMENT_NAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TITLE_NAME)
+                </td>
+                <td>
+                    @item.WorkDate.ToString("yyyy-MM-dd")
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SHIFT_NAME)
-        </td>
-        @*
-        <td>
-            @Html.DisplayFor(modelItem => item.CLOCK_IN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLOCK_OUT)
-        </td>*@
-        @*<td>
-            @Html.DisplayFor(modelItem => item.WORKING_HOURS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UNIT)
-        </td>*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SHIFT_NAME)
+                </td>
 
-    </tr>
-                    counter++;
-                }
-
-            </table>
-
-            @Html.PagedListPager(Model,
-          page => Url.Action("CAT_THREE_EMPLOYEE_COMMUTING_Index1",
-            new { page, userId = ViewBag.UserId, departmentName = ViewBag.DepartmentName, year = ViewBag.Year })
-        )
-        </body>
-        </html>
+            </tr>
+            counter++;
+        }
+    </table>
+</body>
+</html>
