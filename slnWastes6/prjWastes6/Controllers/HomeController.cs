@@ -1562,7 +1562,7 @@ namespace prjWastes6.Controllers
             // 將 year 儲存到 ViewBag
             ViewBag.Year = year;
 
-            return View(result);
+            return View(filteredProducts.ToList());
         }
 
         //20240328出差申請單欄位設計-太複雜
