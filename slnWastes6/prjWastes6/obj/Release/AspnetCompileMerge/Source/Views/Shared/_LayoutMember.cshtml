@@ -60,12 +60,12 @@
                         類別一
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @*<div class="dropdown-item"><a href="http://192.168.3.111/esg/coldcoal.asp">冷媒</a></div>*@
                         <div class="dropdown-item">@Html.ActionLink("冷媒", "ColdCoal_List", "Home")</div>
-                        @*<div class="dropdown-item"><a href="http://192.168.3.111/esg/FireExtin.asp">滅火器</a></div>*@
                         <div class="dropdown-item">@Html.ActionLink("滅火器", "FireExtin_List", "Home")</div>
                         <div class="dropdown-item">@Html.ActionLink("WD40", "WD40List", "Home")</div>
                         <a href="http://192.168.3.111/esg/traffic3.asp" target="_blank">公務車</a>
+                        <div class="dropdown-item">@Html.ActionLink("緊急發電機(柴油)", "Diesel", "Home")</div>
+
 
 
                         @*<div class="dropdown-item">@Html.ActionLink("車輛用油", "VEHICLE_OIL_List", "Home")</div>*@

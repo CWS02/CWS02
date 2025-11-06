@@ -660,6 +660,9 @@
     <Content Include="files\SGS\交通類.xlsx" />
     <Content Include="files\SGS\淨零綠生活.pdf" />
     <Content Include="files\SGS\環境部-淨零綠生活行動指引.pdf" />
+    <Content Include="files\SGS\機場捷運里程數.csv" />
+    <Content Include="files\SGS\臺北捷運系統票價資料%281141016%29.csv" />
+    <Content Include="files\SGS\上海市碳普惠减排场景方法学轨道交通.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />
@@ -780,6 +783,7 @@
     <Content Include="Views\Home\WD40Edit.cshtml" />
     <Content Include="Views\Home\SGS_ParameterSetting.cshtml" />
     <Content Include="Views\Home\OpenCoefficientLink.cshtml" />
+    <Content Include="Views\Home\Diesel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

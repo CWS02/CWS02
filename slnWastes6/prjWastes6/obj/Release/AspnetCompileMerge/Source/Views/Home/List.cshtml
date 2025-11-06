@@ -197,7 +197,7 @@
                     @Html.DisplayFor(modelItem => item.SCRAP_NAME)
                 </td>
                 <td class="align-right">
-                    @Html.DisplayFor(modelItem => item.DECLARED_WEIGHT)
+                    @string.Format("{0:F4}", item.DECLARED_WEIGHT)
                 </td>
                 <td class="align-right">
                     @{

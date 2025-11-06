@@ -1440,7 +1440,8 @@ namespace prjWastes6.Controllers
             var combinedData = (from emp in _db.CAT_THREE_EMPLOYEE_COMMUTING
                                 join commute in _db.GHG_MST_COMMUTE on emp.USER_ID equals commute.USER_ID
                                 where (string.IsNullOrEmpty(userId) || emp.USER_ID == userId) &&
-                                (string.IsNullOrEmpty(Transportation) || commute.TRANSPORTATION == Transportation) 
+                                (string.IsNullOrEmpty(Transportation) || commute.TRANSPORTATION == Transportation) &&
+                                emp.WORK_DATE.Substring(0, 4) == year.ToString()
 
                                 group new { emp, commute } by emp.USER_ID into groupedData
                                 select new CombinedViewModel
@@ -4121,5 +4122,19 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             return View(model);
         }
         #endregion
+
+        #region 緊急發電機(柴油)
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Diesel()
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+            return View();
+        }
+        #endregion
+
     }
 }
