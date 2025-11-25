@@ -39,6 +39,10 @@ namespace prjWastes6.Models
         /// 類別細項2
         /// </summary>
         public string PAR005 { get; set; }
+        /// <summary>
+        /// 年份
+        /// </summary>
+        public int Year { get; set; }
 
 
         /// <summary>

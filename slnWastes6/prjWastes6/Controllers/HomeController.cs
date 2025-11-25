@@ -433,14 +433,16 @@ namespace prjWastes6.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult SGS_ParameterSetting()
+        public ActionResult SGS_ParameterSetting(int? year)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
+            int searchYear = year ?? DateTime.Now.Year - 1;
+            ViewBag.Year = searchYear;
 
-            var model = _db.SGS_ParameterSetting.OrderBy(x=>x.PAR002).ThenBy(x => x.PAR004) .ThenBy(x => x.PAR005) .ToList();
+            var model = _db.SGS_ParameterSetting.Where(x=>x.Year== searchYear).OrderBy(x=>x.PAR002).ThenBy(x => x.PAR004) .ThenBy(x => x.PAR005) .ToList();
 
             var coefficientOptions = _db.SGS_Parameter
                 .Where(p => p.PAR007 == 0)
