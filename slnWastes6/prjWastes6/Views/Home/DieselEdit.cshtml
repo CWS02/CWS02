@@ -1,0 +1,130 @@
+﻿@model prjWastes6.Models.Diesel
+@{
+    Layout = "~/Views/Shared/_LayoutMember2.cshtml";
+    ViewBag.Title = "新增緊急發電機（柴油）";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/style2.css" />
+</head>
+
+
+<div id="app" class="container" style="margin-top: 50px;">
+    <h2 class="text-center">@ViewBag.Title</h2>
+
+    <form ref="form" :action="formAction" method="post" enctype="multipart/form-data" v-on:submit.prevent="submitForm">
+        <input type="hidden" name="DI000" v-model="model.DI000" />
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI003">外觀檢查</label>
+                    <select class="form-control" name="DI003" v-model="model.DI003">
+                        <option value="">請選擇</option>
+                        <option value="無漏油.無漏水">無漏油.無漏水</option>
+                        <option value="有漏油.無漏水">有漏油.無漏水</option>
+                        <option value="無漏油.有漏水">無漏油.有漏水</option>
+                        <option value="有漏油.有漏水">有漏油.有漏水</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI004">面盤檢查</label>
+                    <input type="text" class="form-control" name="DI004" v-model="model.DI004" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI005">電池電壓檢查</label>
+                    <input type="text" class="form-control" name="DI005" v-model="model.DI005" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI006">本次運轉時間</label>
+                    <input type="text" class="form-control" name="DI006" v-model="model.DI006" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI007">油箱儲存量</label>
+                    <input type="text" class="form-control" name="DI007" v-model="model.DI007" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="DI008">啟動狀況</label>
+                    <input type="text" class="form-control" name="DI008" v-model="model.DI008" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="DI009">檢查表</label>
+                <input type="file" class="form-control" name="DI009" v-on:change="handleFileUpload" />
+                <div v-if="model.DI009" class="mt-2">
+                    <strong>目前檔案：</strong>
+                    <a :href="'/files/Diesel/' + model.DI009" target="_blank">
+                        {{ model.DI009 }}
+                    </a>
+                    <span class="text-muted">(如需更換請重新選擇新檔案)</span>
+                </div>
+
+                <div v-else class="mt-2 text-danger">
+                    尚未上傳檔案
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-center mt-3 mb-3">
+                <button id="submitBtn" type="submit" class="btn btn-primary">儲存</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        model: @Html.Raw(Json.Encode(Model)),
+        file: null, 
+        formAction: '@Url.Action("DieselEdit", "Home")'
+    },
+    methods: {
+        handleFileUpload(event) {
+            this.file = event.target.files[0];
+        },
+        submitForm() {
+            const formData = new FormData();
+            formData.append('DI000', this.model.DI000);
+            formData.append('DI003', this.model.DI003);
+            formData.append('DI004', this.model.DI004);
+            formData.append('DI005', this.model.DI005);
+            formData.append('DI006', this.model.DI006);
+            formData.append('DI007', this.model.DI007);
+            formData.append('DI008', this.model.DI008);
+            if (this.file) {
+                formData.append('DI009', this.file);
+            }
+
+            axios.post(this.formAction, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            })
+            .then(res => {
+                alert('更新成功');
+                window.location.href = '@Url.Action("Diesel")';
+            })
+            .catch(err => {
+                console.error(err);
+                alert('更新失敗');
+            });
+        }
+    }
+});
+</script>

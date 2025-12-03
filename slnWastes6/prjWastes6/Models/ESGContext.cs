@@ -74,6 +74,8 @@ namespace prjWastes6.Models
 
         public virtual DbSet<CoefficientLink> CoefficientLink { get; set; }
 
+        public virtual DbSet<Diesel> Diesel { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<tMember>()

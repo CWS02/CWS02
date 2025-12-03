@@ -13,8 +13,8 @@ using System.Linq.Expressions;
 using Dapper;
 using System.Configuration;
 using prjWastes6.Models.DataAccess;
-using NPOI.XSSF.UserModel; 
-using NPOI.SS.UserModel; 
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
 using System.IO;
 using DocumentFormat.OpenXml.EMMA;
 using Newtonsoft.Json;
@@ -185,8 +185,8 @@ namespace prjWastes6.Controllers
             return View(ESGs);
 
     }*/
- 
-        public ActionResult List(DateTime? startDate = null, DateTime? endDate = null,string scrapCode="")
+
+        public ActionResult List(DateTime? startDate = null, DateTime? endDate = null, string scrapCode = "")
         {
             if (Session["Member"] == null)
             {
@@ -201,7 +201,7 @@ namespace prjWastes6.Controllers
 
             if (endDate.HasValue)
                 query = query.Where(x => x.REMOVAL_DATE <= endDate.Value);
-            if(scrapCode!="")
+            if (scrapCode != "")
             {
                 query = query.Where(x => x.SCRAP_CODE == scrapCode);
             }
@@ -217,7 +217,7 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Keyenec(DateTime? startDate = null )
+        public ActionResult Keyenec(DateTime? startDate = null)
         {
             if (Session["Member"] == null)
             {
@@ -279,10 +279,10 @@ namespace prjWastes6.Controllers
                 int index = 1;
                 ICellStyle thousandStyle = workbook.CreateCellStyle();
                 IDataFormat format = workbook.CreateDataFormat();
-                thousandStyle.DataFormat = format.GetFormat("#,##0"); 
+                thousandStyle.DataFormat = format.GetFormat("#,##0");
 
                 ICellStyle thousandDecimalStyle = workbook.CreateCellStyle();
-                thousandDecimalStyle.DataFormat = format.GetFormat("#,##0.00"); 
+                thousandDecimalStyle.DataFormat = format.GetFormat("#,##0.00");
 
                 foreach (var item in data)
                 {
@@ -393,7 +393,7 @@ namespace prjWastes6.Controllers
             ViewBag.IsUpdate = false;
             if (model.PAR000 != null)
             {
-                model = _db.SGS_Parameter.FirstOrDefault(s=>s.PAR000==model.PAR000);
+                model = _db.SGS_Parameter.FirstOrDefault(s => s.PAR000 == model.PAR000);
                 ViewBag.IsUpdate = true;
             }
             return View(model);
@@ -401,7 +401,7 @@ namespace prjWastes6.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult SGS_ParameterEdit(SGS_Parameter model,bool IsUpdate=false)
+        public ActionResult SGS_ParameterEdit(SGS_Parameter model, bool IsUpdate = false)
         {
             if (IsUpdate)
             {
@@ -419,7 +419,7 @@ namespace prjWastes6.Controllers
                 model.PAR005 = Request.UserHostAddress;
                 model.PAR006 = DateTime.Now.ToString("yyyyMMdd HH:mm:ss");
                 model.PAR007 = 0;
-                _db.SGS_Parameter.Add(model);                
+                _db.SGS_Parameter.Add(model);
             }
             try
             {
@@ -442,13 +442,14 @@ namespace prjWastes6.Controllers
             int searchYear = year ?? DateTime.Now.Year - 1;
             ViewBag.Year = searchYear;
 
-            var model = _db.SGS_ParameterSetting.Where(x=>x.Year== searchYear).OrderBy(x=>x.PAR002).ThenBy(x => x.PAR004) .ThenBy(x => x.PAR005) .ToList();
+            var model = _db.SGS_ParameterSetting.Where(x => x.Year == searchYear).OrderBy(x => x.PAR002).ThenBy(x => x.PAR004).ThenBy(x => x.PAR005).ToList();
 
             var coefficientOptions = _db.SGS_Parameter
                 .Where(p => p.PAR007 == 0)
 
-                .Select(p => new {
-                    Id = p.PAR000, 
+                .Select(p => new
+                {
+                    Id = p.PAR000,
                     Display = p.PAR002 + "-" + p.PAR003 + "-" + p.PAR001 + "-" + p.PAR004
                 })
                 .ToList();
@@ -460,7 +461,7 @@ namespace prjWastes6.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateInput(false)] 
+        [ValidateInput(false)]
         public JsonResult UpdateCoefficient(Guid id, Guid coefficientId)
         {
             try
@@ -471,7 +472,7 @@ namespace prjWastes6.Controllers
 
                 setting.PAR001 = coefficientId;
                 setting.UpdateTime = DateTime.Now;
-                setting.IP =Request.UserHostAddress;
+                setting.IP = Request.UserHostAddress;
                 _db.SaveChanges();
 
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -491,15 +492,15 @@ namespace prjWastes6.Controllers
             }
 
             var coefficientOptions = (from p in _db.SGS_Parameter
-            join s in _db.SGS_ParameterSetting
-            on p.PAR000 equals s.PAR001.ToString() into joined
-            from s in joined.DefaultIfEmpty()
-            select new
-            {
-                Id = p.PAR000,
-                Label = p.PAR002 + "-" + p.PAR001 + "-" + p.PAR004,
-                Value = p.PAR002
-            }).ToList();
+                                      join s in _db.SGS_ParameterSetting
+                                      on p.PAR000 equals s.PAR001.ToString() into joined
+                                      from s in joined.DefaultIfEmpty()
+                                      select new
+                                      {
+                                          Id = p.PAR000,
+                                          Label = p.PAR002 + "-" + p.PAR001 + "-" + p.PAR004,
+                                          Value = p.PAR002
+                                      }).ToList();
 
             var allParameters = _db.SGS_ParameterSetting
             .Select(s => new
@@ -571,7 +572,7 @@ namespace prjWastes6.Controllers
                                .GroupBy(x => x.TREATMENT)
                                .Select(g => new WasteSummaryViewModel
                                {
-                                   methods =search.methods,
+                                   methods = search.methods,
                                    code = search.code,
                                    SumDECLAREDWEIGHT = g.Sum(x => x.DECLARED_WEIGHT),
                                    SumCKILOMETERS = g.Sum(x => x.KILOMETERS),
@@ -606,16 +607,16 @@ namespace prjWastes6.Controllers
 
                 return View(query);
             }
-           else if (search.category == "wd40")
-            {  
-                if(search.year!=null)
+            else if (search.category == "wd40")
+            {
+                if (search.year != null)
                 {
                     var query = _db.WD40A
                    .Where(x => x.WD003.Contains(search.year))
                    .GroupBy(x => x.WD003.Contains(search.year))
                    .Select(g => new WD40ViewModel
                    {
-                       SumWD011 =g.Sum(x=>x.WD011),
+                       SumWD011 = g.Sum(x => x.WD011),
                    })
                    .ToList();
 
@@ -633,7 +634,7 @@ namespace prjWastes6.Controllers
                         .GroupBy(x => new { x.CC007, x.CC010 })
                         .Select(g => new ColdCoalViewModel
                         {
-                            Code=g.Key.CC007,
+                            Code = g.Key.CC007,
                             SumCC012 = g.Sum(x => x.CC012),
                         })
                         .ToList();
@@ -644,7 +645,7 @@ namespace prjWastes6.Controllers
             else if (search.category == "commuting")
             {
                 var emissionFactors = _db.BRM_MST_EMISSION_FACTOR
-                    .Where(b=>b.EF_YEAR==search.year)
+                    .Where(b => b.EF_YEAR == search.year)
                 .GroupBy(b => b.EF_NAME)
                 .Select(g => g.FirstOrDefault());
 
@@ -660,7 +661,7 @@ namespace prjWastes6.Controllers
                                   EF_VALUE = grp.Select(x => x.b.EF_VALUE).FirstOrDefault()
                               }).ToList();
 
-                return View(result);        
+                return View(result);
             }
             else if (search.category == "traffic")
             {
@@ -690,7 +691,7 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult SGS_ParameterDelete(SGS_Parameter model, string password,string code)
+        public JsonResult SGS_ParameterDelete(SGS_Parameter model, string password, string code)
         {
             var codes = code.Split(',').ToList();
             var user = _db.tMember.FirstOrDefault(p => p.fPwd == password);
@@ -716,9 +717,9 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult SGS_CheckDuplicate(SGS_Parameter model, string password,string code)
+        public JsonResult SGS_CheckDuplicate(SGS_Parameter model, string password, string code)
         {
-            var isDuplicate = _db.SGS_Parameter.Any(p => p.PAR001 == model.PAR001 && p.PAR003 == model.PAR003 && p.PAR004== model.PAR004 && p.PAR007 == 0);
+            var isDuplicate = _db.SGS_Parameter.Any(p => p.PAR001 == model.PAR001 && p.PAR003 == model.PAR003 && p.PAR004 == model.PAR004 && p.PAR007 == 0);
             return Json(new { isDuplicate });
         }
         [AllowAnonymous]
@@ -730,14 +731,14 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         [HttpPost]
         //public ActionResult Create(WASTES customer)
-            //20240326廢棄物新增PDF上傳
-            
+        //20240326廢棄物新增PDF上傳
+
         public ActionResult Create(WASTES customer, HttpPostedFileBase pdfFile)
         {
             string custId = customer.DOCUMENT_ID;
             var temp = _db.WASTES
                 .Where(m => m.DOCUMENT_ID == custId).FirstOrDefault();
-            
+
             if (temp == null)
             {//HomeController_20231226紀錄登打時間
                 customer.data = DateTime.Now;
@@ -783,8 +784,8 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         [HttpPost]
         //public ActionResult Edit(WASTES waste)
-            // 上傳PDF 檔案
-            public ActionResult Edit(WASTES waste, HttpPostedFileBase pdfFile)
+        // 上傳PDF 檔案
+        public ActionResult Edit(WASTES waste, HttpPostedFileBase pdfFile)
 
         {
             var model = _db.WASTES.FirstOrDefault(x => x.DOCUMENT_ID == waste.DOCUMENT_ID);
@@ -822,7 +823,7 @@ namespace prjWastes6.Controllers
                 model.VOUCHER_NUMBER = waste.VOUCHER_NUMBER;
             }
 
-            
+
 
             _db.SaveChanges();
 
@@ -1029,8 +1030,8 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         [HttpPost]
         //public ActionResult ElectricityEdit(ELECTRICITY_BILL electricity)
-            // 上傳PDF 檔案
-            public ActionResult ElectricityEdit(ELECTRICITY_BILL electricity, HttpPostedFileBase pdfFile)
+        // 上傳PDF 檔案
+        public ActionResult ElectricityEdit(ELECTRICITY_BILL electricity, HttpPostedFileBase pdfFile)
         {
             var model = _db.ELECTRICITY_BILL.FirstOrDefault(x => x.DOCUMENT_ID == electricity.DOCUMENT_ID);
             //20250327電費要顯示 PDF 檔案
@@ -1063,7 +1064,7 @@ namespace prjWastes6.Controllers
                 model.CARBON_DIOXIDE = electricity.CARBON_DIOXIDE;
                 model.VOUCHER_NUMBER = electricity.VOUCHER_NUMBER;
             }
-            
+
 
             _db.SaveChanges();
 
@@ -1140,7 +1141,7 @@ namespace prjWastes6.Controllers
             }
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
 
-            
+
 
             var customers = _db.WATER_BILL.ToList();
 
@@ -1157,7 +1158,7 @@ namespace prjWastes6.Controllers
 
             var ESGs = query.ToList();
 
-           
+
 
             foreach (var item in customers)
             {
@@ -1178,7 +1179,7 @@ namespace prjWastes6.Controllers
         [HttpPost]
         //public ActionResult WaterCreate(WATER_BILL customer)
         //20240322新增PDF上傳
-                
+
         public ActionResult WaterCreate(WATER_BILL customer, HttpPostedFileBase pdfFile)
         {
             //20240424文件大小超過 3MB跳出提示
@@ -1200,7 +1201,7 @@ namespace prjWastes6.Controllers
 
                 if (temp == null)
                 {
-                    
+
 
                     // HomeController_20231226紀錄登打時間
                     customer.data = DateTime.Now;
@@ -1211,7 +1212,7 @@ namespace prjWastes6.Controllers
                     // 將當前登錄用戶賦值給 CreatedBy 屬性
                     customer.CreatedBy = username.fUserId;
 
-                    
+
                     // 上傳PDF 檔案
                     if (pdfFile != null && pdfFile.ContentLength > 0)
                     {
@@ -1225,7 +1226,7 @@ namespace prjWastes6.Controllers
 
 
                     _db.WATER_BILL.Add(customer);
-                    
+
 
 
                     _db.SaveChanges();  // 保存更改到資料庫
@@ -1242,8 +1243,8 @@ namespace prjWastes6.Controllers
 
         // GET: Edit Water
         [AllowAnonymous]
-        
-         public ActionResult WaterEdit(string id)
+
+        public ActionResult WaterEdit(string id)
         {
             var water = _db.WATER_BILL.FirstOrDefault(x => x.DOCUMENT_ID == id);
             WATER_BILL photo = _db.WATER_BILL.Find(id);
@@ -1266,7 +1267,7 @@ namespace prjWastes6.Controllers
 
             if (pdfFile != null && pdfFile.ContentLength > 0)
             {
-                
+
                 model.PDF_CONTENT = new byte[pdfFile.ContentLength];
                 pdfFile.InputStream.Read(model.PDF_CONTENT, 0, pdfFile.ContentLength);
             }
@@ -1290,8 +1291,8 @@ namespace prjWastes6.Controllers
                 model.CARBON_EMISSION_FACTOR = water.CARBON_EMISSION_FACTOR;
                 model.CARBON_DIOXIDE = water.CARBON_DIOXIDE;
                 model.VOUCHER_NUMBER = water.VOUCHER_NUMBER;
-            }           
-            
+            }
+
 
             _db.SaveChanges();
 
@@ -1378,7 +1379,7 @@ namespace prjWastes6.Controllers
                 products = products.Where(x => x.USER_ID == userId);
             }
 
-           
+
 
             products = products.OrderBy(x => x.USER_ID);
 
@@ -1391,10 +1392,10 @@ namespace prjWastes6.Controllers
 
             // 將數據和篩選條件存儲在 ViewBag 中，以便在視圖中使用
             ViewBag.UserId = userId;
-            
+
             ViewBag.AllProducts = allProducts;
             // 將 year 儲存到 ViewBag
-         
+
 
             return View(result);
         }
@@ -1404,7 +1405,7 @@ namespace prjWastes6.Controllers
         public ActionResult GHG_MST_COMMUTE_Edit(string id)
         {
             var commute = _db.GHG_MST_COMMUTE.FirstOrDefault(x => x.USER_ID == id);
-            
+
 
             return View(commute);
         }
@@ -1465,7 +1466,7 @@ namespace prjWastes6.Controllers
                                     TRANSPORTATION = groupedData.FirstOrDefault().commute.TRANSPORTATION,
                                     ONEWAY_KM = groupedData.FirstOrDefault().commute.ONEWAY_KM,
                                     DOUBLE_KM = groupedData.FirstOrDefault().commute.DOUBLE_KM,
-                                    WORK_DATE_COUNT = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) ==year.ToString()),
+                                    WORK_DATE_COUNT = groupedData.Count(e => e.emp.WORK_DATE.Substring(0, 4) == year.ToString()),
                                 }).OrderBy(m => m.USER_ID).ToList();
 
             var transportation = _db.GHG_MST_COMMUTE
@@ -1488,7 +1489,7 @@ namespace prjWastes6.Controllers
                 }
                 else
                 {
-                    item.EmissionFactor = 0; 
+                    item.EmissionFactor = 0;
                 }
                 item.WORK_DATE = item.WORK_DATE_COUNT;
 
@@ -1498,7 +1499,7 @@ namespace prjWastes6.Controllers
                 }
                 else
                 {
-                    item.ActivityData = 0; 
+                    item.ActivityData = 0;
                 }
 
                 //碳排放量 = 活動數據 x 碳排係數
@@ -1520,7 +1521,7 @@ namespace prjWastes6.Controllers
             ViewBag.Transportation = new SelectList(transportation);
             ViewBag.UserId = userId;
             ViewBag.TotalCO2e = totalCO2e;
-            ViewBag.Year = year ?? DateTime.Now.Year-1;
+            ViewBag.Year = year ?? DateTime.Now.Year - 1;
             return View(combinedData.ToList());
         }
 
@@ -1573,8 +1574,8 @@ namespace prjWastes6.Controllers
         public ActionResult BUSINESS_TRIP_List()
         {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
-         
-            var ESGs = _db.BUSINESS_TRIP.ToList();            
+
+            var ESGs = _db.BUSINESS_TRIP.ToList();
 
             return View(ESGs);
 
@@ -1605,7 +1606,7 @@ namespace prjWastes6.Controllers
         }
 
         [AllowAnonymous]
-  
+
         public ActionResult BUSINESS_TRIP2_Create()
         {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
@@ -1650,7 +1651,7 @@ namespace prjWastes6.Controllers
                 }
 
                 customer.DOCUMENT_ID = newNumber; // 設置新的單據編號
-                
+
                 customer.data = DateTime.Now;
                 var username = Session["Member"] as tMember;
                 customer.CreatedBy = username?.fUserId;
@@ -1660,13 +1661,13 @@ namespace prjWastes6.Controllers
                 return RedirectToAction("BUSINESS_TRIP_List2");
             }
             ViewBag.Msg = "聯單編號重複";
-            return View(customer); 
+            return View(customer);
         }
 
 
         // 20240408出差申請單-修改功能
         [AllowAnonymous]
-     
+
         public ActionResult BUSINESS_TRIP2_Edit(string id)
         {
             var customer = _db.TRIP_APPLICATION.FirstOrDefault(x => x.DOCUMENT_ID == id);
@@ -1677,11 +1678,11 @@ namespace prjWastes6.Controllers
             }
             return View(customer);
         }
-      
+
         [AllowAnonymous]
         [HttpPost]
-        
-   
+
+
         public ActionResult BUSINESS_TRIP2_Edit(TRIP_APPLICATION customer)
         {
 
@@ -1716,10 +1717,10 @@ namespace prjWastes6.Controllers
                 model.APPLICATION_INFORMATION = customer.APPLICATION_INFORMATION;
                 model.REASON = customer.REASON;
                 model.VISIT_CONTENT = customer.VISIT_CONTENT;
-               
+
 
             }
-           
+
 
             _db.SaveChanges();
 
@@ -1728,12 +1729,12 @@ namespace prjWastes6.Controllers
         //20240409增加:計程車-出差申請單欄位
 
         [AllowAnonymous]
-     
+
         public ActionResult TAXI_APPLICATIONList()
         {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
             var customers = _db.TAXI_APPLICATION.ToList();
-            
+
             var ESGs = _db.TAXI_APPLICATION.ToList();
 
             // 20240409將 PDF 檔案內容傳遞給視圖
@@ -1769,7 +1770,7 @@ namespace prjWastes6.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        
+
 
         public ActionResult TAXI_APPLICATIONL_Create(TAXI_APPLICATION customer, HttpPostedFileBase pdfFile)
         {
@@ -1811,7 +1812,7 @@ namespace prjWastes6.Controllers
 
 
                     _db.SaveChanges();  // 保存更改到資料庫
-                    
+
                     return RedirectToAction("TAXI_APPLICATIONList"); // 修改這裡
                 }
 
@@ -1835,11 +1836,11 @@ namespace prjWastes6.Controllers
             }
             return View(taxi);
         }
-      
+
         [AllowAnonymous]
         [HttpPost]
-        
-        
+
+
         public ActionResult TAXI_APPLICATIONL_Edit(TAXI_APPLICATION taxi, HttpPostedFileBase pdfFile)
         {
 
@@ -1865,7 +1866,7 @@ namespace prjWastes6.Controllers
                 model.REMARK = taxi.REMARK;
                 model.VOUCHER_NUMBER = taxi.VOUCHER_NUMBER;
                 model.INFORMATION = taxi.INFORMATION;
-                
+
             }
 
 
@@ -2009,7 +2010,7 @@ namespace prjWastes6.Controllers
        x.UDF06,
        x.TG024,
        x.TG013, // 保留原始日期字串
-        x.TG001,
+       x.TG001,
        x.TG002,
        x.TG003
    })
@@ -2060,11 +2061,11 @@ namespace prjWastes6.Controllers
 
 
         public ActionResult CombinedHighSpeedRailList2(string filterOption, string keyword, string startDate, string endDate, string startDocDate, string endDocDate)
-        { 
+        {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
             // 取得 CombinedHighSpeedRailList 的資料:加入應付憑單連結:條件篩選
             // 取得 CombinedHighSpeedRailList 的資料:加入條件篩選
-            IQueryable<ACPTB> acptbQuery = _TWNCPCdb.ACPTB            
+            IQueryable<ACPTB> acptbQuery = _TWNCPCdb.ACPTB
             .Join(_TWNCPCdb.AJSTB,
      acptb => new { TB013 = acptb.TB001, TB014 = acptb.TB002, TB052 = acptb.TB003 },
      ajstb => new { TB013 = ajstb.TB001, TB014 = ajstb.TB002, TB052 = ajstb.TB052 },
@@ -2076,18 +2077,18 @@ namespace prjWastes6.Controllers
 
         .Where(x => (x.ACPTBAJSTB.ACPTB.UDF01.Contains("公務車") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("地鐵") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("客運") ||
         x.ACPTBAJSTB.ACPTB.UDF01.Contains("捷運") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("發電機用油") ||
-        x.ACPTBAJSTB.ACPTB.UDF01.Contains("私車公用") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("計程車") || 
+        x.ACPTBAJSTB.ACPTB.UDF01.Contains("私車公用") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("計程車") ||
         x.ACPTBAJSTB.ACPTB.UDF01.Contains("飛機") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("高鐵"))
             && (string.IsNullOrEmpty(keyword) || x.ACPTBAJSTB.ACPTB.UDF01.Contains(keyword) ||
-            x.ACPTBAJSTB.ACPTB.UDF02.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF03.Contains(keyword) || 
-            x.ACPTBAJSTB.ACPTB.UDF06.ToString().Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB011.Contains(keyword) || 
+            x.ACPTBAJSTB.ACPTB.UDF02.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF03.Contains(keyword) ||
+            x.ACPTBAJSTB.ACPTB.UDF06.ToString().Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB011.Contains(keyword) ||
             x.ACPTBAJSTB.ACPTB.TB001.Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB002.Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB003.Contains(keyword)
                           || _TWNCPCdb.ACPTA.Any(y => y.TA001 == x.ACPTBAJSTB.ACPTB.TB001 && y.TA002 == x.ACPTBAJSTB.ACPTB.TB002 && (y.TA003.ToString().Contains(keyword) || y.TA015.ToString().Contains(keyword) || _TWNCPCdb.PURMA.Any(z => z.MA001 == y.TA004 && z.MA002.Contains(keyword))))))
-        
+
         .Select(x => x.ACPTBAJSTB.ACPTB);
 
 
-  
+
 
 
             //|| _TWNCPCdb.ACPTA.Any(y => y.TA001 == x.ACPTBAJSTB.ACPTB.TB001 && y.TA002 == x.TB002 && (y.TA003.ToString().Contains(keyword) || y.TA015.ToString().Contains(keyword) || _TWNCPCdb.PURMA.Any(z => z.MA001 == y.TA004 && z.MA002.Contains(keyword))))));
@@ -2145,52 +2146,52 @@ namespace prjWastes6.Controllers
             }*/
 
             switch (filterOption)
-{
-    case "公務車":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("公務車"));
-        break;
-    case "地鐵":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("地鐵"));
-        break;
-    case "客運":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("客運"));
-        break;
-    case "捷運":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("捷運"));
-        break;
-    case "發電機用油":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("發電機用油"));
-        break;
-    case "私車公用":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("私車公用"));
-        break;
-    case "計程車":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("計程車"));
-        break;
-    case "飛機":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("飛機"));
-        break;
-    case "高鐵":
-        acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("高鐵"));
-        break;
-        // 其他 case 略
-}
+            {
+                case "公務車":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("公務車"));
+                    break;
+                case "地鐵":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("地鐵"));
+                    break;
+                case "客運":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("客運"));
+                    break;
+                case "捷運":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("捷運"));
+                    break;
+                case "發電機用油":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("發電機用油"));
+                    break;
+                case "私車公用":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("私車公用"));
+                    break;
+                case "計程車":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("計程車"));
+                    break;
+                case "飛機":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("飛機"));
+                    break;
+                case "高鐵":
+                    acptbQuery = acptbQuery.Where(x => x.UDF01.Contains("高鐵"));
+                    break;
+                    // 其他 case 略
+            }
 
 
 
-var acptbCustomers = acptbQuery
-    .Select(x => new
-    {
-        x.UDF01,
-        x.UDF02,
-        x.UDF03,
-        x.UDF06,
-        x.TB011,
-        x.TB001,
-        x.TB002,
-        x.TB003
-    })
-    .ToList();
+            var acptbCustomers = acptbQuery
+                .Select(x => new
+                {
+                    x.UDF01,
+                    x.UDF02,
+                    x.UDF03,
+                    x.UDF06,
+                    x.TB011,
+                    x.TB001,
+                    x.TB002,
+                    x.TB003
+                })
+                .ToList();
             /*var acptbCustomers = acptbQuery
                 .Select(x => new
                 {
@@ -2212,192 +2213,192 @@ var acptbCustomers = acptbQuery
             IQueryable<PCMTG> query = _TWNCPCdb.PCMTG;
 
 
-// 取得 CombinedHighSpeedRailList 的資料:加入條件篩選
-IQueryable<PCMTG> pcmtgQuery = _TWNCPCdb.PCMTG.Where(x => (x.UDF01.Contains("公務車") || x.UDF01.Contains("地鐵") || x.UDF01.Contains("客運") || x.UDF01.Contains("捷運") || x.UDF01.Contains("發電機用油") ||
-x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Contains("飛機") || x.UDF01.Contains("高鐵"))
-    && (string.IsNullOrEmpty(keyword) || x.UDF01.Contains(keyword) || x.UDF02.Contains(keyword) || x.UDF03.Contains(keyword) || x.UDF06.ToString().Contains(keyword) || x.TG024.Contains(keyword) || x.TG013.Contains(keyword) || x.TG001.Contains(keyword) || x.TG002.Contains(keyword) || x.TG003.Contains(keyword)
-    || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && (y.TF003.ToString().Contains(keyword) || _TWNCPCdb.PURMA.Any(z => z.MA001 == y.TF008 && z.MA002.Contains(keyword))))))
+            // 取得 CombinedHighSpeedRailList 的資料:加入條件篩選
+            IQueryable<PCMTG> pcmtgQuery = _TWNCPCdb.PCMTG.Where(x => (x.UDF01.Contains("公務車") || x.UDF01.Contains("地鐵") || x.UDF01.Contains("客運") || x.UDF01.Contains("捷運") || x.UDF01.Contains("發電機用油") ||
+            x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Contains("飛機") || x.UDF01.Contains("高鐵"))
+                && (string.IsNullOrEmpty(keyword) || x.UDF01.Contains(keyword) || x.UDF02.Contains(keyword) || x.UDF03.Contains(keyword) || x.UDF06.ToString().Contains(keyword) || x.TG024.Contains(keyword) || x.TG013.Contains(keyword) || x.TG001.Contains(keyword) || x.TG002.Contains(keyword) || x.TG003.Contains(keyword)
+                || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && (y.TF003.ToString().Contains(keyword) || _TWNCPCdb.PURMA.Any(z => z.MA001 == y.TF008 && z.MA002.Contains(keyword))))))
 
- /*.Where(x => (string.IsNullOrEmpty(startDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(startDocDate) >= 0 || string.IsNullOrEmpty(startDocDate)))
-&& (string.IsNullOrEmpty(endDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(endDocDate) <= 0 || string.IsNullOrEmpty(endDocDate))));*/
- //包含當天的日期
- .Where(x => (string.IsNullOrEmpty(startDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(startDocDate) >= 0 || string.IsNullOrEmpty(startDocDate)))
-&& (string.IsNullOrEmpty(endDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(endDocDate) <= 0 || string.IsNullOrEmpty(endDocDate))));
-
-
-
-// 篩選單據日期
-/*if (!string.IsNullOrEmpty(startDocDate) && !string.IsNullOrEmpty(endDocDate))
-{
-    pcmtgQuery = pcmtgQuery.Where(x => _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 &&
-                                (y.TF003.CompareTo(startDocDate) >= 0 && y.TF003.CompareTo(endDocDate) <= 0)));
-}*/
-//包含當天的日期:篩選單據日期
-if (!string.IsNullOrEmpty(startDocDate) && !string.IsNullOrEmpty(endDocDate))
-{
-    pcmtgQuery = pcmtgQuery.Where(x => _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 &&
-                                (y.TF003.CompareTo(startDocDate) >= 0 && y.TF003.CompareTo(endDocDate) <= 0)));
-}
-
-switch (filterOption)
-{
-    case "公務車":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("公務車"));
-        break;
-    case "地鐵":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("地鐵"));
-        break;
-    case "客運":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("客運"));
-        break;
-    case "捷運":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("捷運"));
-        break;
-    case "發電機用油":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("發電機用油"));
-        break;
-    case "私車公用":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("私車公用"));
-        break;
-    case "計程車":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("計程車"));
-        break;
-    case "飛機":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("飛機"));
-        break;
-    case "高鐵":
-        pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("高鐵"));
-        break;
-        // 其他 case 略
-}
-// 篩選發票日期
-/*pcmtgQuery = pcmtgQuery.Where(x => (string.IsNullOrEmpty(startDate) || x.TG013.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate))
-    && (string.IsNullOrEmpty(endDate) || x.TG013.CompareTo(endDate) < 0 || string.IsNullOrEmpty(endDate)));*/
-
-// 篩選發票日期:包含當天的日期
-if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
-{
-    pcmtgQuery = pcmtgQuery.Where(x => (string.IsNullOrEmpty(startDate) || x.TG013.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate))
-    && (string.IsNullOrEmpty(endDate) || x.TG013.CompareTo(endDate) <= 0 || string.IsNullOrEmpty(endDate)));
-}
-var pcmtgCustomers = pcmtgQuery
-    .Select(x => new
-    {
-        x.UDF01,
-        x.UDF02,
-        x.UDF03,
-        x.UDF06,
-        x.TG024,
-        x.TG013,
-        x.TG001,
-        x.TG002,
-        x.TG003
-    })
-/*.Where(y => (startDateValue == null || y.TG013.CompareTo(startDate) >= 0) && // 直接使用字串比較
-            (endDateValue == null || y.TG013.CompareTo(endDate) < 0)) // 直接使用字串比較*/
-
-.ToList()
-.Select(y => new
-{
-y.UDF01,
-y.UDF02,
-y.UDF03,
-y.UDF06,
-y.TG024,
-       //InvoiceDate = DateTime.ParseExact(y.TG013, "yyyyMMdd", CultureInfo.InvariantCulture),
-       //InvoiceDate = y.TG013,
-       InvoiceDate = y.TG013.PadRight(8, '0'), // 將 TG013 補足為8位數後再賦值給 InvoiceDate
-
-       y.TG001,
-y.TG002,
-y.TG003
-})
-.ToList();
+             /*.Where(x => (string.IsNullOrEmpty(startDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(startDocDate) >= 0 || string.IsNullOrEmpty(startDocDate)))
+            && (string.IsNullOrEmpty(endDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(endDocDate) <= 0 || string.IsNullOrEmpty(endDocDate))));*/
+             //包含當天的日期
+             .Where(x => (string.IsNullOrEmpty(startDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(startDocDate) >= 0 || string.IsNullOrEmpty(startDocDate)))
+            && (string.IsNullOrEmpty(endDocDate) || _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 && y.TF003.CompareTo(endDocDate) <= 0 || string.IsNullOrEmpty(endDocDate))));
 
 
-List<HighSpeedRailViewModel> viewModels = new List<HighSpeedRailViewModel>();
 
-// 建立 HighSpeedRailViewModel 物件,並加入 viewModels 清單
-foreach (var acptbCustomer in acptbCustomers)
-{
-    HighSpeedRailViewModel viewModel = new HighSpeedRailViewModel
-    {
-        UDF01 = acptbCustomer.UDF01,
-        CREATE_DATE = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA003,
-        //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA015,
-        //TA015 = acptbCustomer.ACPTAs.FirstOrDefault()?.TA015?.ToString("yyyyMMdd"),
-        //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault()?.TA015?.ToString("yyyyMMdd"),
-        //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA015?.ToString("yyyyMMdd"),
-        //20240513包含當天的日期
-        //20240513包含當天的日期
-        /*TF015 = (from ajsta in _TWNCPCdb.AJSTA
-                 join ajstb in _TWNCPCdb.AJSTB on new { TA001 = ajsta.TA001, TA002 = ajsta.TA002 } equals new { TA001 = ajstb.TB001, TA002 = ajstb.TB002 }
-                 join acptb in _TWNCPCdb.ACPTB on new { TB001 = ajstb.TB013, TB002 = ajstb.TB014, TB003 = ajstb.TB052 } equals new { TB001 = acptb.TB001, TB002 = acptb.TB002, TB003 = acptb.TB003 } into acptbJoin
-                 from acpt in acptbJoin.DefaultIfEmpty()
-                 select ajsta.TA004).FirstOrDefault(),
+            // 篩選單據日期
+            /*if (!string.IsNullOrEmpty(startDocDate) && !string.IsNullOrEmpty(endDocDate))
+            {
+                pcmtgQuery = pcmtgQuery.Where(x => _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 &&
+                                            (y.TF003.CompareTo(startDocDate) >= 0 && y.TF003.CompareTo(endDocDate) <= 0)));
+            }*/
+            //包含當天的日期:篩選單據日期
+            if (!string.IsNullOrEmpty(startDocDate) && !string.IsNullOrEmpty(endDocDate))
+            {
+                pcmtgQuery = pcmtgQuery.Where(x => _TWNCPCdb.PCMTF.Any(y => y.TF001 == x.TG001 && y.TF002 == x.TG002 &&
+                                            (y.TF003.CompareTo(startDocDate) >= 0 && y.TF003.CompareTo(endDocDate) <= 0)));
+            }
 
-        TF016 = (from ajsta in _TWNCPCdb.AJSTA
-                 join ajstb in _TWNCPCdb.AJSTB on new { TA001 = ajsta.TA001, TA002 = ajsta.TA002 } equals new { TA001 = ajstb.TB001, TA002 = ajstb.TB002 }
-                 join acptb in _TWNCPCdb.ACPTB on new { TB001 = ajstb.TB013, TB002 = ajstb.TB014, TB003 = ajstb.TB052 } equals new { TB001 = acptb.TB001, TB002 = acptb.TB002, TB003 = acptb.TB003 } into acptbJoin
-                 from acpt in acptbJoin.DefaultIfEmpty()
-                 select ajsta.TA005).FirstOrDefault(),*/
+            switch (filterOption)
+            {
+                case "公務車":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("公務車"));
+                    break;
+                case "地鐵":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("地鐵"));
+                    break;
+                case "客運":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("客運"));
+                    break;
+                case "捷運":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("捷運"));
+                    break;
+                case "發電機用油":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("發電機用油"));
+                    break;
+                case "私車公用":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("私車公用"));
+                    break;
+                case "計程車":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("計程車"));
+                    break;
+                case "飛機":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("飛機"));
+                    break;
+                case "高鐵":
+                    pcmtgQuery = pcmtgQuery.Where(x => x.UDF01.Contains("高鐵"));
+                    break;
+                    // 其他 case 略
+            }
+            // 篩選發票日期
+            /*pcmtgQuery = pcmtgQuery.Where(x => (string.IsNullOrEmpty(startDate) || x.TG013.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate))
+                && (string.IsNullOrEmpty(endDate) || x.TG013.CompareTo(endDate) < 0 || string.IsNullOrEmpty(endDate)));*/
+
+            // 篩選發票日期:包含當天的日期
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+            {
+                pcmtgQuery = pcmtgQuery.Where(x => (string.IsNullOrEmpty(startDate) || x.TG013.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate))
+                && (string.IsNullOrEmpty(endDate) || x.TG013.CompareTo(endDate) <= 0 || string.IsNullOrEmpty(endDate)));
+            }
+            var pcmtgCustomers = pcmtgQuery
+                .Select(x => new
+                {
+                    x.UDF01,
+                    x.UDF02,
+                    x.UDF03,
+                    x.UDF06,
+                    x.TG024,
+                    x.TG013,
+                    x.TG001,
+                    x.TG002,
+                    x.TG003
+                })
+            /*.Where(y => (startDateValue == null || y.TG013.CompareTo(startDate) >= 0) && // 直接使用字串比較
+                        (endDateValue == null || y.TG013.CompareTo(endDate) < 0)) // 直接使用字串比較*/
+
+            .ToList()
+            .Select(y => new
+            {
+                y.UDF01,
+                y.UDF02,
+                y.UDF03,
+                y.UDF06,
+                y.TG024,
+                //InvoiceDate = DateTime.ParseExact(y.TG013, "yyyyMMdd", CultureInfo.InvariantCulture),
+                //InvoiceDate = y.TG013,
+                InvoiceDate = y.TG013.PadRight(8, '0'), // 將 TG013 補足為8位數後再賦值給 InvoiceDate
+
+                y.TG001,
+                y.TG002,
+                y.TG003
+            })
+            .ToList();
 
 
-        //20240516程式碼沒報錯，但是顯示找不到
-        TF015 = _TWNCPCdb.AJSTA.FirstOrDefault()?.TA004,
-        TF016 = _TWNCPCdb.AJSTA.FirstOrDefault()?.TA005,
-        TA015 = (from acpta in _TWNCPCdb.ACPTA
-                 where acpta.TA001 == acptbCustomer.TB001
-                    && acpta.TA002 == acptbCustomer.TB002
-                 orderby acpta.TA015 descending
-                 select acpta.TA015).FirstOrDefault(),
-        UDF02 = acptbCustomer.UDF02,
-        UDF03 = acptbCustomer.UDF03,
-        UDF06 = acptbCustomer.UDF06,
-        TB011 = acptbCustomer.TB011,
-        TB001 = acptbCustomer.TB001,
-        TB002 = acptbCustomer.TB002,
-        TB003 = acptbCustomer.TB003,
-        TA004 = (from acpta in _TWNCPCdb.ACPTA
-                 where acpta.TA001 == acptbCustomer.TB001 && acpta.TA002 == acptbCustomer.TB002
-                 join purma in _TWNCPCdb.PURMA on acpta.TA004 equals purma.MA001
-                 select purma.MA002).FirstOrDefault()
-    };
+            List<HighSpeedRailViewModel> viewModels = new List<HighSpeedRailViewModel>();
 
-    viewModels.Add(viewModel);
-}
+            // 建立 HighSpeedRailViewModel 物件,並加入 viewModels 清單
+            foreach (var acptbCustomer in acptbCustomers)
+            {
+                HighSpeedRailViewModel viewModel = new HighSpeedRailViewModel
+                {
+                    UDF01 = acptbCustomer.UDF01,
+                    CREATE_DATE = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA003,
+                    //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA015,
+                    //TA015 = acptbCustomer.ACPTAs.FirstOrDefault()?.TA015?.ToString("yyyyMMdd"),
+                    //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault()?.TA015?.ToString("yyyyMMdd"),
+                    //TA015 = _TWNCPCdb.ACPTA.FirstOrDefault(y => y.TA001 == acptbCustomer.TB001 && y.TA002 == acptbCustomer.TB002)?.TA015?.ToString("yyyyMMdd"),
+                    //20240513包含當天的日期
+                    //20240513包含當天的日期
+                    /*TF015 = (from ajsta in _TWNCPCdb.AJSTA
+                             join ajstb in _TWNCPCdb.AJSTB on new { TA001 = ajsta.TA001, TA002 = ajsta.TA002 } equals new { TA001 = ajstb.TB001, TA002 = ajstb.TB002 }
+                             join acptb in _TWNCPCdb.ACPTB on new { TB001 = ajstb.TB013, TB002 = ajstb.TB014, TB003 = ajstb.TB052 } equals new { TB001 = acptb.TB001, TB002 = acptb.TB002, TB003 = acptb.TB003 } into acptbJoin
+                             from acpt in acptbJoin.DefaultIfEmpty()
+                             select ajsta.TA004).FirstOrDefault(),
 
-foreach (var pcmtgCustomer in pcmtgCustomers)
-{
-    HighSpeedRailViewModel viewModel = new HighSpeedRailViewModel
-    {
-        UDF01 = pcmtgCustomer.UDF01,
-        CREATE_DATE = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF003,
-        TF015 = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF015,
-        TF016 = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF016,
-        // TA015 = pcmtgCustomer.TG013,
-        //TA015 = pcmtgCustomer.InvoiceDate.ToString("yyyyMMdd"), // 使用 InvoiceDate 並格式化為所需的日期格式
-        TA015 = pcmtgCustomer.InvoiceDate,
-        //20240513包含當天的日期
+                    TF016 = (from ajsta in _TWNCPCdb.AJSTA
+                             join ajstb in _TWNCPCdb.AJSTB on new { TA001 = ajsta.TA001, TA002 = ajsta.TA002 } equals new { TA001 = ajstb.TB001, TA002 = ajstb.TB002 }
+                             join acptb in _TWNCPCdb.ACPTB on new { TB001 = ajstb.TB013, TB002 = ajstb.TB014, TB003 = ajstb.TB052 } equals new { TB001 = acptb.TB001, TB002 = acptb.TB002, TB003 = acptb.TB003 } into acptbJoin
+                             from acpt in acptbJoin.DefaultIfEmpty()
+                             select ajsta.TA005).FirstOrDefault(),*/
 
 
-        UDF02 = pcmtgCustomer.UDF02,
-        UDF03 = pcmtgCustomer.UDF03,
-        UDF06 = pcmtgCustomer.UDF06,
-        TB011 = pcmtgCustomer.TG024,
-        TB001 = pcmtgCustomer.TG001,
-        TB002 = pcmtgCustomer.TG002,
-        TB003 = pcmtgCustomer.TG003,
-        TA004 = (from pcmtf in _TWNCPCdb.PCMTF
-                 where pcmtf.TF001 == pcmtgCustomer.TG001 && pcmtf.TF002 == pcmtgCustomer.TG002
-                 join purma in _TWNCPCdb.PURMA on pcmtf.TF008 equals purma.MA001
-                 select purma.MA002).FirstOrDefault()
-    };
+                    //20240516程式碼沒報錯，但是顯示找不到
+                    TF015 = _TWNCPCdb.AJSTA.FirstOrDefault()?.TA004,
+                    TF016 = _TWNCPCdb.AJSTA.FirstOrDefault()?.TA005,
+                    TA015 = (from acpta in _TWNCPCdb.ACPTA
+                             where acpta.TA001 == acptbCustomer.TB001
+                                && acpta.TA002 == acptbCustomer.TB002
+                             orderby acpta.TA015 descending
+                             select acpta.TA015).FirstOrDefault(),
+                    UDF02 = acptbCustomer.UDF02,
+                    UDF03 = acptbCustomer.UDF03,
+                    UDF06 = acptbCustomer.UDF06,
+                    TB011 = acptbCustomer.TB011,
+                    TB001 = acptbCustomer.TB001,
+                    TB002 = acptbCustomer.TB002,
+                    TB003 = acptbCustomer.TB003,
+                    TA004 = (from acpta in _TWNCPCdb.ACPTA
+                             where acpta.TA001 == acptbCustomer.TB001 && acpta.TA002 == acptbCustomer.TB002
+                             join purma in _TWNCPCdb.PURMA on acpta.TA004 equals purma.MA001
+                             select purma.MA002).FirstOrDefault()
+                };
 
-    viewModels.Add(viewModel);
-}
+                viewModels.Add(viewModel);
+            }
 
-return View(viewModels);
+            foreach (var pcmtgCustomer in pcmtgCustomers)
+            {
+                HighSpeedRailViewModel viewModel = new HighSpeedRailViewModel
+                {
+                    UDF01 = pcmtgCustomer.UDF01,
+                    CREATE_DATE = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF003,
+                    TF015 = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF015,
+                    TF016 = _TWNCPCdb.PCMTF.FirstOrDefault(y => y.TF001 == pcmtgCustomer.TG001 && y.TF002 == pcmtgCustomer.TG002)?.TF016,
+                    // TA015 = pcmtgCustomer.TG013,
+                    //TA015 = pcmtgCustomer.InvoiceDate.ToString("yyyyMMdd"), // 使用 InvoiceDate 並格式化為所需的日期格式
+                    TA015 = pcmtgCustomer.InvoiceDate,
+                    //20240513包含當天的日期
+
+
+                    UDF02 = pcmtgCustomer.UDF02,
+                    UDF03 = pcmtgCustomer.UDF03,
+                    UDF06 = pcmtgCustomer.UDF06,
+                    TB011 = pcmtgCustomer.TG024,
+                    TB001 = pcmtgCustomer.TG001,
+                    TB002 = pcmtgCustomer.TG002,
+                    TB003 = pcmtgCustomer.TG003,
+                    TA004 = (from pcmtf in _TWNCPCdb.PCMTF
+                             where pcmtf.TF001 == pcmtgCustomer.TG001 && pcmtf.TF002 == pcmtgCustomer.TG002
+                             join purma in _TWNCPCdb.PURMA on pcmtf.TF008 equals purma.MA001
+                             select purma.MA002).FirstOrDefault()
+                };
+
+                viewModels.Add(viewModel);
+            }
+
+            return View(viewModels);
         }
 
 
@@ -2412,10 +2413,10 @@ return View(viewModels);
         //加入單據日期篩選
         //public ActionResult CombinedHighSpeedRailList(string filterOption, string keyword, string startDate, string endDate, string startDocDate, string endDocDate)
         //public ActionResult CombinedHighSpeedRailList(string filterOption = "公務車", string keyword, string startDate, string endDate, string startDocDate, string endDocDate)
-//public ActionResult CombinedHighSpeedRailList(string keyword, string startDate, string endDate, string startDocDate, string endDocDate, string filterOption = "公務車")
+        //public ActionResult CombinedHighSpeedRailList(string keyword, string startDate, string endDate, string startDocDate, string endDocDate, string filterOption = "公務車")
 
-            //20240521加入密碼
-            public ActionResult CombinedHighSpeedRailList(string keyword, string dateRangeOption, string startDocDate, string endDocDate, string startDate, string endDate, string password, string filterOption = "公務車")
+        //20240521加入密碼
+        public ActionResult CombinedHighSpeedRailList(string keyword, string dateRangeOption, string startDocDate, string endDocDate, string startDate, string endDate, string password, string filterOption = "公務車")
 
         {
             if (Session["Member"] == null)
@@ -2655,7 +2656,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             List<HighSpeedRailViewModel> viewModels = new List<HighSpeedRailViewModel>();
 
-           
+
 
 
             // 建立 HighSpeedRailViewModel 物件,並加入 viewModels 清單
@@ -3160,13 +3161,13 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
             .Where(x => (x.ACPTBAJSTB.ACPTB.UDF01.Contains("公務車") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("地鐵") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("客運") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("捷運") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("發電機用油") ||
 x.ACPTBAJSTB.ACPTB.UDF01.Contains("私車公用") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("計程車") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("飛機") || x.ACPTBAJSTB.ACPTB.UDF01.Contains("高鐵"))
-                && (string.IsNullOrEmpty(keyword) || x.ACPTBAJSTB.ACPTB.UDF01.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF02.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF03.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF06.ToString().Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB011.Contains(keyword) 
+                && (string.IsNullOrEmpty(keyword) || x.ACPTBAJSTB.ACPTB.UDF01.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF02.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF03.Contains(keyword) || x.ACPTBAJSTB.ACPTB.UDF06.ToString().Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB011.Contains(keyword)
                 || x.ACPTBAJSTB.ACPTB.TB001.Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB002.Contains(keyword) || x.ACPTBAJSTB.ACPTB.TB003.Contains(keyword)
                        || _TWNCPCdb.ACPTA.Any(y => y.TA001 == x.ACPTBAJSTB.ACPTB.TB001 && y.TA002 == x.ACPTBAJSTB.ACPTB.TB002 && (y.TA003.ToString().Contains(keyword) || y.TA015.ToString().Contains(keyword) || _TWNCPCdb.PURMA.Any(z => z.MA001 == y.TA004 && z.MA002.Contains(keyword))))))
-                
-            
-    
-            
+
+
+
+
              /*.Where(x => (string.IsNullOrEmpty(startDocDate) || _TWNCPCdb.ACPTA.Any(y => y.TA003.CompareTo(startDocDate) >= 0 || string.IsNullOrEmpty(startDocDate)))
              && (string.IsNullOrEmpty(endDocDate) || _TWNCPCdb.ACPTA.Any(y => y.TA003.CompareTo(endDocDate) <= 0 || string.IsNullOrEmpty(endDocDate))))*/
              // 篩選單據日期:包含當天的日期
@@ -3185,7 +3186,7 @@ x.ACPTBAJSTB.ACPTB.UDF01.Contains("私車公用") || x.ACPTBAJSTB.ACPTB.UDF01.Co
             /*.Where(x => (string.IsNullOrEmpty(startDate) || _TWNCPCdb.ACPTA.Any(y => y.TA015.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate)))
             && (string.IsNullOrEmpty(endDate) || _TWNCPCdb.ACPTA.Any(y => y.TA015.CompareTo(endDate) <= 0 || string.IsNullOrEmpty(endDate))));*/
             //包含當天的日期
-            
+
             /*.Where(x => (string.IsNullOrEmpty(startDate) || _TWNCPCdb.ACPTA.Any(y => y.TA015.CompareTo(startDate) >= 0 || string.IsNullOrEmpty(startDate)))
             && (string.IsNullOrEmpty(endDate) || _TWNCPCdb.ACPTA.Any(y => y.TA015.CompareTo(endDate) <= 0 || string.IsNullOrEmpty(endDate))));
 
@@ -3267,7 +3268,7 @@ x.ACPTBAJSTB.ACPTB.UDF01.Contains("私車公用") || x.ACPTBAJSTB.ACPTB.UDF01.Co
                 .ToList()
             //.ToList();20240516測試帶出畫面
             .Select(y => new
-             {
+            {
                 y.UDF01,
                 y.UDF02,
                 y.UDF03,
@@ -3607,7 +3608,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
 
         //20250410高鐵費用:新增
         [AllowAnonymous]
-        
+
         public ActionResult HIGH_SPEED_RAIL_Create()
         {
             ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
@@ -3683,7 +3684,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         //20250410高鐵費用:修改
         [AllowAnonymous]
         [HttpPost]
-        
+
         // 上傳PDF 檔案
         public ActionResult HIGH_SPEED_RAIL_Edit(HIGH_SPEED_RAIL water, HttpPostedFileBase pdfFile)
         {
@@ -3710,7 +3711,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
                 model.ROUND_ONE = water.ROUND_ONE;
                 model.CARBON_PERIOD = water.CARBON_PERIOD;
                 model.INFORMATION = water.INFORMATION;
-                model.REMARK = water.REMARK;                
+                model.REMARK = water.REMARK;
                 model.VOUCHER_NUMBER = water.VOUCHER_NUMBER;
             }
 
@@ -3796,7 +3797,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
                 model.TOTAL_HOURS = airconditioner.TOTAL_HOURS;
                 model.REFRIGERANT = airconditioner.REFRIGERANT;
                 model.REMARK = airconditioner.REMARK;
-               
+
             }
 
 
@@ -3828,7 +3829,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             return null;
         }
         //20240419增加:員工國外差旅List
-        [AllowAnonymous]       
+        [AllowAnonymous]
 
         public ActionResult TRAVEL_ABROAD_List()
         {
@@ -3972,7 +3973,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         //20240423增加:冷媒欄位用關鍵字搜尋
         //20240429增加:冷媒欄位用廠區搜尋
         [AllowAnonymous]
-        public ActionResult ColdCoal_List(string searchString, string plantArea,string category)
+        public ActionResult ColdCoal_List(string searchString, string plantArea, string category)
         {
             if (Session["Member"] == null)
             {
@@ -4010,8 +4011,8 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             }
 
             if (category != null && category != "全部")
-            { 
-                coldCoals = coldCoals.Where(c => c.CC007 == category); 
+            {
+                coldCoals = coldCoals.Where(c => c.CC007 == category);
             }
 
             return View(coldCoals.ToList());
@@ -4028,9 +4029,9 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             }
             var query = _db.WD40A.Where(x => x.Status == 0);
 
-            if (search.year != null )
+            if (search.year != null)
             {
-                query = query.Where(x =>x.WD003.Contains(search.year));
+                query = query.Where(x => x.WD003.Contains(search.year));
             }
 
             var model = query.OrderByDescending(x => x.WD004).ToList();
@@ -4046,13 +4047,13 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             {
                 return RedirectToAction("login", "Home");
             }
-            ViewBag.IsUpdate = false; 
-            model = _db.WD40A.FirstOrDefault(x => x.WD000 == model.WD000); 
+            ViewBag.IsUpdate = false;
+            model = _db.WD40A.FirstOrDefault(x => x.WD000 == model.WD000);
             if (model != null)
             {
-                ViewBag.IsUpdate = true; 
+                ViewBag.IsUpdate = true;
             }
-            return View(model); 
+            return View(model);
         }
 
 
@@ -4067,7 +4068,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             }
             else
             {
-                model.WD000 = Guid.NewGuid().ToString("N");  
+                model.WD000 = Guid.NewGuid().ToString("N");
                 model.IP = Request.UserHostAddress;
                 model.Status = 0;
                 _db.WD40A.Add(model);
@@ -4081,7 +4082,7 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             {
 
             }
-            return RedirectToAction("WD40List", "Home");  
+            return RedirectToAction("WD40List", "Home");
         }
 
         [AllowAnonymous]
@@ -4128,14 +4129,66 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         #region 緊急發電機(柴油)
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Diesel()
+        public ActionResult Diesel(int? year)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
-            return View();
+            int searchYear = year ?? (DateTime.Now.Year - 1);
+            ViewBag.year = searchYear;
+
+            var model = _db.Diesel
+                    .Where(x => x.Status == 0 && x.DI001 == searchYear)
+                    .OrderBy(x=>x.DI002).ThenBy(x=>x.DI001)
+                    .ToList();
+            return View(model);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult DieselEdit(Guid DI000)
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+
+            var model = _db.Diesel.SingleOrDefault(x => x.DI000 == DI000);
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult DieselEdit(Diesel model ,HttpPostedFileBase DI009)
+        {
+            if (Session["Member"] == null)
+            {
+                return RedirectToAction("login", "Home");
+            }
+            var dieselInDb = _db.Diesel.Find(model.DI000); 
+            if (dieselInDb == null)
+            {
+                return HttpNotFound();
+            }
+
+            dieselInDb.DI003 = model.DI003;
+            dieselInDb.DI004 = model.DI004;
+            dieselInDb.DI005 = model.DI005;
+            dieselInDb.DI006 = model.DI006;
+            dieselInDb.DI007 = model.DI007;
+            dieselInDb.DI008 = model.DI008;
+            if (DI009 != null && DI009.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(DI009.FileName);
+                var path = Path.Combine(Server.MapPath("~/files/Diesel"), fileName);
+                DI009.SaveAs(path);
+                dieselInDb.DI009 = fileName; 
+            }
+            _db.SaveChanges(); 
+            return RedirectToAction("Diesel");
+        }
+
         #endregion
 
     }

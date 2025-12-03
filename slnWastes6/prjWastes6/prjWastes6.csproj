@@ -230,6 +230,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CoefficientLink.cs" />
+    <Compile Include="Models\Diesel.cs" />
     <Compile Include="Models\SGS_ParameterSetting.cs" />
     <Compile Include="Models\INTRB.cs" />
     <Compile Include="Models\INTRA.cs" />
@@ -549,6 +550,7 @@
     <Content Include="Images\10PCO2滅火器標示牌.jpg" />
     <Content Include="Images\10P乾粉滅火器標示牌.jpg" />
     <Content Include="Images\20P乾粉滅火器標示牌.jpg" />
+    <Content Include="Scripts\axios\axios.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\css\bootstrap-datetimepicker.min.css" />
     <Content Include="Scripts\bootstrap-datetimepicker-new\Gruntfile.js" />
@@ -784,9 +786,11 @@
     <Content Include="Views\Home\SGS_ParameterSetting.cshtml" />
     <Content Include="Views\Home\OpenCoefficientLink.cshtml" />
     <Content Include="Views\Home\Diesel.cshtml" />
+    <Content Include="Views\Home\DieselEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="files\Diesel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
