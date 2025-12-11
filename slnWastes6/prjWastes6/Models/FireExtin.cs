@@ -54,5 +54,9 @@ namespace prjWastes6.Models
         [Display(Name = "廠區")]
         [StringLength(50)]
         public string FE010 { get; set; }
+
+        [Display(Name = "年份")]
+        [StringLength(50)]
+        public string Year { get; set; }
     }
 }

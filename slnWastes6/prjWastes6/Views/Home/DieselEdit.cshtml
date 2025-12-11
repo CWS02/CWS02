@@ -58,7 +58,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="DI008">啟動狀況</label>
-                    <input type="text" class="form-control" name="DI008" v-model="model.DI008" />
+                    <input type="number" class="form-control" name="DI008" v-model="model.DI008"  step="0.01"/>
                 </div>
             </div>
         </div>
@@ -92,8 +92,8 @@
 new Vue({
     el: '#app',
     data: {
-        model: @Html.Raw(Json.Encode(Model)),
-        file: null, 
+        model: @Html.Raw(Json.Encode(Model ?? new prjWastes6.Models.Diesel())),
+        file: null,
         formAction: '@Url.Action("DieselEdit", "Home")'
     },
     methods: {

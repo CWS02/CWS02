@@ -665,6 +665,7 @@
     <Content Include="files\SGS\臺北捷運系統票價資料%281141016%29.csv" />
     <Content Include="files\SGS\上海市碳普惠减排场景方法学轨道交通.pdf" />
     <Content Include="files\SGS\防鏽噴漆-安全資料表%28第五版%29.pdf" />
+    <Content Include="files\SGS\114年度直得科技%28南科廠%29消防檢修申報書.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chart\Chart.bundle.js" />
     <Content Include="Scripts\chart\Chart.bundle.min.js" />

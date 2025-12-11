@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "緊急發電機（柴油）";
     Layout = "~/Views/Shared/_LayoutMember.cshtml";
+
 }
 
 <head>
@@ -82,7 +83,19 @@
                                 </td>
                             </tr>
                         }
+                        
+                        <!-- 統計列 -->
+                        @{                         
+                            var totalDI008 = Model.Sum(x => x.DI008);
+                           }
+
+                        <tr class="table-warning">
+                            <td colspan="7" class="text-right"><strong>總和：</strong></td>
+                            <td>@totalDI008</td>
+                            <td colspan="2"></td>
+                        </tr>
                     </tbody>
+
                 </table>
             </div>
         </div>

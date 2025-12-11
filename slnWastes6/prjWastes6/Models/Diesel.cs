@@ -57,7 +57,7 @@ namespace prjWastes6.Models
         /// <summary>
         /// 啟動狀況
         /// </summary>
-        public string DI008 { get; set; }
+        public decimal DI008 { get; set; }
 
         /// <summary>
         /// 檢查表 PDF 檔案名稱
