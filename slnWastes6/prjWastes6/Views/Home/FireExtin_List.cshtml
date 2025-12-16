@@ -11,45 +11,42 @@
         text-align: right;
     }
 </style>
-<div style="margin-top: 50px;">
-    <h2>滅火器:列表</h2>
-    <a href="~/files/SGS/113年度消防檢修申報書.pdf"
-       target="_blank" class="file-link">
-        113年度消防檢修申報書
-    </a>
-    <a href="~/files/SGS/114年度直得科技(南科廠)消防檢修申報書.pdf"
-       target="_blank" class="file-link">
-        114年度直得科技(南科廠)消防檢修申報書
-    </a>
+
+<div style="margin-top: 65px;" class="d-flex align-items-center">
+    <h2 class="mb-0 me-2">滅火器</h2>
+    <select id="fireExtinFiles" class="form-select form-select-sm" style="width: 150px;" onchange="downloadFile(this)">
+        <option value="">選擇年度檔案</option>
+        <option value="~/files/SGS/113年度消防檢修申報書.pdf">113年度消防檢修申報書</option>
+        <option value="~/files/SGS/114年度直得科技(南科廠)消防檢修申報書.pdf">114年度直得科技(南科廠)消防檢修申報書</option>
+    </select>
 </div>
-<html>
-
-<body>
-
 
 
     @using (Html.BeginForm("FireExtin_List", "Home", FormMethod.Get))
     {
-
-        <div class="col-md-3">
-
+        <div class="col-md-1">
             <p>
                 關鍵字: @Html.TextBox("searchString", null, new { @class = "form-control", placeholder = "" })
-                <input type="submit" value="送出" />
-
             </p>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-1">
             <p>
                 廠區: @Html.DropDownList("plantArea", new SelectList(new[] { "全部", "南科", "樹谷" }), "選擇廠區", new { @class = "form-control" })
-                @*<input type="submit" value="搜索" />*@
             </p>
-        @* </div>
-            <div class="col-md-3">
-                <p>
-                    <input type="submit" value="搜索" class="btn btn-primary" />
-                </p>*@
-</div>
+        </div>
+        <div class="col-md-1">
+            <p>
+                年份: <input type="number"
+                           name="year"
+                           class="form-control"
+                           value="@(ViewBag.Year ?? DateTime.Now.Year - 1)"
+                           min="2023"  max="2030"  
+                />
+            </p>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">送出</button>
+        </div>
     }
 
     <table class="table" style="margin-top: 30px;">
@@ -88,89 +85,89 @@
         }
         @foreach (var item in Model)
         {
-    <tr>
-        <td>@(counter++)</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE001)
+            <tr>
+                <td>@(counter++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE001)
 
 
-        </td>
-        <td>
+                </td>
+                <td>
 
-            @{
-                if (item.FE002.HasValue)
-                {
-                    @((int)Math.Floor(item.FE002.Value))
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.FE002)
-                }
-            }
-
-
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE003)
-
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE004)
+                    @{
+                        if (item.FE002.HasValue)
+                        {
+                            @((int)Math.Floor(item.FE002.Value))
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.FE002)
+                        }
+                    }
 
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE005)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE003)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE004)
 
 
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE006)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE005)
 
 
-        </td>
-        <td>
-            @{
-                if (!string.IsNullOrEmpty(item.FE001) && !item.FE001.Contains("乾粉")
-                    && item.FE002.HasValue && item.FE006.HasValue)
-                {
-                    var result = item.FE002.Value * item.FE006.Value / 1000;
-                    @result.ToString(); 
-                }
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FE007)
-
-        </td>
-
-        @*20240423相片連結顯示圖檔，而不是檔案名稱*@
-        <td>
-            @{//20240424改成外部連結
-                //var imagePath = "~/Images/" + item.FE009;
-                var imagePath = "http://192.168.3.151/FireExtin/" + item.FE009;
-                var imageUrl = Url.Content(imagePath);
-                var imageFileName = item.FE009; // 使用 FE009 欄位中的檔案名稱
-            }
-            <a href="@imageUrl" target="_blank" title="圖檔">圖檔</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE006)
 
 
-        </td>
+                </td>
+                <td>
+                    @{
+                        if (!string.IsNullOrEmpty(item.FE001) && !item.FE001.Contains("乾粉")
+                            && item.FE002.HasValue && item.FE006.HasValue)
+                        {
+                            var result = item.FE002.Value * item.FE006.Value / 1000;
+                            @result.ToString();
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FE007)
 
-        <td>
-            @if (item.FE010 == "南科")
-            {
-                <span>南科</span> }
+                </td>
 
-            else if (item.FE010 == "樹谷")
-            {
-                <span>樹谷</span> }
-            else
-            {
-                @Html.DisplayFor(modelItem => item.FE010)}
-        </td>
+                @*20240423相片連結顯示圖檔，而不是檔案名稱*@
+                <td>
+                    @{//20240424改成外部連結
+                        //var imagePath = "~/Images/" + item.FE009;
+                        var imagePath = "http://192.168.3.151/FireExtin/" + item.FE009;
+                        var imageUrl = Url.Content(imagePath);
+                        var imageFileName = item.FE009; // 使用 FE009 欄位中的檔案名稱
+                    }
+                    <a href="@imageUrl" target="_blank" title="圖檔">圖檔</a>
 
-    </tr>
+
+                </td>
+
+                <td>
+                    @if (item.FE010 == "南科")
+                    {
+                        <span>南科</span> }
+
+                    else if (item.FE010 == "樹谷")
+                    {
+                        <span>樹谷</span> }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.FE010)}
+                </td>
+
+            </tr>
         }
         @*20240425最下面加合計*@
 
@@ -193,14 +190,14 @@
             <td colspan="1" class="align-left">合計</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.FE001))</td>*@
             <td></td>
-            <td >@Model.Where(m => m.FE002.HasValue).Sum(m => (int)Math.Floor(m.FE002.Value))</td>
+            <td>@Model.Where(m => m.FE002.HasValue).Sum(m => (int)Math.Floor(m.FE002.Value))</td>
             @*<td>@Model.Count(m => !string.IsNullOrEmpty(m.FE003))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE004))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE005))</td>*@
             <td></td>
             <td></td>
             <td></td>
-            <td >@Model.Where(m => m.FE006.HasValue).Sum(m => m.FE006.Value)</td>
+            <td>@Model.Where(m => m.FE006.HasValue).Sum(m => m.FE006.Value)</td>
             @*
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE007))</td>
                 <td>@Model.Count(m => !string.IsNullOrEmpty(m.FE009))</td>*@
@@ -208,5 +205,21 @@
         </tr>
 
     </table>
-</body>
-                                        </html>
+
+    <script>
+        function downloadFile(select) {
+            var filePath = select.value;
+            if (!filePath) return;
+
+            // 建立臨時 a 標籤下載
+            var link = document.createElement("a");
+            link.href = filePath.replace("~", ""); // 替換 ~ 為實際路徑
+            link.download = ""; // 使用預設檔名
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // 選擇後重置下拉選單為空
+            select.value = "";
+        }
+    </script>

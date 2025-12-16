@@ -3905,47 +3905,37 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
             return View(ESGs);
 
         }
-        //[AllowAnonymous]
-        // 20240422增加:滅火器欄位     
 
-        /*public ActionResult FireExtin_List()
-        {
-            ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
-            var customers = _db.FireExtin.ToList();
-
-            var ESGs = _db.FireExtin.ToList();            
-
-            return View(ESGs);
-
-        }*/
 
         //20240423增加:滅火器欄位用關鍵字搜尋
         [AllowAnonymous]
-        public ActionResult FireExtin_List(string searchString, string plantArea)
+        public ActionResult FireExtin_List(string searchString, string plantArea,int? Year)
         {
             if (Session["Member"] == null)
             {
                 return RedirectToAction("login", "Home");
             }
-            ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
-
-            var fireExtins = _db.FireExtin.AsQueryable();
+            if (Year == null)
+            {
+                Year = DateTime.Now.Year - 1;
+            }
+            ViewBag.Year = Year;
+            var fireExtins = _db.FireExtin.Where(x=>x.Year==Year).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 fireExtins = fireExtins.Where(fe => fe.FE001.Contains(searchString) ||
-                                                    fe.FE002.ToString().Contains(searchString) ||
-                                                    fe.FE003.Contains(searchString) ||
-                                                    fe.FE004.Contains(searchString) ||
-                                                    fe.FE005.Contains(searchString) ||
-                                                    fe.FE006.ToString().Contains(searchString) ||
-                                                    fe.FE007.Contains(searchString) ||
-                                                    fe.FE008.Contains(searchString) ||
-                                                    fe.FE009.Contains(searchString) ||
-                                                    fe.FE010.Contains(searchString)
-
-                                                    // 添加其他需要搜索的欄位
-                                                    );
+                    fe.FE002.ToString().Contains(searchString) ||
+                    fe.FE003.Contains(searchString) ||
+                    fe.FE004.Contains(searchString) ||
+                    fe.FE005.Contains(searchString) ||
+                    fe.FE006.ToString().Contains(searchString) ||
+                    fe.FE007.Contains(searchString) ||
+                    fe.FE008.Contains(searchString) ||
+                    fe.FE009.Contains(searchString) ||
+                    fe.FE010.Contains(searchString)||
+                    fe.Year.Value.ToString().Contains(searchString)
+                    );
             }
             if (!string.IsNullOrEmpty(plantArea) && plantArea != "全部")
             {
@@ -3956,22 +3946,6 @@ x.UDF01.Contains("私車公用") || x.UDF01.Contains("計程車") || x.UDF01.Con
         }
 
 
-
-        //[AllowAnonymous]
-        // 20240423增加:冷媒欄位     
-
-        /*public ActionResult ColdCoal_List()
-        {
-            ViewBag.Layout = "~/Views/Shared/_LayoutMember.cshtml";
-            var customers = _db.ColdCoal.ToList();
-
-            var ESGs = _db.ColdCoal.ToList();
-
-            return View(ESGs);
-
-        }*/
-        //20240423增加:冷媒欄位用關鍵字搜尋
-        //20240429增加:冷媒欄位用廠區搜尋
         [AllowAnonymous]
         public ActionResult ColdCoal_List(string searchString, string plantArea, string category)
         {

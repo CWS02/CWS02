@@ -56,7 +56,6 @@ namespace prjWastes6.Models
         public string FE010 { get; set; }
 
         [Display(Name = "¦~¥÷")]
-        [StringLength(50)]
-        public string Year { get; set; }
+        public int? Year { get; set; }
     }
 }
