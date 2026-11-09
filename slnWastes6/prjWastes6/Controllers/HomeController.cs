@@ -60,28 +60,37 @@ namespace prjWastes6.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            // 開啟頁面時顯示網址變更提示
+            ViewBag.Message = "網址已變更 <a href=\"http://192.168.253.1:8892/\" target=\"_blank\" class=\"alert-link\">http://192.168.253.1:8892/</a>"; return View();
         }
-        //Post: Home/Login
+
+        // Post: Home/Login
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(string fUserId, string fPwd)
         {
-            // 依帳密取得會員並指定給member
+            // 檢查是否符合指定的 cpc01 帳密
+            if (fUserId != "SGS01" || fPwd != "SGS99")
+            {
+                ViewBag.Message = "舊版為限制登入";
+                return View();
+            }
+
+            // 依帳密取得會員
             var member = _db.tMember
                 .Where(m => m.fUserId == fUserId && m.fPwd == fPwd)
                 .FirstOrDefault();
-            //若member為null，表示會員未註冊
+
             if (member == null)
             {
-                ViewBag.Message = "帳密錯誤，登入失敗";
+                ViewBag.Message = "帳密正確，但資料庫無此會員資料";
                 return View();
             }
-            //使用Session變數記錄歡迎詞
+
+            // 紀錄 Session 並跳轉
             Session["WelCome"] = member.fName + ":登入中";
-            //使用Session變數記錄登入的會員物件
             Session["Member"] = member;
-            //執行Home控制器的Index動作方法
+
             return RedirectToAction("Index");
         }
         //Get:Home/Register

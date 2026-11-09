@@ -113,22 +113,18 @@
                 (kg CO2e）/延噸公里(tkm))
             </th>
             <th>
-                廢棄物運輸計算結果
-                ton CO2e/延噸公里(tkm)
+                廢棄物運輸計算結果kg CO2e
             </th>
-
-
             <th>
                 @Html.DisplayNameFor(model => model.VOUCHER_NUMBER)
             </th>
-
-
             <th>修改</th>
         </tr>
     </thead>
     <tbody>
         @{
             var index = 1; // 計數器起始值
+            decimal totalTransportResult = 0;
         }
         @foreach (var item in Model)
         {
@@ -138,9 +134,9 @@
                     @Html.DisplayFor(modelItem => item.DOCUMENT_ID)
                 </td>
                 @*<td>
-                @Html.DisplayFor(modelItem => item.REMOVAL_DATE)
-                @Html.DisplayFor(modelItem => item.REMOVAL_DATE.HasValue ? item.REMOVAL_DATE.Value.ToString("yyyy-MM-dd HH:mm:ss.fffffff") : "")
-                </td>*@
+                    @Html.DisplayFor(modelItem => item.REMOVAL_DATE)
+                    @Html.DisplayFor(modelItem => item.REMOVAL_DATE.HasValue ? item.REMOVAL_DATE.Value.ToString("yyyy-MM-dd HH:mm:ss.fffffff") : "")
+                    </td>*@
 
                 <td>
 
@@ -174,9 +170,9 @@
                     @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_CODE)
                 </td>
                 @*
-                <td>
-                    @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_NAME)
-                </td>20240422帶入地圖連結*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FINAL_DISPOSER_NAME)
+                    </td>20240422帶入地圖連結*@
                 <td>
                     @if (item.FINAL_DISPOSER_NAME == "大寧股份有限公司")
                     {
@@ -210,7 +206,7 @@
 
                             case "D-2399":
                             case "D-1801":
-                                codeValue = 737.14m;
+                                codeValue = 737m;
                                 break;
                         }
                     }
@@ -253,14 +249,15 @@
 
                         if (transport1 != 0)
                         {
-                            result = item.KILOMETERS.Value * transport1 / 1000;
+                            result = item.KILOMETERS.Value * transport1 * (item.DECLARED_WEIGHT ?? 0);
                         }
-                        else if (transport2 != 0 && item.KILOMETERS!=null)
+                        else if (transport2 != 0 && item.KILOMETERS != null)
                         {
-                            result = item.KILOMETERS.Value * transport2 / 1000;
+                            result = item.KILOMETERS.Value * transport2 * (item.DECLARED_WEIGHT ?? 0);
                         }
+                        totalTransportResult += result;
                     }
-                    @String.Format("{0:F4}", result)
+                    @result.ToString("G29")
                 </td>
 
                 <td class="align-right">
@@ -271,7 +268,14 @@
                     @Html.ActionLink("修改", "Edit", new { id = item.DOCUMENT_ID })
                 </td>
             </tr>
-                            index++;
-                        }
+            index++;
+        }
     </tbody>
+    <tfoot>
+        <tr style="font-weight: bold; background-color: #f8f9fa;">
+            <td colspan="19" class="align-right">合計：</td>
+            <td class="align-right">@totalTransportResult.ToString("G29")</td>
+            <td colspan="2"></td>
+        </tr>
+    </tfoot>
 </table>
